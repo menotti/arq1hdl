@@ -29,7 +29,7 @@ architecture behavioral of control_unit is
 	constant  r: std_logic_vector (5 downto 0) := "000000";
 	constant  j: std_logic_vector (5 downto 0) := "000010";
 
-	function extend_to_32(input: std_logic_vector (15 downto 0)) return std_logic_vector is 
+	function extend_to_32(input: std_logic_vector (13 downto 0)) return std_logic_vector is 
 	variable s: signed (31 downto 0);
 	begin
 		s := resize(signed(input), s'length);
@@ -38,7 +38,7 @@ architecture behavioral of control_unit is
 
 begin
 
-  offset <= extend_to_32(instruction(15 downto 0));
+  offset <= extend_to_32(instruction(15 downto 2));
   opcode    <= instruction(31 downto 26);
 	register1 <= instruction(25 downto 21);
 	register2 <= instruction(20 downto 16);

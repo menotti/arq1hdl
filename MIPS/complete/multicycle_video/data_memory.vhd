@@ -7,7 +7,6 @@ entity data_memory is
 	generic (
 		address_width: integer := 12;
 		data_width: integer := 32);
-
 	port (
     clock: std_logic;
 		address_to_read, address_to_write, video_address: in std_logic_vector (address_width - 1 downto 0);
@@ -20,20 +19,19 @@ architecture behavioral of data_memory is
 
 	type data_sequence is array (0 to 2**address_width - 1) of std_logic_vector (data_width - 1 downto 0);  
 
-	signal data: data_sequence;
-  attribute ram_init_file : string;
-  attribute ram_init_file of data : signal is "data_memory.mif";
+--  Quartus II 
+--	 signal data: data_sequence;
+--  attribute ram_init_file : string;
+--  attribute ram_init_file of data : signal is "data_memory.mif";
   
---	signal data: data_sequence := (
---    0 => "00000000000000000000000000000001",
---		1 => "10101100110001111000110011001010",
---		others => (others => 'U'));
+-- ModelSim
+   	signal data: data_sequence := (
+    0 => X"00000001",
+		1 => X"F0F0AAAA",
+		others => (others => '0'));
 
 begin
 
- 
-  
-  
    process(clock)
 		variable index: integer;
    begin
@@ -50,7 +48,6 @@ begin
    end if;
    end process;
    
-   
  	read_video: process (clock)
 		variable index: integer;
 	begin
@@ -59,7 +56,6 @@ begin
 			video_out <= data(index);
    end if;
 	end process;
-
 
 end behavioral;
 

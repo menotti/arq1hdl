@@ -2,11 +2,11 @@ vlib work
 vmap work work
 vcom -work work *.vhd
 vsim work.t_processor
-add wave -radix hexadecimal sim:/t_processor/the_processor/clock
+add wave sim:/t_processor/the_processor/clock
 add wave sim:/t_processor/the_processor/state_machine/next_state
 
 add wave -group fetch -radix hexadecimal /t_processor/the_processor/enable_program_counter
-add wave -group fetch -radix hexadecimal /t_processor/the_processor/instruction_address
+add wave -group fetch -radix unsigned /t_processor/the_processor/instruction_address
 add wave -group fetch -radix hexadecimal /t_processor/the_processor/current_instruction
 add wave -group fetch sim:/t_processor/the_processor/state_machine/opcode
 add wave -group fetch -radix hexadecimal sim:/t_processor/the_processor/register1
