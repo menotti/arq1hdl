@@ -34,6 +34,8 @@ architecture behavioral of control_unit is
 	constant  j: std_logic_vector (5 downto 0) := "000010";
 	constant jr: std_logic_vector(5 downto 0) := "001000";
 	constant shiftll: std_logic_vector (5 downto 0) := "000000";
+	constant slti: std_logic_vector (5 downto 0) := "001010";
+
 
 	function extend_to_32(input: std_logic_vector (15 downto 0)) return std_logic_vector is 
 	variable s: signed (31 downto 0);
@@ -103,6 +105,10 @@ begin
 				elsif opcode = j then
      			jump_control <= '1';
 				  next_state <= fetch;
+				elsif opcode = slti then
+				  source_alu_b <= "10";
+				  alu_operation <= "100";
+				  next_state <= writeback;    
 				elsif opcode = r then
 				  if funct = jr then
 				    jump_register_control <= '1';
@@ -129,7 +135,9 @@ begin
 			when writeback =>
 				-- write regiter result
         if opcode = lw then
-   				 mem_to_register <= '1';           
+   				 mem_to_register <= '1';
+ 				elsif opcode = slti then
+ 				  reg_dst <= '0';           
         else
 				  reg_dst <= '1';
         end if;
