@@ -343,28 +343,26 @@ set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_RO
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 set_global_assignment -name LL_ROOT_REGION ON -section_id "Root Region"
 set_global_assignment -name LL_MEMBER_STATE LOCKED -section_id "Root Region"
-set_global_assignment -name VHDL_FILE subtractor_x.vhd
-set_global_assignment -name VHDL_FILE state_register.vhd
-set_global_assignment -name VHDL_FILE slt_x.vhd
-set_global_assignment -name VHDL_FILE register_bank.vhd
-set_global_assignment -name VHDL_FILE program_counter.vhd
-set_global_assignment -name VHDL_FILE processor.vhd
-set_global_assignment -name VHDL_FILE or_x.vhd
-set_global_assignment -name VHDL_FILE multiplexer.vhd
-set_global_assignment -name VHDL_FILE instructions_memory.vhd
-set_global_assignment -name VHDL_FILE full_adder_x.vhd
-set_global_assignment -name VHDL_FILE data_memory.vhd
-set_global_assignment -name VHDL_FILE control_unit.vhd
-set_global_assignment -name VHDL_FILE and_x.vhd
-set_global_assignment -name VHDL_FILE alu_x.vhd
-set_global_assignment -name VHDL_FILE adder.vhd
-set_global_assignment -name QIP_FILE vga_pll.qip
+set_global_assignment -name VHDL_FILE ../vga_controller.vhd
+set_global_assignment -name VHDL_FILE ../t_processor.vhd
+set_global_assignment -name VHDL_FILE ../subtractor_x.vhd
+set_global_assignment -name VHDL_FILE ../state_register.vhd
+set_global_assignment -name VHDL_FILE ../slt_x.vhd
+set_global_assignment -name VHDL_FILE ../sll_x.vhd
+set_global_assignment -name VHDL_FILE ../register_bank.vhd
+set_global_assignment -name VHDL_FILE ../program_counter.vhd
+set_global_assignment -name VHDL_FILE ../processor.vhd
+set_global_assignment -name VHDL_FILE ../or_x.vhd
+set_global_assignment -name VHDL_FILE ../multiplexer.vhd
+set_global_assignment -name VHDL_FILE ../instructions_memory.vhd
+set_global_assignment -name VHDL_FILE ../full_adder_x.vhd
+set_global_assignment -name VHDL_FILE ../dec7seg.vhd
+set_global_assignment -name VHDL_FILE ../data_memory.vhd
+set_global_assignment -name VHDL_FILE ../control_unit.vhd
+set_global_assignment -name VHDL_FILE ../and_x.vhd
+set_global_assignment -name VHDL_FILE ../alu_x.vhd
+set_global_assignment -name VHDL_FILE ../address_video.vhd
+set_global_assignment -name VHDL_FILE ../adder.vhd
 set_global_assignment -name VHDL_FILE vga_pll.vhd
 set_global_assignment -name VHDL_FILE DE1.vhd
-set_global_assignment -name VHDL_FILE vga_controller.vhd
-set_global_assignment -name VHDL_FILE address_video.vhd
-set_global_assignment -name VHDL_FILE dec7seg.vhd
-set_global_assignment -name MIF_FILE instructions_memory.mif
-set_global_assignment -name MIF_FILE data_memory.mif
-set_global_assignment -name TCL_SCRIPT_FILE assembler.tcl
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
