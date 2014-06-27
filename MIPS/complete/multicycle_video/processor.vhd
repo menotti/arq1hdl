@@ -14,8 +14,9 @@ architecture behavioral of processor is
 	component program_counter 
 		generic (address_width: integer := 32);
 	port (
-		clock, enable, jump: in std_logic;
+		clock, enable, jump,jump_register: in std_logic;
 		next_address: out std_logic_vector (address_width - 1 downto 0);
+		jump_register_address: in std_logic_vector (address_width - 1 downto 0);
 		jump_address: in std_logic_vector (address_width - 1 downto 0));
 	end component;
 
@@ -53,6 +54,7 @@ architecture behavioral of processor is
 		read_memory, write_memory: out std_logic;
 		offset,shamt: out std_logic_vector (31 downto 0);
 		jump_control: out std_logic;
+		jump_register_control: out std_logic;
 		jump_offset: out std_logic_vector(25 downto 0));
 	end component;
 
@@ -94,10 +96,10 @@ architecture behavioral of processor is
 
 	-- control signals for state elements.
 	signal enable_program_counter, 	
-		enable_alu_output_register, jump_control: std_logic;
+		enable_alu_output_register, jump_control,jump_register_control: std_logic;
 
 	-- Signals related to the instruction fetch state.
-	signal address_of_next_instruction, instruction, data_from_instruction_register, jump_address: 
+	signal address_of_next_instruction, instruction, data_from_instruction_register, jump_address,jump_register_address: 
 			std_logic_vector (31 downto 0);
 	signal	jump_offset: std_logic_vector(25 downto 0);
 
@@ -135,12 +137,16 @@ begin
 		data_in_last_modified_register <= data_to_write_in_register;
 		
 		jump_address <= address_of_next_instruction(31 downto 26) & jump_offset;
+		
+		jump_register_address <= alu_result;
 
 		pc: program_counter port map (
 		  clk, 
 		  enable_program_counter, 
-		  jump_control, 
-		  address_of_next_instruction, 
+		  jump_control,
+		  jump_register_control, 
+		  address_of_next_instruction,
+		  jump_register_address, 
 		  jump_address);
 
 		memory_of_instructions: instructions_memory port map (
@@ -169,7 +175,8 @@ begin
 		  write_memory, 
 		  offset,
 		  shamt, 
-		  jump_control, 
+		  jump_control,
+		  jump_register_control, 
 		  jump_offset); 
 
 		bank_of_registers: register_bank port map (
