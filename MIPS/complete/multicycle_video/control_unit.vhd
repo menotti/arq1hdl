@@ -11,7 +11,9 @@ entity control_unit is
 		enable_alu_output_register: out std_logic := '0';
 		register1, register2, register3: out std_logic_vector (4 downto 0);
 		write_register, mem_to_register: out std_logic;
-		source_alu_a, source_alu_b, reg_dst: out std_logic;
+		source_alu_a: out std_logic; 
+		source_alu_b: out std_logic_vector (1 downto 0); 
+		reg_dst: out std_logic;
 		alu_operation: out std_logic_vector (2 downto 0);
 		read_memory, write_memory: out std_logic;
 		offset,shamt: out std_logic_vector (31 downto 0);
@@ -33,7 +35,7 @@ architecture behavioral of control_unit is
 	constant jr: std_logic_vector(5 downto 0) := "001000";
 	constant shiftll: std_logic_vector (5 downto 0) := "000000";
 
-	function extend_to_32(input: std_logic_vector (13 downto 0)) return std_logic_vector is 
+	function extend_to_32(input: std_logic_vector (15 downto 0)) return std_logic_vector is 
 	variable s: signed (31 downto 0);
 	begin
 		s := resize(signed(input), s'length);
@@ -51,7 +53,7 @@ architecture behavioral of control_unit is
 begin
 
   shamt <= extend_to_32_shamt(instruction(10 downto 6));
-  offset <= extend_to_32(instruction(15 downto 2));
+  offset <= extend_to_32(instruction(15 downto 0));
   opcode <= instruction(31 downto 26);
   funct <= instruction(5 downto 0);
 	register1 <= instruction(25 downto 21);
@@ -71,8 +73,8 @@ begin
 		jump_register_control <= '0';
 		read_memory <= '0';
 		reg_dst <= '0';
-		source_alu_b <= '0';
 		source_alu_a <= '0';
+		source_alu_b <= "00";
    	mem_to_register <= '0';
 		write_memory <= '0';
 		write_register <= '0';
@@ -93,10 +95,10 @@ begin
 				alu_operation <= "010";
 
 				if opcode = lw then
-      		source_alu_b <= '1';
+      		source_alu_b <= "11";
 					next_state <= mem;
 				elsif opcode = sw then
-      		source_alu_b <= '1';
+      		source_alu_b <= "11";
 					next_state <= mem;
 				elsif opcode = j then
      			jump_control <= '1';

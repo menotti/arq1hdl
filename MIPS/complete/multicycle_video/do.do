@@ -13,12 +13,14 @@ add wave -group fetch -radix hexadecimal sim:/t_processor/the_processor/register
 add wave -group fetch -radix hexadecimal sim:/t_processor/the_processor/register2
 add wave -group fetch -radix hexadecimal sim:/t_processor/the_processor/register3
 add wave -group fetch -radix hexadecimal sim:/t_processor/the_processor/offset
+add wave -group fetch -radix hexadecimal sim:/t_processor/the_processor/offset_s
 add wave -group fetch -radix hexadecimal sim:/t_processor/the_processor/jump_offset
 
 add wave -group decode -radix hexadecimal sim:/t_processor/the_processor/alu_operation
 add wave -group decode -radix hexadecimal sim:/t_processor/the_processor/register_a
 add wave -group decode -radix hexadecimal sim:/t_processor/the_processor/register_b
 add wave -group decode -radix hexadecimal sim:/t_processor/the_processor/offset
+add wave -group decode -radix hexadecimal sim:/t_processor/the_processor/offset_s
 add wave -group decode -radix hexadecimal sim:/t_processor/the_processor/alu_operand1
 add wave -group decode -radix hexadecimal sim:/t_processor/the_processor/alu_operand2
 add wave -group decode -radix hexadecimal sim:/t_processor/the_processor/alu_result

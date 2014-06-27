@@ -49,7 +49,9 @@ architecture behavioral of processor is
     enable_alu_output_register: out std_logic := '0';
 		register1, register2, register3: out std_logic_vector (4 downto 0);
 		write_register, mem_to_register: out std_logic;
-		source_alu_a, source_alu_b, reg_dst: out std_logic;
+		source_alu_a: out std_logic;
+		source_alu_b: out std_logic_vector (1 downto 0); 
+		reg_dst: out std_logic;
 		alu_operation: out std_logic_vector (2 downto 0);
 		read_memory, write_memory: out std_logic;
 		offset,shamt: out std_logic_vector (31 downto 0);
@@ -109,24 +111,33 @@ architecture behavioral of processor is
 		std_logic_vector (31 downto 0); 
 	signal write_register, mem_to_register: std_logic;
 
-	-- Signals related to the ALU.
+	-- Signals related to the ALU
 	signal alu_operand1, alu_operand2: std_logic_vector(31 downto 0);
 	signal register_a, register_b, alu_result, 		
 	  data_from_alu_output_register: std_logic_vector (31 downto 0);
-	signal source_alu_a, source_alu_b, reg_dst: std_logic;
+	signal source_alu_a, reg_dst: std_logic;
+	signal source_alu_b: std_logic_vector (1 downto 0);
 	signal alu_operation: std_logic_vector (2 downto 0); 
 
 	-- Signals related to the memory access.
 	signal address_to_read, address_to_write: std_logic_vector (31 downto 0);
-	signal data_from_memory, offset,shamt: std_logic_vector (31 downto 0);
+	signal shift: std_logic_vector (1 downto 0);
+	signal data_from_memory, offset, offset_s, shamt: std_logic_vector (31 downto 0);
 	signal read_memory, write_memory: std_logic;
 
 begin
+    shift <= (others => offset(31));
+  
+   	offset_s <= shift & offset(31 downto 2);
 
     instruction_address <= address_of_next_instruction;
 		alu_operand1 <= register_a when source_alu_a = '0' else shamt;
 		
-		alu_operand2 <= register_b when source_alu_b = '0' else offset;
+		alu_operand2 <= register_b when source_alu_b = "00" else
+		                -- 100 when source_alu_b = "01" else 
+		                offset when source_alu_b = "10" else
+		                offset_s when source_alu_b = "11";
+		
 		data_to_write_in_register <= data_from_memory when mem_to_register = '1' else data_from_alu_output_register; 
 		destination_register <= register2 when reg_dst = '0' else register3;
 		
