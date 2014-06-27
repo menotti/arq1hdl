@@ -24,7 +24,8 @@ add wave -group decode -radix hexadecimal sim:/t_processor/the_processor/alu_ope
 add wave -group decode -radix hexadecimal sim:/t_processor/the_processor/alu_result
 
 add wave -group alu -radix hexadecimal sim:/t_processor/the_processor/enable_alu_output_register
-add wave -group alu -radix hexadecimal sim:/t_processor/the_processor/source_alu
+add wave -group alu -radix hexadecimal sim:/t_processor/the_processor/source_alu_a
+add wave -group alu -radix hexadecimal sim:/t_processor/the_processor/source_alu_b
 add wave -group alu -radix hexadecimal sim:/t_processor/the_processor/data_from_alu_output_register
 
 add wave -group mem -radix hexadecimal sim:/t_processor/the_processor/read_memory

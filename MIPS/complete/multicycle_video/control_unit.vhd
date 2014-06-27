@@ -11,11 +11,12 @@ entity control_unit is
 		enable_alu_output_register: out std_logic := '0';
 		register1, register2, register3: out std_logic_vector (4 downto 0);
 		write_register, mem_to_register: out std_logic;
-		source_alu, reg_dst: out std_logic;
+		source_alu_a, source_alu_b, reg_dst: out std_logic;
 		alu_operation: out std_logic_vector (2 downto 0);
 		read_memory, write_memory: out std_logic;
-		offset: out std_logic_vector (31 downto 0);
+		offset,shamt: out std_logic_vector (31 downto 0);
 		jump_control: out std_logic;
+		jump_register_control: out std_logic;
 		jump_offset: out std_logic_vector(25 downto 0));
 end control_unit;
 
@@ -23,11 +24,14 @@ architecture behavioral of control_unit is
 	type state is (fetch, decode, alu, mem, writeback);
 	signal next_state: state := fetch;
 	signal opcode: std_logic_vector(5 downto 0);
+	signal funct: std_logic_vector(5 downto 0);
 
 	constant lw: std_logic_vector (5 downto 0) := "100011";
 	constant sw: std_logic_vector (5 downto 0) := "101011";
 	constant  r: std_logic_vector (5 downto 0) := "000000";
 	constant  j: std_logic_vector (5 downto 0) := "000010";
+	constant jr: std_logic_vector(5 downto 0) := "001000";
+	constant shiftll: std_logic_vector (5 downto 0) := "000000";
 
 	function extend_to_32(input: std_logic_vector (13 downto 0)) return std_logic_vector is 
 	variable s: signed (31 downto 0);
@@ -35,11 +39,21 @@ architecture behavioral of control_unit is
 		s := resize(signed(input), s'length);
 		return std_logic_vector(s);  
 	end;
+	
+	function extend_to_32_shamt(input: std_logic_vector (4 downto 0)) return std_logic_vector is 
+	variable s: signed (31 downto 0);
+	begin
+		s := resize(signed(input), s'length);
+		return std_logic_vector(s);  
+	end;
+	
 
 begin
 
+  shamt <= extend_to_32_shamt(instruction(10 downto 6));
   offset <= extend_to_32(instruction(15 downto 2));
-  opcode    <= instruction(31 downto 26);
+  opcode <= instruction(31 downto 26);
+  funct <= instruction(5 downto 0);
 	register1 <= instruction(25 downto 21);
 	register2 <= instruction(20 downto 16);
 	register3 <= instruction(15 downto 11);
@@ -54,9 +68,11 @@ begin
 		enable_alu_output_register <= '0';
 		enable_program_counter <= '0';
 		jump_control <= '0';
+		jump_register_control <= '0';
 		read_memory <= '0';
 		reg_dst <= '0';
-		source_alu <= '0';
+		source_alu_b <= '0';
+		source_alu_a <= '0';
    	mem_to_register <= '0';
 		write_memory <= '0';
 		write_register <= '0';
@@ -77,16 +93,25 @@ begin
 				alu_operation <= "010";
 
 				if opcode = lw then
-      		source_alu <= '1';
+      		source_alu_b <= '1';
 					next_state <= mem;
 				elsif opcode = sw then
-      		source_alu <= '1';
+      		source_alu_b <= '1';
 					next_state <= mem;
 				elsif opcode = j then
      			jump_control <= '1';
 				  next_state <= fetch;
-				else --if opcode = r then
-					next_state <= writeback;
+				elsif opcode = r then
+				  if funct = jr then
+				    jump_register_control <= '1';
+				    next_state <= fetch;
+				  elsif funct = shiftll then
+				    source_alu_a <= '1';
+				    alu_operation <= "101";
+				    next_state <= writeback;
+				  else 
+					 next_state <= writeback;
+					end if;
 				end if;
 
 			when mem =>
@@ -102,7 +127,7 @@ begin
 			when writeback =>
 				-- write regiter result
         if opcode = lw then
-   				mem_to_register <= '1';
+   				 mem_to_register <= '1';           
         else
 				  reg_dst <= '1';
         end if;

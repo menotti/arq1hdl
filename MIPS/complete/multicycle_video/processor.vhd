@@ -48,10 +48,10 @@ architecture behavioral of processor is
     enable_alu_output_register: out std_logic := '0';
 		register1, register2, register3: out std_logic_vector (4 downto 0);
 		write_register, mem_to_register: out std_logic;
-		source_alu, reg_dst: out std_logic;
+		source_alu_a, source_alu_b, reg_dst: out std_logic;
 		alu_operation: out std_logic_vector (2 downto 0);
 		read_memory, write_memory: out std_logic;
-		offset: out std_logic_vector (31 downto 0);
+		offset,shamt: out std_logic_vector (31 downto 0);
 		jump_control: out std_logic;
 		jump_offset: out std_logic_vector(25 downto 0));
 	end component;
@@ -111,20 +111,20 @@ architecture behavioral of processor is
 	signal alu_operand1, alu_operand2: std_logic_vector(31 downto 0);
 	signal register_a, register_b, alu_result, 		
 	  data_from_alu_output_register: std_logic_vector (31 downto 0);
-	signal source_alu, reg_dst: std_logic;
+	signal source_alu_a, source_alu_b, reg_dst: std_logic;
 	signal alu_operation: std_logic_vector (2 downto 0); 
 
 	-- Signals related to the memory access.
 	signal address_to_read, address_to_write: std_logic_vector (31 downto 0);
-	signal data_from_memory, offset: std_logic_vector (31 downto 0);
+	signal data_from_memory, offset,shamt: std_logic_vector (31 downto 0);
 	signal read_memory, write_memory: std_logic;
 
 begin
 
     instruction_address <= address_of_next_instruction;
-		alu_operand1 <= register_a;
+		alu_operand1 <= register_a when source_alu_a = '0' else shamt;
 		
-		alu_operand2 <= register_b when source_alu = '0' else offset;
+		alu_operand2 <= register_b when source_alu_b = '0' else offset;
 		data_to_write_in_register <= data_from_memory when mem_to_register = '1' else data_from_alu_output_register; 
 		destination_register <= register2 when reg_dst = '0' else register3;
 		
@@ -161,12 +161,14 @@ begin
 		  register3, 
       write_register,
 		  mem_to_register, 
-		  source_alu, 
+		  source_alu_a,
+		  source_alu_b, 
 		  reg_dst,
 		  alu_operation, 			
 		  read_memory, 
 		  write_memory, 
-		  offset, 
+		  offset,
+		  shamt, 
 		  jump_control, 
 		  jump_offset); 
 

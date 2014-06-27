@@ -9,7 +9,8 @@ entity multiplexer is
 			x2, -- adition
 			x3, -- subtraction
 			x4, -- set on less than 
-			x5, x6, x7 -- not implemented yet.
+			x5, -- sll 
+			x6, x7 -- not implemented yet.
 				: in std_logic_vector (width - 1 downto 0);
 		selection: in std_logic_vector (2 downto 0);
 		output: out std_logic_vector (width - 1 downto 0));
@@ -27,6 +28,7 @@ begin
 		x2 when selection = "010" else
 		x3 when selection = "011" else
 		x4 when selection = "100" else
+		x5 when selection = "101" else
 		unknown;
 
 end structural;
