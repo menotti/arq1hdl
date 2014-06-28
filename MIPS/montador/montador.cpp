@@ -451,7 +451,7 @@ string conversor(int numero, int quantidade) //converte de decimal para binário
 {
     string bin;
 
-    if(numero > 0)
+    if(numero >= 0)
     {
 
         while (numero > 0)
@@ -506,7 +506,9 @@ int main ()
     string nome,op, rs, rt, rd, shamt, funct,immed; //partes das instruções
     int endereco;
     arquivo_in.open("teste.asm");
-    arquivo_out.open("saida_t.txt");
+    arquivo_out.open("instruction_memory.mif");
+
+    arquivo_out << "WIDTH=12;\nDEPTH=32768;\n\nADDRESS_RADIX=DEC;\nDATA_RADIX=BIN;\n\nCONTENT BEGIN" <<endl;
 
 
 //lendo o arquivo que foi aberto
@@ -778,8 +780,9 @@ cout << "teste" <<endl;
             }
          cout << "\n" <<endl;
          if(linha!=".")
-            arquivo_out << linha <<endl;
+            arquivo_out<<"\t" << line[j].endereco << " : " << linha << ";" <<endl;
         }
+    arquivo_out << "END;";
 	arquivo_out.close();
     getchar();
     return 0;
