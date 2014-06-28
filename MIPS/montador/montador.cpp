@@ -1,3 +1,5 @@
+//LABEL TEM QUE FICAR NA MESMA LINHA DA INSTRUÇÃO
+
 //referencia utilizada: http://alanhogan.com/asu/assembler.php?source
 // EWRRO QUANDO ESQUECE DE COLOCAR ESPAÇO
 
@@ -10,7 +12,7 @@
 #include <stdexcept>
 #include <ctype.h>
 #include "stdlib.h"
-#define tam 20
+#define tam 100
 
 using namespace std;
 using std::string;
@@ -57,15 +59,43 @@ int stringHash(std::string word)
 
 	return sum;
 }
-
-string tirarCaracteres(string word)
+string tirarEspacosComeco(string word)
 {
     int i=0;
     int j;
     int tamanho=word.length();
     while(i<tamanho)
     {
-            if(word[i]=='(' || word[i]==')' || word[i]==',' || word[i]==':')
+            if(word[i]==' ')
+            {
+                for(j=i;j<word.length();j++)
+                    word[j]=word[j+1];
+                tamanho--;
+                i=tamanho;
+            }
+            i++;
+    }
+
+        word[i]='\0';
+        string aux;
+        i=0;
+        while(word[i]!='\0')
+        {
+            aux+=word[i];
+            i++;
+        }
+
+    return aux;
+}
+
+string tirarEspacos(string word)
+{
+    int i=0;
+    int j;
+    int tamanho=word.length();
+    while(i<tamanho)
+    {
+            if(word[i]==' ' || word[i]==':')
             {
                 for(j=i;j<word.length();j++)
                     word[j]=word[j+1];
@@ -89,66 +119,78 @@ string tirarCaracteres(string word)
 string separarPalavra(string line, int *i)
 {
     string word;
-    while(!isspace(line[*i]) && line[*i]!='\0')
+    while (isspace(line[*i]) && line[*i]!='(' &&  line[*i]!=')' && line[*i]!=',' &&  line[*i]!=':')
+        *i=*i+1;
+
+    while(line[*i]!='(' &&  line[*i]!=')' && line[*i]!=',' &&  line[*i]!=':' && !isspace(line[*i]) && line[*i]!='\0')
     {
+        cout<< "progresso: "<< word <<endl;
         word+=line[*i];
         *i=*i+1;
     }
-
-    word = tirarCaracteres(word);
+    cout << word << endl;
+    word = tirarEspacos(word);
     return word;
 
 }
 
-string defineRegistrador(string word)
+string defineRegistrador(string word, bool *ok)
 {
-
+    string saida="erro";
     if(word == "$zero" || word =="$0" )
-        return "00000";//0
+        saida= "00000";//0
     else
         if(word == "$v0")
-            return "00010"; //2
+            saida= "00010"; //2
         else
             if(word == "$v1")
-                return "00011";
+                saida= "00011";
             else
                 if(word == "$a0")
-                    return "00100";
+                    saida = "00100";
                 else
                     if(word == "$a1")
-                        return "00101";
+                        saida = "00101";
                     else
                         if(word == "$a2")
-                            return "00110";
+                            saida = "00110";
                         else
                             if(word == "$a3")
-                                return "00111";
+                                saida = "00111";
                             else
                                 if(word == "$t0")
-                                    return "01000";
+                                    saida = "01000";
                                 else
                                     if(word == "$t1")
-                                        return "01001";
+                                        saida = "01001";
                                     else
                                         if(word == "$t2")
-                                            return "01010";
+                                            saida = "01010";
                                         else
                                             if(word == "$t3")
-                                                return "01011";
+                                                saida = "01011";
                                             else
                                                 if(word == "$t4")
-                                                    return "01100";
+                                                    saida = "01100";
                                                 else
                                                     if(word == "$t5")
-                                                        return "01101";
+                                                        saida = "01101";
                                                     else
                                                         if(word == "$t6")
-                                                            return "01110";
+                                                            saida = "01110";
                                                         else
                                                             if(word == "$t7")
-                                                                return "01111";
+                                                                saida = "01111";
+                                                            else
+                                                                if(word == "$ra")
+                                                                    saida = "11111";
 
-            return "00000"; //quando não for nenhum dos registradores
+            if(saida!= "erro" && *ok)
+                *ok=true;
+            else
+                *ok=false;
+
+            return saida; //quando não for nenhum dos registradores
                                                             //colocar o resto da tabela quando passar pra tcl
 }
 
@@ -222,6 +264,10 @@ int defineTipoInstrucao(string word)
         return 4;
     else if (word == "j" || word == "jal" || word == "jr")
         return 5;
+    else if (word == "syscall" || word == "noop")
+        return 6;
+    else if (word == "move")
+        return 7;
 
         return 0;
 
@@ -229,9 +275,9 @@ int defineTipoInstrucao(string word)
 
 }
 
-string defineOP(int word)
+string defineOP(int word, bool *ok)
 {
-    string saida="";
+    string saida="erro";
     switch(word)
                 {
 
@@ -377,14 +423,17 @@ string defineOP(int word)
 
 
                 }
-
+            if(saida!="erro" && *ok)
+                *ok=true;
+            else
+                *ok=false;
             return saida;
 
 }
 
-string defineFunct(string word)
+string defineFunct(string word, bool *ok)
 {
-    string saida="000000";
+    string saida="erro";
 
     if (word == "add")
         saida = "100000";
@@ -443,6 +492,11 @@ string defineFunct(string word)
                                                                             if(word == "srl")
                                                                                 saida = "000010";
 
+            if(saida!="erro" && ok)
+                *ok=true;
+            else
+                *ok=false;
+
     return saida;
 
 }
@@ -471,14 +525,19 @@ string conversor(int numero, int quantidade) //converte de decimal para binário
 
 }
 
-string defineImmed(std::string word)
+string defineImmed(std::string word, bool *ok)
 {
     int immed;
-    string imm;
+    string imm="erro";
 
     immed = atoi( word.c_str());
     imm = conversor(immed,16);
 
+
+    if(imm!="erro" && *ok)
+        *ok=true;
+    else
+        *ok=false;
 
     return imm;
 }
@@ -495,6 +554,16 @@ string defineShamt(std::string word)
     return sham;
 }
 
+bool temComentario(string linha, int i)
+{
+
+    for(i=0; i<linha.length(); i++)
+        if(linha[i]=='#')
+            return true;
+
+    return false;
+
+}
 int main ()
 {
     linha line[tam];
@@ -507,33 +576,49 @@ int main ()
     int endereco;
     arquivo_in.open("teste.asm");
     arquivo_out.open("instruction_memory.mif");
-
-    arquivo_out << "WIDTH=12;\nDEPTH=32768;\n\nADDRESS_RADIX=DEC;\nDATA_RADIX=BIN;\n\nCONTENT BEGIN" <<endl;
-
+    int tamanho;
+    bool ok=true;
 
 //lendo o arquivo que foi aberto
 	while(!arquivo_in.eof())
 	{
         getline(arquivo_in ,linha);
-        while (linha[j]!=' ')
-            j++;
-        line[i]=dividirLinha(linha);
-        line[i].endereco=i;
-        line[i].label=tirarCaracteres(line[i].label);
-        cout<< "Linha '"<<line[i].endereco<<"': ("<<line[i].label<<") '"<< line[i].instrucao << "'"<<endl;
-        i++;
+        linha=tirarEspacosComeco(linha);
+
+
+        if(linha != "\0" && linha[0]!= '#')
+        {
+            line[i]=dividirLinha(linha);
+            line[i].endereco=i;
+            line[i].label=tirarEspacos(line[i].label);
+            cout<< "Linha '"<<line[i].endereco<<"': ("<<line[i].label<<") '"<< line[i].instrucao << "'"<<endl;
+            i++;
+        }
 	}
 
-cout << "teste" <<endl;
-        for(j=0; j<tam;j++)
+    tamanho = i-1;
+    int def=1;
+
+
+    cout << tamanho << endl;
+    do
+        def=def*2;
+
+    while(def<tamanho);
+
+    cout << def << endl;
+    arquivo_out << "WIDTH=32;\nDEPTH="<<tamanho<<";\n\nADDRESS_RADIX=DEC;\nDATA_RADIX=BIN;\n\nCONTENT BEGIN" <<endl;
+
+
+        for(j=0; j<tamanho;j++)
         {
-                linha =".";
             cout<< "Instrucao: '"<< line[j].instrucao << "'"<<endl;
             for(i=0; i<line[j].instrucao.length();i++)
             {
                 word = separarPalavra(line[j].instrucao, &i);
-                cout<< "Palavra depois: '"<< word << "'"<<endl;
                 tipo = defineTipoInstrucao(word);
+
+                cout <<"TIPO INSTRUÇÃO "<< tipo <<endl;
                 nome = word; //esta é o nome da instrução
                 cout <<"Nome instrução: "<< nome << endl;
 
@@ -541,34 +626,41 @@ cout << "teste" <<endl;
                 if(tipo == 1)//instrução do tipo R
                 {
                     i++;
-                    op=defineOP(tipo);
+                    op=defineOP(tipo, &ok);
 
                     cout << "intrucao: "<< op <<endl;
 
                     rd=separarPalavra(line[j].instrucao, &i);
                     cout << "registrador: "<< rd <<endl;
-                    rd=defineRegistrador(rd);
+                    rd=defineRegistrador(rd,&ok);
 
                     cout << "registrador: "<< rd <<endl;
                     i++;
+                    if(word == "mfhi" || word == "mflo")
+                    {
+                        rs = "00000";
+                        rt = "00000";
+                    }
+                    else
+                    {
+                        rs=separarPalavra(line[j].instrucao, &i);
+                        cout << "registrador: "<< rs <<endl;
+                        rs=defineRegistrador(rs,&ok);
 
-                    rs=separarPalavra(line[j].instrucao, &i);
-                    cout << "registrador: "<< rs <<endl;
-                    rs=defineRegistrador(rs);
+                        cout << "registrador: "<< rs <<endl;
 
-                    cout << "registrador: "<< rs <<endl;
+                        i++;
+                        rt=separarPalavra(line[j].instrucao, &i);
+                        rt=defineRegistrador(rt,&ok);
 
-                    i++;
-                    rt=separarPalavra(line[j].instrucao, &i);
-                    rt=defineRegistrador(rt);
-
-                    cout << "registrador: "<< rt <<endl;
+                        cout << "registrador: "<< rt <<endl;
+                    }
 
                     shamt="00000";
 
-                    funct = defineFunct(nome);
+                    funct = defineFunct(nome,&ok);
                     if(funct == "011010" || funct == "011011" || funct == "011000" || funct == "011001") //formato ins $s, $t ex: mult, div,divu
-                        linha = op +  rd + rs+ rt + shamt + funct;
+                        linha = op +  rd + rs+ "00000" + shamt + funct;
                     else
                         if (funct == "000100" || funct == "000110")
                             linha = op + rt + rs + rd + shamt +funct;
@@ -582,14 +674,14 @@ cout << "teste" <<endl;
                     {
                         i++;
 
-                        op=defineOP(stringHash(nome));
+                        op=defineOP(stringHash(nome), &ok);
 
                         cout << "op: "<< op<<endl;
 
 
                         rt=separarPalavra(line[j].instrucao, &i);
                         cout << "registrador: "<< rt <<endl;
-                        rt=defineRegistrador(rt);
+                        rt=defineRegistrador(rt,&ok);
                         cout << "registrador: "<< rt <<endl;
 
                         i++;
@@ -597,14 +689,14 @@ cout << "teste" <<endl;
                         //offset
 
                         immed=separarPalavra(line[j].instrucao, &i);
-                        immed=defineImmed(immed);
+                        immed=defineImmed(immed,&ok);
                         cout << "immed: "<< immed <<endl;
 
                         i++;
 
                         rs=separarPalavra(line[j].instrucao, &i);
                         cout << "registrador: "<< rs <<endl;
-                        rs=defineRegistrador(rs);
+                        rs=defineRegistrador(rs,&ok);
                         cout << "registrador: "<< rs <<endl;
 
                         linha = op + rs + rt + immed;
@@ -614,14 +706,14 @@ cout << "teste" <<endl;
                         {
                                 i++;
 
-                                op=defineOP(stringHash(nome));
+                                op=defineOP(stringHash(nome),&ok);
 
                                 cout << "op: "<< op<<endl;
 
 
                                 rt=separarPalavra(line[j].instrucao, &i);
                                 cout << "registrador: "<< rt <<endl;
-                                rt=defineRegistrador(rt);
+                                rt=defineRegistrador(rt,&ok);
                                 cout << "registrador: "<< rt <<endl;
 
                                 i++;
@@ -629,7 +721,7 @@ cout << "teste" <<endl;
 
                                 rs=separarPalavra(line[j].instrucao, &i);
                                 cout << "registrador: "<< rs <<endl;
-                                rs=defineRegistrador(rs);
+                                rs=defineRegistrador(rs,&ok);
                                 cout << "registrador: "<< rs <<endl;
                                 //offset
 
@@ -638,14 +730,14 @@ cout << "teste" <<endl;
                                     immed=separarPalavra(line[j].instrucao, &i);
                                 if(nome=="sll" || nome=="sra" || nome=="srl")
                                 {
-                                    funct=defineFunct(word);
+                                    funct=defineFunct(word,&ok);
                                     shamt=defineShamt(immed);
                                     linha = op + "00000" + rs + rt + shamt + funct;
                                 }
                                 else
                                 {
 
-                                    immed=defineImmed(immed);
+                                    immed=defineImmed(immed,&ok);
                                     linha = op + rs + rt + immed;
                                 }
 
@@ -653,26 +745,40 @@ cout << "teste" <<endl;
                         else
                             if(tipo==4) //tipo branch
                             {
-                                    op=defineOP(stringHash(nome));
+                                    op=defineOP(stringHash(nome),&ok);
 
                                     cout << "op: "<< op<<endl;
                                     i++;
 
                                     rs=separarPalavra(line[j].instrucao, &i);
                                     cout << "registrador: "<< rs <<endl;
-                                    rs=defineRegistrador(rs);
+                                    rs=defineRegistrador(rs,&ok);
 
                                     cout << "registrador: "<< rs <<endl;
 
-                                    i++;
-                                    rt=separarPalavra(line[j].instrucao, &i);
-
-                                    cout << "registrador: "<< rt <<endl;
-                                    rt=defineRegistrador(rt);
-                                    cout << "registrador: "<< rt <<endl;
 
                                     i++;
+                                    if (nome == "bgez")
+                                        rt = "00001";
+                                    else
+                                        if(nome == "bgezal")
+                                            rt = "10001";
+                                        else
+                                        if (nome == "bltzal")
+                                            rt = "10000";
+                                        else
+                                            if(nome == "bgtz" || nome == "blez" || nome == "bltz")
+                                                rt = "00000";
+                                            else
+                                            {
+                                                rt=separarPalavra(line[j].instrucao, &i);
 
+                                                cout << "registrador: "<< rt <<endl;
+                                                rt=defineRegistrador(rt,&ok);
+                                                cout << "registrador: "<< rt <<endl;
+
+                                                i++;
+                                            }
                                     immed=separarPalavra(line[j].instrucao, &i);
 
                                     cout << "label: "<< immed <<endl;
@@ -703,7 +809,7 @@ cout << "teste" <<endl;
                             if(tipo==5) //tipo jump
                                 {
 
-                                    op=defineOP(stringHash(nome));
+                                    op=defineOP(stringHash(nome),&ok);
 
                                     cout << "op: "<< op<<endl;
                                     i++;
@@ -713,7 +819,7 @@ cout << "teste" <<endl;
 
                                     if(nome == "jr")
                                     {
-                                        rs=defineRegistrador(rs);
+                                        rs=defineRegistrador(rs,&ok);
                                         cout << "registrador: "<< rs<<endl;
                                         linha = op + rs + "000000000000000001000";
                                     }
@@ -759,7 +865,7 @@ cout << "teste" <<endl;
                                             cout << "Intrução de endereço " << j << " está com erro no label." << endl;
                                 }
                                 }
-                                else
+                                else if(tipo == 6)
                                 {
                                     if (nome == "noop")
                                         linha = "00000000000000000000000000000000";
@@ -769,19 +875,57 @@ cout << "teste" <<endl;
                                    // else
                                      //   cout << "Instrução da linha "<<i+1<< " está incorreta!" <<endl;
                                 }
+                                else if(tipo==7)
+                                {
+                                        i++;
+                                        rd=separarPalavra(line[j].instrucao, &i);
+                                        cout << "registrador: "<< rd <<endl;
+                                        rd=defineRegistrador(rd,&ok);
+                                        cout << ok << endl;
 
-                            cout << "linha: "<<linha <<endl;
+                                        cout << "registrador: "<< rd <<endl;
+                                        i++;
+
+                                        immed = separarPalavra(line[j].instrucao, &i);
+                                        immed=defineImmed(immed,&ok);
+                                        cout << "imedd" << immed << endl;
+                                        //transformamos para addi
+                                        rs = "00000";
+                                        linha = "001000" + rs + rd + immed;
+
+
+                                }
+                                else
+                                {
+                                    ok=false;
+                                    i = line[j].instrucao.length();
+                                }
           /*     cout << "intrucao: "<< teste<<endl;
                 arquivo_out << teste;
                 teste=defineRegistrador(word);
                 cout<<"registrador: "<<teste << endl;
                 int teste1=procuraLabel(line,word);
                 cout<<"label no endereco: "<<teste1 <<endl;*/
+                if(temComentario(line[j].instrucao,i))
+                    i=line[j].instrucao.length();
             }
-         cout << "\n" <<endl;
-         if(linha!=".")
+         if(ok)
+         {
             arquivo_out<<"\t" << line[j].endereco << " : " << linha << ";" <<endl;
+            cout << "linha: "<<linha <<endl;
+         }
+         else
+         {
+            cout << "Instrução da linha "<<j<< " está incorreta!" <<endl;
+            j=tamanho;
+         }
+
+         cout << "\n" <<endl;
         }
+    if (ok)
+        cout << "PROGRAMA COMPILADO COM SUCESSO!" << endl;
+    else
+        cout << "PROGRAMA COM ERRO!" << endl;
     arquivo_out << "END;";
 	arquivo_out.close();
     getchar();
