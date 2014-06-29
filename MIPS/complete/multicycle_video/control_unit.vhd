@@ -12,14 +12,12 @@ entity control_unit is
 		register1, register2, register3: out std_logic_vector (4 downto 0);
 		write_register, mem_to_register: out std_logic;
 		source_alu_a: out std_logic_vector (1 downto 0); 
-		source_alu_b: out std_logic_vector (1 downto 0); 
+		source_alu_b: out std_logic_vector (1 downto 0);
+		pc_source: out std_logic_vector (1 downto 0);  
 		reg_dst: out std_logic_vector(1 downto 0);
 		alu_operation: out std_logic_vector (2 downto 0);
 		read_memory, write_memory: out std_logic;
 		offset,shamt: out std_logic_vector (31 downto 0);
-		jump_control: out std_logic;
-		jump_register_control: out std_logic;
-		jal_control: out std_logic;
 		jump_offset: out std_logic_vector(25 downto 0));
 end control_unit;
 
@@ -70,16 +68,14 @@ begin
 
   	if rising_edge(clock) then
 
-		alu_operation <= "XXX";
+		alu_operation <= "010";
+		pc_source <= "00";
 		enable_alu_output_register <= '0';
 		enable_program_counter <= '0';
-		jump_control <= '0';
-		jump_register_control <= '0';
-		jal_control <= '0';
 		read_memory <= '0';
 		reg_dst <= "00";
 		source_alu_a <= "00";
-		source_alu_b <= "00";
+		source_alu_b <= "01";
    	mem_to_register <= '0';
 		write_memory <= '0';
 		write_register <= '0';
@@ -97,34 +93,45 @@ begin
 
 			when alu =>
 				enable_alu_output_register <= '1';
-				alu_operation <= "010";
 
 				if opcode = lw then
-      		source_alu_b <= "11";
+				  source_alu_a <= "01";
+      		  source_alu_b <= "11";
 					next_state <= mem;
 				elsif opcode = sw then
-      		source_alu_b <= "11";
+				  source_alu_a <= "01";
+      		  source_alu_b <= "11";
 					next_state <= mem;
 				elsif opcode = j then
-     			jump_control <= '1';
+				  enable_program_counter <= '1';
+				  pc_source <= "10";
 				  next_state <= fetch;
 				elsif opcode = slti then
+				  source_alu_a <= "01";
 				  source_alu_b <= "10";
 				  alu_operation <= "100";
 				  next_state <= writeback;
 				elsif opcode = jal then
-				   source_alu_a <= "10";
+				   enable_program_counter <= '1';
+				   pc_source <= "10";
+				   source_alu_a <= "00";
 				   source_alu_b <= "01";
 				   next_state <= writeback;   
 				elsif opcode = r then
 				  if funct = jr then
-				    jump_register_control <= '1';
+				    enable_program_counter <= '1';
+				    pc_source <= "00";
+				    source_alu_a <= "01";
+				    source_alu_b <= "00";
 				    next_state <= fetch;
 				  elsif funct = shiftll then
-				    source_alu_a <= "01";
+				    source_alu_a <= "10";
+				    source_alu_b <= "00";
 				    alu_operation <= "101";
 				    next_state <= writeback;
-				  else 
+				  else
+				   source_alu_a <= "01";
+				   source_alu_b <= "00";
 					 next_state <= writeback;
 					end if;
 				end if;
@@ -146,8 +153,7 @@ begin
  				elsif opcode = slti then
  				  reg_dst <= "00";
  				elsif opcode = jal then
- 				  reg_dst <= "10";
- 				  jal_control <= '1';        
+ 				  reg_dst <= "10";       
         else
 				  reg_dst <= "01";
         end if;

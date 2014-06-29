@@ -7,6 +7,7 @@ add wave sim:/t_processor/the_processor/state_machine/next_state
 
 add wave -group fetch -radix hexadecimal /t_processor/the_processor/enable_program_counter
 add wave -group fetch -radix unsigned /t_processor/the_processor/instruction_address
+add wave -group fetch -radix unsigned /t_processor/the_processor/address_to_point
 add wave -group fetch -radix hexadecimal /t_processor/the_processor/current_instruction
 add wave -group fetch sim:/t_processor/the_processor/state_machine/opcode
 add wave -group fetch -radix hexadecimal sim:/t_processor/the_processor/register1
@@ -36,8 +37,6 @@ add wave -group mem -radix hexadecimal sim:/t_processor/the_processor/write_regi
 add wave -group mem -radix hexadecimal sim:/t_processor/the_processor/address_to_read
 add wave -group mem -radix hexadecimal sim:/t_processor/the_processor/address_to_write
 add wave -group mem -radix hexadecimal sim:/t_processor/the_processor/data_from_memory
-add wave -group mem -radix hexadecimal sim:/t_processor/the_processor/jump_control
-add wave -group mem -radix hexadecimal sim:/t_processor/the_processor/jal_control
 
 
 add wave -group writeback -radix hexadecimal sim:/t_processor/the_processor/write_register
@@ -63,6 +62,6 @@ add wave -group video sim:/t_processor/disp_ena_d
 
 configure wave -shortnames 1
 
-run 500 ns
+run 700 ns
 
 wave zoom full
