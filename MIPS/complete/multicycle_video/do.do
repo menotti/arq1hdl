@@ -37,6 +37,8 @@ add wave -group mem -radix hexadecimal sim:/t_processor/the_processor/address_to
 add wave -group mem -radix hexadecimal sim:/t_processor/the_processor/address_to_write
 add wave -group mem -radix hexadecimal sim:/t_processor/the_processor/data_from_memory
 add wave -group mem -radix hexadecimal sim:/t_processor/the_processor/jump_control
+add wave -group mem -radix hexadecimal sim:/t_processor/the_processor/jal_control
+
 
 add wave -group writeback -radix hexadecimal sim:/t_processor/the_processor/write_register
 add wave -group writeback -radix hexadecimal sim:/t_processor/the_processor/mem_to_register

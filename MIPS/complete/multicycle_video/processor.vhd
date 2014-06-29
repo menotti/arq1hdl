@@ -14,7 +14,7 @@ architecture behavioral of processor is
 	component program_counter 
 		generic (address_width: integer := 32);
 	port (
-		clock, enable, jump,jump_register: in std_logic;
+		clock, enable, jump,jump_register, jal: in std_logic;
 		next_address: out std_logic_vector (address_width - 1 downto 0);
 		jump_register_address: in std_logic_vector (address_width - 1 downto 0);
 		jump_address: in std_logic_vector (address_width - 1 downto 0));
@@ -49,14 +49,15 @@ architecture behavioral of processor is
     enable_alu_output_register: out std_logic := '0';
 		register1, register2, register3: out std_logic_vector (4 downto 0);
 		write_register, mem_to_register: out std_logic;
-		source_alu_a: out std_logic;
+		source_alu_a: out std_logic_vector (1 downto 0);
 		source_alu_b: out std_logic_vector (1 downto 0); 
-		reg_dst: out std_logic;
+		reg_dst: out std_logic_vector(1 downto 0);
 		alu_operation: out std_logic_vector (2 downto 0);
 		read_memory, write_memory: out std_logic;
 		offset,shamt: out std_logic_vector (31 downto 0);
 		jump_control: out std_logic;
 		jump_register_control: out std_logic;
+		jal_control: out std_logic;
 		jump_offset: out std_logic_vector(25 downto 0));
 	end component;
 
@@ -98,7 +99,7 @@ architecture behavioral of processor is
 
 	-- control signals for state elements.
 	signal enable_program_counter, 	
-		enable_alu_output_register, jump_control,jump_register_control: std_logic;
+		enable_alu_output_register, jump_control,jump_register_control, jal_control: std_logic;
 
 	-- Signals related to the instruction fetch state.
 	signal address_of_next_instruction, instruction, data_from_instruction_register, jump_address,jump_register_address: 
@@ -115,8 +116,8 @@ architecture behavioral of processor is
 	signal alu_operand1, alu_operand2: std_logic_vector(31 downto 0);
 	signal register_a, register_b, alu_result, 		
 	  data_from_alu_output_register: std_logic_vector (31 downto 0);
-	signal source_alu_a, reg_dst: std_logic;
-	signal source_alu_b: std_logic_vector (1 downto 0);
+	signal reg_dst: std_logic_vector(1 downto 0);
+	signal source_alu_a, source_alu_b: std_logic_vector (1 downto 0);
 	signal alu_operation: std_logic_vector (2 downto 0); 
 
 	-- Signals related to the memory access.
@@ -124,22 +125,32 @@ architecture behavioral of processor is
 	signal shift: std_logic_vector (1 downto 0);
 	signal data_from_memory, offset, offset_s, shamt: std_logic_vector (31 downto 0);
 	signal read_memory, write_memory: std_logic;
+	
+	signal offset_constante_1: std_logic_vector (31 downto 0) := "00000000000000000000000000000001";
+	signal register_31 : std_logic_vector(4 downto 0) := "11111";
 
 begin
     shift <= (others => offset(31));
+    
+    
   
    	offset_s <= shift & offset(31 downto 2);
 
     instruction_address <= address_of_next_instruction;
-		alu_operand1 <= register_a when source_alu_a = '0' else shamt;
+		alu_operand1 <= register_a when source_alu_a = "00" else 
+		                shamt when source_alu_a = "01" else
+		                address_of_next_instruction when source_alu_a = "10";
 		
 		alu_operand2 <= register_b when source_alu_b = "00" else
-		                -- 100 when source_alu_b = "01" else 
+		                -- 100 when source_alu_b = "01" else
+		                offset_constante_1 when source_alu_b = "01" else 
 		                offset when source_alu_b = "10" else
 		                offset_s when source_alu_b = "11";
 		
 		data_to_write_in_register <= data_from_memory when mem_to_register = '1' else data_from_alu_output_register; 
-		destination_register <= register2 when reg_dst = '0' else register3;
+		destination_register <= register2 when reg_dst = "00" else 
+		                        register3 when reg_dst = "01" else
+		                        register_31 when reg_dst = "10";
 		
 		address_to_read <= data_from_alu_output_register;
 		address_to_write <= data_from_alu_output_register;
@@ -155,7 +166,8 @@ begin
 		  clk, 
 		  enable_program_counter, 
 		  jump_control,
-		  jump_register_control, 
+		  jump_register_control,
+		  jal_control, 
 		  address_of_next_instruction,
 		  jump_register_address, 
 		  jump_address);
@@ -187,7 +199,8 @@ begin
 		  offset,
 		  shamt, 
 		  jump_control,
-		  jump_register_control, 
+		  jump_register_control,
+		  jal_control, 
 		  jump_offset); 
 
 		bank_of_registers: register_bank port map (

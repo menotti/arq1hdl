@@ -11,14 +11,15 @@ entity control_unit is
 		enable_alu_output_register: out std_logic := '0';
 		register1, register2, register3: out std_logic_vector (4 downto 0);
 		write_register, mem_to_register: out std_logic;
-		source_alu_a: out std_logic; 
+		source_alu_a: out std_logic_vector (1 downto 0); 
 		source_alu_b: out std_logic_vector (1 downto 0); 
-		reg_dst: out std_logic;
+		reg_dst: out std_logic_vector(1 downto 0);
 		alu_operation: out std_logic_vector (2 downto 0);
 		read_memory, write_memory: out std_logic;
 		offset,shamt: out std_logic_vector (31 downto 0);
 		jump_control: out std_logic;
 		jump_register_control: out std_logic;
+		jal_control: out std_logic;
 		jump_offset: out std_logic_vector(25 downto 0));
 end control_unit;
 
@@ -33,6 +34,7 @@ architecture behavioral of control_unit is
 	constant  r: std_logic_vector (5 downto 0) := "000000";
 	constant  j: std_logic_vector (5 downto 0) := "000010";
 	constant jr: std_logic_vector(5 downto 0) := "001000";
+	constant jal: std_logic_vector(5 downto 0) := "000011";
 	constant shiftll: std_logic_vector (5 downto 0) := "000000";
 	constant slti: std_logic_vector (5 downto 0) := "001010";
 
@@ -73,9 +75,10 @@ begin
 		enable_program_counter <= '0';
 		jump_control <= '0';
 		jump_register_control <= '0';
+		jal_control <= '0';
 		read_memory <= '0';
-		reg_dst <= '0';
-		source_alu_a <= '0';
+		reg_dst <= "00";
+		source_alu_a <= "00";
 		source_alu_b <= "00";
    	mem_to_register <= '0';
 		write_memory <= '0';
@@ -108,13 +111,17 @@ begin
 				elsif opcode = slti then
 				  source_alu_b <= "10";
 				  alu_operation <= "100";
-				  next_state <= writeback;    
+				  next_state <= writeback;
+				elsif opcode = jal then
+				   source_alu_a <= "10";
+				   source_alu_b <= "01";
+				   next_state <= writeback;   
 				elsif opcode = r then
 				  if funct = jr then
 				    jump_register_control <= '1';
 				    next_state <= fetch;
 				  elsif funct = shiftll then
-				    source_alu_a <= '1';
+				    source_alu_a <= "01";
 				    alu_operation <= "101";
 				    next_state <= writeback;
 				  else 
@@ -137,9 +144,12 @@ begin
         if opcode = lw then
    				 mem_to_register <= '1';
  				elsif opcode = slti then
- 				  reg_dst <= '0';           
+ 				  reg_dst <= "00";
+ 				elsif opcode = jal then
+ 				  reg_dst <= "10";
+ 				  jal_control <= '1';        
         else
-				  reg_dst <= '1';
+				  reg_dst <= "01";
         end if;
 				write_register <= '1';
 				next_state <= fetch;
