@@ -34,8 +34,9 @@ architecture behavioral of instructions_memory is
     6 => X"292C0003",  -- slti $t4, $t1, 3
     7 => X"01094020", -- add $t0, $t0, $t1
     8 => X"AD0A0000", -- sw  $t2, 0($t0)
-    9 => X"0C00000C", -- jal 12
-    12 => X"01200008", -- jr $t1
+    9 => X"0800000B", -- j 11
+    11 => X"0C00000E", -- jal 14
+    14 => X"01200008", -- jr $t1
     others => (others => '0'));
 
 begin
