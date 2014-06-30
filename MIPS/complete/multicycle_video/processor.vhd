@@ -124,7 +124,7 @@ architecture behavioral of processor is
 	
 	signal offset_constante_1: std_logic_vector (31 downto 0) := "00000000000000000000000000000001";
 	signal register_31 : std_logic_vector(4 downto 0) := "11111";
-
+	signal valor_16: std_logic_vector (31 downto 0) := "00000000000000000000000000010000"; --usado no lui
 begin
     shift <= (others => offset(31));
   
@@ -138,7 +138,8 @@ begin
     
 		alu_operand1 <= address_of_next_instruction when source_alu_a = "00" else 
 		                register_a when source_alu_a = "01" else
-		                shamt when source_alu_a = "10";
+		                shamt when source_alu_a = "10" else
+						valor_16  when source_alu_a = "11";
 		
 		alu_operand2 <= register_b when source_alu_b = "00" else
 		                offset_constante_1 when source_alu_b = "01" else 

@@ -37,6 +37,7 @@ architecture behavioral of control_unit is
 	constant slti: std_logic_vector (5 downto 0) := "001010";
 	constant funct_or: std_logic_vector (5 downto 0) := "100101";
 	constant ori: std_logic_vector (5 downto 0) := "001101";
+	constant lui: std_logic_vector (5 downto 0) := "001111"; 
 
 
 	function extend_to_32(input: std_logic_vector (15 downto 0)) return std_logic_vector is 
@@ -146,6 +147,11 @@ begin
 					source_alu_b <= "10";
 					alu_operation <= "001";
 					next_state <= writeback;
+			  elsif opcode = lui then
+					source_alu_a <= "11";
+					source_alu_b <= "10";
+					alu_operation <= "101";
+					next_state <= writeback;
 				end if;
 
 			when mem =>
@@ -162,7 +168,7 @@ begin
 				-- write regiter result
         if opcode = lw then
    				 mem_to_register <= '1';
- 				elsif opcode = slti then
+ 				elsif opcode = slti or opcode = lui then
  				  reg_dst <= "00";
  				elsif opcode = jal then
  				  reg_dst <= "10";       
