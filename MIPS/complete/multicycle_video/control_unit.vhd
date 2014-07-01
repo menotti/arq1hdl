@@ -60,14 +60,14 @@ architecture behavioral of control_unit is
 
 begin
 
-  shamt <= extend_to_32_shamt(instruction(10 downto 6));
-  offset <= extend_to_32(instruction(15 downto 0));
-  opcode <= instruction(31 downto 26);
-  funct <= instruction(5 downto 0);
+  	shamt <= extend_to_32_shamt(instruction(10 downto 6));
+  	offset <= extend_to_32(instruction(15 downto 0));
+  	opcode <= instruction(31 downto 26);
+  	funct <= instruction(5 downto 0);
 	register1 <= instruction(25 downto 21);
 	register2 <= instruction(20 downto 16);
 	register3 <= instruction(15 downto 11);
-  jump_offset <= instruction(25 downto 0);
+  	jump_offset <= instruction(25 downto 0);
 
 	next_state_function: process(clock)
 	begin
@@ -82,7 +82,7 @@ begin
 		reg_dst <= "00";
 		source_alu_a <= "00";
 		source_alu_b <= "01";
-   	mem_to_register <= '0';
+   		mem_to_register <= '0';
 		write_memory <= '0';
 		write_register <= '0';
 
@@ -101,69 +101,78 @@ begin
 				enable_alu_output_register <= '1';
 
 				if opcode = lw then
-				  source_alu_a <= "01";
-      		  source_alu_b <= "11";
+				  	source_alu_a <= "01";
+      		  		source_alu_b <= "11";
 					next_state <= mem;
-				elsif opcode = sw then
-				  source_alu_a <= "01";
-      		  source_alu_b <= "11";
-					next_state <= mem;
-				elsif opcode = j then
-				  enable_program_counter <= '1';
-				  pc_source <= "10";
-				  next_state <= fetch;
-				elsif opcode = slti then
-				  source_alu_a <= "01";
-				  source_alu_b <= "10";
-				  alu_operation <= "100";
-				  next_state <= writeback;
-				elsif opcode = jal then
-				   enable_program_counter <= '1';
-				   pc_source <= "10";
-				   source_alu_a <= "00";
-				   source_alu_b <= "01";
-				   next_state <= writeback;   
-				elsif opcode = r then
-				  if funct = jr then
-				    enable_program_counter <= '1';
-				    pc_source <= "00";
-				    source_alu_a <= "01";
-				    source_alu_b <= "00";
-				    next_state <= fetch;
-				  elsif funct = shiftll then
-				    source_alu_a <= "10";
-				    source_alu_b <= "00";
-				    alu_operation <= "101";
-				    next_state <= writeback;
-				 elsif funct = funct_or then					
-					alu_operation <= "001";
-					source_alu_a <= "01";
-					source_alu_b <= "00";
-					next_state <= writeback; 			
 				
-				 elsif funct = funct_sub then
-				   source_alu_a <= "01";
-				   source_alu_b <= "00";
-				   alu_operation <= "011";--subtration
-				   next_state <= writeback;
-				  
-				 elsif funct = funct_and then
-				   source_alu_a <= "01";
-				   source_alu_b <= "00";
-				   alu_operation <= "000"; --and
-				   next_state <= writeback;							
-						
-				  else
-				   source_alu_a <= "01";
-				   source_alu_b <= "00";
+				elsif opcode = sw then
+				  	source_alu_a <= "01";
+      		  		source_alu_b <= "11";
+					next_state <= mem;
+				
+				elsif opcode = j then
+				  	enable_program_counter <= '1';
+				  	pc_source <= "10";
+				  	next_state <= fetch;
+				
+				elsif opcode = slti then
+				  	source_alu_a <= "01";
+				  	source_alu_b <= "10";
+				  	alu_operation <= "100";
 				  	next_state <= writeback;
+				
+				elsif opcode = jal then
+				   	enable_program_counter <= '1';
+				   	pc_source <= "10";
+				   	source_alu_a <= "00";
+				   	source_alu_b <= "01";
+				   	next_state <= writeback;   
+				
+				elsif opcode = r then
+				  	if funct = jr then
+				    	enable_program_counter <= '1';
+				    	pc_source <= "00";
+				    	source_alu_a <= "01";
+				    	source_alu_b <= "00";
+				    	next_state <= fetch;
+				  	
+				  	elsif funct = shiftll then
+				    	source_alu_a <= "10";
+				    	source_alu_b <= "00";
+				    	alu_operation <= "101";
+				    	next_state <= writeback;
+				 	
+				 	elsif funct = funct_or then					
+						alu_operation <= "001";
+						source_alu_a <= "01";
+						source_alu_b <= "00";
+						next_state <= writeback; 			
+				 	
+				 	elsif funct = funct_sub then
+				   		source_alu_a <= "01";
+				   		source_alu_b <= "00";
+				   		alu_operation <= "011";--subtration
+				   		next_state <= writeback;
+				 	
+				 	elsif funct = funct_and then
+				   		source_alu_a <= "01";
+				   		source_alu_b <= "00";
+				   		alu_operation <= "000"; --and
+				   		next_state <= writeback;							
+				  	
+				  	else
+				   		source_alu_a <= "01";
+				   		source_alu_b <= "00";
+				  		next_state <= writeback;
 					end if;
+
 				elsif opcode = ori then
 					source_alu_a <= "01";
 					source_alu_b <= "10";
 					alu_operation <= "001";
 					next_state <= writeback;
-			  elsif opcode = lui then
+			  	
+			  	elsif opcode = lui then
 					source_alu_a <= "11";
 					source_alu_b <= "10";
 					alu_operation <= "101";
@@ -171,29 +180,33 @@ begin
 				end if;
 
 			when mem =>
-        -- memory address calculation
+        	-- memory address calculation
 				if opcode = lw then
-          read_memory <= '1';
+          			read_memory <= '1';
 					next_state <= writeback;
+				
 				else --if opcode = sw then
       				write_memory <= '1';
 					next_state <= fetch; 
 				end if;
 
 			when writeback =>
-				-- write regiter result
-        if opcode = lw then
-   				 mem_to_register <= '1';
+			-- write regiter result
+        		if opcode = lw then
+   					mem_to_register <= '1';
+ 				
  				elsif opcode = slti or opcode = lui then
- 				  reg_dst <= "00";
+ 					reg_dst <= "00";
+ 				
  				elsif opcode = jal then
- 				  reg_dst <= "10";       
-        else
-				  reg_dst <= "01";
-        end if;
+ 				 	reg_dst <= "10";       
+        
+        		else
+					reg_dst <= "01";
+        		end if;
+				
 				write_register <= '1';
 				next_state <= fetch;
-
 		end case;
     
     end if;

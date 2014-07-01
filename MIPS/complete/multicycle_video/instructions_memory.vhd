@@ -25,18 +25,16 @@ architecture behavioral of instructions_memory is
 
 -- ModelSim
     signal instructions: instructions_sequence := (
-    0 => X"8C080000", -- lw  $t0, 0($zero)
-    1 => X"8C090000", -- lw  $t1, 0($zero)
-    2 => X"8C0C0000", -- lw  $t4, 0($zero)
-    3 => X"00094880", -- sll $t1 , $t1 , 2
-    4 => X"00000000", -- noop
-    5 => X"8C0A0004", -- lw  $t2, 4($zero)
-    6 => X"292C0003",  -- slti $t4, $t1, 3
-    7 => X"01094020", -- add $t0, $t0, $t1
-       
-    8 => X"01084824",	-- and $t0, $t0, $t1		
-		9 => X"01084822",	-- sub $t0, $t0, $t1      
-    
+    0 =>  X"8C080000", -- lw  $t0, 0($zero)
+    1 =>  X"8C090000", -- lw  $t1, 0($zero)
+    2 =>  X"8C0C0000", -- lw  $t4, 0($zero)
+    3 =>  X"00094880", -- sll $t1 , $t1 , 2
+    4 =>  X"00000000", -- noop
+    5 =>  X"8C0A0004", -- lw  $t2, 4($zero)
+    6 =>  X"292C0003",  -- slti $t4, $t1, 3
+    7 =>  X"01094020", -- add $t0, $t0, $t1
+    8 =>  X"01084824",	-- and $t0, $t0, $t1		
+		9 =>  X"01084822",	-- sub $t0, $t0, $t1      
     10 => X"3C09F30F", -- lui $t3, 62223
 	  11 => X"01284825", -- or $t1, $t1, $t0
 	  12 => X"35290006", -- ori $t1, $t1, 6
