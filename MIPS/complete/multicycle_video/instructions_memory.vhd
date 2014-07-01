@@ -38,6 +38,7 @@ architecture behavioral of instructions_memory is
     10 => X"3C09F30F", -- lui $t3, 62223
 	  11 => X"01284825", -- or $t1, $t1, $t0
 	  12 => X"35290006", -- ori $t1, $t1, 6
+ 	  12 => X"39290006", -- ori $t1, $t1, 6
     13 => X"AD0A0000", -- sw  $t2, 0($t0)
     14 => X"0800000B", -- j 11
     15 => X"0C00000E", -- jal 14

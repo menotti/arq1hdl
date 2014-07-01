@@ -34,9 +34,11 @@ architecture behavioral of control_unit is
 	constant jr: std_logic_vector(5 downto 0) := "001000";
 	constant jal: std_logic_vector(5 downto 0) := "000011";
 	constant shiftll: std_logic_vector (5 downto 0) := "000000";
+	constant shiftllvar: std_logic_vector (5 downto 0) := "000100";
 	constant slti: std_logic_vector (5 downto 0) := "001010";
 	constant funct_or: std_logic_vector (5 downto 0) := "100101";
 	constant ori: std_logic_vector (5 downto 0) := "001101";
+	constant xori: std_logic_vector (5 downto 0) := "001110";
 	constant lui: std_logic_vector (5 downto 0) := "001111"; 
 	constant funct_sub : std_logic_vector (5 downto 0) := "100010";
 	constant funct_and : std_logic_vector (5 downto 0) := "100100";
@@ -137,6 +139,12 @@ begin
 				    	source_alu_b <= "00";
 				    	next_state <= fetch;
 				  	
+				  	elsif funct = shiftllvar then
+				    	source_alu_a <= "10";
+				    	source_alu_b <= "00";
+				    	alu_operation <= "101";
+				    	next_state <= writeback;
+				    	
 				  	elsif funct = shiftll then
 				    	source_alu_a <= "10";
 				    	source_alu_b <= "00";
@@ -168,6 +176,12 @@ begin
 					end if;
 
 				elsif opcode = ori then
+					source_alu_a <= "01";
+					source_alu_b <= "10";
+					alu_operation <= "001";
+					next_state <= writeback;
+	
+				elsif opcode = xori then
 					source_alu_a <= "01";
 					source_alu_b <= "10";
 					alu_operation <= "001";
