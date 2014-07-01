@@ -38,6 +38,9 @@ architecture behavioral of control_unit is
 	constant funct_or: std_logic_vector (5 downto 0) := "100101";
 	constant ori: std_logic_vector (5 downto 0) := "001101";
 	constant lui: std_logic_vector (5 downto 0) := "001111"; 
+	constant funct_sub : std_logic_vector (5 downto 0) := "100010";
+	constant funct_and : std_logic_vector (5 downto 0) := "100100";
+
 
 
 	function extend_to_32(input: std_logic_vector (15 downto 0)) return std_logic_vector is 
@@ -136,11 +139,24 @@ begin
 					alu_operation <= "001";
 					source_alu_a <= "01";
 					source_alu_b <= "00";
-					next_state <= writeback; 
+					next_state <= writeback; 			
+				
+				 elsif funct = funct_sub then
+				   source_alu_a <= "01";
+				   source_alu_b <= "00";
+				   alu_operation <= "011";--subtration
+				   next_state <= writeback;
+				  
+				 elsif funct = funct_and then
+				   source_alu_a <= "01";
+				   source_alu_b <= "00";
+				   alu_operation <= "000"; --and
+				   next_state <= writeback;							
+						
 				  else
 				   source_alu_a <= "01";
 				   source_alu_b <= "00";
-					next_state <= writeback;
+				  	next_state <= writeback;
 					end if;
 				elsif opcode = ori then
 					source_alu_a <= "01";
@@ -151,7 +167,7 @@ begin
 					source_alu_a <= "11";
 					source_alu_b <= "10";
 					alu_operation <= "101";
-					next_state <= writeback;
+					next_state <= writeback;				   
 				end if;
 
 			when mem =>
