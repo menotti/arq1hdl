@@ -40,6 +40,7 @@ architecture behavioral of control_unit is
 	constant lui: std_logic_vector (5 downto 0) := "001111"; 
 	constant funct_sub : std_logic_vector (5 downto 0) := "100010";
 	constant funct_and : std_logic_vector (5 downto 0) := "100100";
+	constant  addi: std_logic_vector (5 downto 0) := "001000";
 
 
 
@@ -171,6 +172,11 @@ begin
 					source_alu_b <= "10";
 					alu_operation <= "001";
 					next_state <= writeback;
+				
+				elsif opcode = addi then
+					source_alu_a <= "01";
+					source_alu_b <= "10";
+					next_state <= writeback;
 			  	
 			  	elsif opcode = lui then
 					source_alu_a <= "11";
@@ -199,7 +205,11 @@ begin
  					reg_dst <= "00";
  				
  				elsif opcode = jal then
- 				 	reg_dst <= "10";       
+ 				 	reg_dst <= "10"; 
+
+				elsif opcode = addi then
+					mem_to_register <= '0';
+					next_state <= fetch;
         
         		else
 					reg_dst <= "01";
