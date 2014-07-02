@@ -19,8 +19,8 @@ entity control_unit is
     read_memory, write_memory: out std_logic;
     offset,shamt: out std_logic_vector (31 downto 0);
     jump_offset: out std_logic_vector(25 downto 0);
-	bltz_control: out std_logic;
-	bne_control: out std_logic);
+    bltz_control: out std_logic;
+    bne_control: out std_logic);
 end control_unit;
 
 architecture behavioral of control_unit is
@@ -148,12 +148,12 @@ begin
           source_alu_b <= "00";
           bltz_control <= '1';
           next_state <= fetch;
-		elsif opcode = bne then
-		  enable_program_counter <= '1';
+        elsif opcode = bne then
+          enable_program_counter <= '1';
           pc_source <= "11";
           source_alu_a <= "01";
           source_alu_b <= "00";
-		  alu_operation <= "011";
+          alu_operation <= "011";
           bne_control <= '1';
           next_state <= fetch;
         elsif opcode = r then
