@@ -18,7 +18,8 @@ entity control_unit is
     alu_operation: out std_logic_vector (2 downto 0);
     read_memory, write_memory: out std_logic;
     offset,shamt: out std_logic_vector (31 downto 0);
-    jump_offset: out std_logic_vector(25 downto 0));
+    jump_offset: out std_logic_vector(25 downto 0);
+	bltz_control: out std_logic);
 end control_unit;
 
 architecture behavioral of control_unit is
@@ -37,6 +38,7 @@ architecture behavioral of control_unit is
   constant lui           : std_logic_vector(5 downto 0) := "001111"; 
   constant lw            : std_logic_vector(5 downto 0) := "100011";
   constant sw            : std_logic_vector(5 downto 0) := "101011";
+  constant bltz          : std_logic_vector(5 downto 0) := "000001";
   
   constant funct_sll     : std_logic_vector(5 downto 0) := "000000";
   constant funct_sllv    : std_logic_vector(5 downto 0) := "000100";
@@ -88,6 +90,10 @@ begin
         enable_program_counter <= '1';
         next_state <= decode;
       when decode =>
+	    enable_alu_output_register <= '1';
+        source_alu_a <= "00";
+        source_alu_b <= "10";
+        alu_operation <= "010";
         next_state <= alu;
       when alu =>
         enable_alu_output_register <= '1';
@@ -133,6 +139,13 @@ begin
           source_alu_b <= "10";
           alu_operation <= "101";
           next_state <= writeback;
+		elsif opcode = bltz then
+          enable_program_counter <= '1';
+          pc_source <= "11";
+          source_alu_a <= "01";
+          source_alu_b <= "00";
+          bltz_control <= '1';
+          next_state <= fetch;
         elsif opcode = r then
           if funct = funct_jr then
             enable_program_counter <= '1';

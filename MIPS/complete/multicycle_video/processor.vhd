@@ -40,23 +40,24 @@ architecture behavioral of processor is
 			instruction_out: out std_logic_vector (data_width - 1 downto 0));
 	end component;
 
-	component control_unit
-	port (
-		clock: in std_logic;
-		instruction: in std_logic_vector (31 downto 0);
-		enable_program_counter, 
-    enable_alu_output_register: out std_logic := '0';
-		register1, register2, register3: out std_logic_vector (4 downto 0);
-		write_register, mem_to_register: out std_logic;
-		source_alu_a: out std_logic_vector (1 downto 0);
-		source_alu_b: out std_logic_vector (1 downto 0);
-		pc_source: out std_logic_vector (1 downto 0); 
-		reg_dst: out std_logic_vector(1 downto 0);
-		alu_operation: out std_logic_vector (2 downto 0);
-		read_memory, write_memory: out std_logic;
-		offset,shamt: out std_logic_vector (31 downto 0);
-		jump_offset: out std_logic_vector(25 downto 0));
-	end component;
+    component control_unit
+    port (
+      clock: in std_logic;
+      instruction: in std_logic_vector (31 downto 0);
+      enable_program_counter,
+      enable_alu_output_register: out std_logic := '0';
+      register1, register2, register3: out std_logic_vector (4 downto 0);
+      write_register, mem_to_register: out std_logic;
+      source_alu_a: out std_logic_vector (1 downto 0); 
+      source_alu_b: out std_logic_vector (1 downto 0);
+      pc_source: out std_logic_vector (1 downto 0);  
+      reg_dst: out std_logic_vector(1 downto 0);
+      alu_operation: out std_logic_vector (2 downto 0);
+      read_memory, write_memory: out std_logic;
+      offset,shamt: out std_logic_vector (31 downto 0);
+      jump_offset: out std_logic_vector(25 downto 0);
+	  bltz_control: out std_logic);
+    end component;
 
 	component register_bank
 		generic (width: integer := 32);
@@ -102,7 +103,7 @@ architecture behavioral of processor is
 			std_logic_vector (31 downto 0);
 	signal	jump_offset: std_logic_vector(25 downto 0);
 
-	-- Signals related to the banck of registers.
+	-- Signals related to the bank of registers.
 	signal destination_register, register1, register2, register3: std_logic_vector (4 downto 0);
 	signal data_from_register1, data_from_register2, data_to_write_in_register: 
 		std_logic_vector (31 downto 0); 
@@ -113,7 +114,7 @@ architecture behavioral of processor is
 	signal register_a, register_b, alu_result, 		
 	  data_from_alu_output_register: std_logic_vector (31 downto 0);
 	signal reg_dst: std_logic_vector(1 downto 0);
-	signal source_alu_a, source_alu_b,pc_source: std_logic_vector (1 downto 0);
+	signal source_alu_a, source_alu_b, pc_source: std_logic_vector (1 downto 0);
 	signal alu_operation: std_logic_vector (2 downto 0); 
 
 	-- Signals related to the memory access.
@@ -122,9 +123,15 @@ architecture behavioral of processor is
 	signal data_from_memory, offset, offset_s, shamt: std_logic_vector (31 downto 0);
 	signal read_memory, write_memory: std_logic;
 	
+	-- Signals related to branch operations.
+	signal branch_address: std_logic_vector (31 downto 0);
+	signal bltz_control: std_logic;
+	
+	-- Auxiliary signals.
 	signal offset_constante_1: std_logic_vector (31 downto 0) := "00000000000000000000000000000001";
 	signal register_31 : std_logic_vector(4 downto 0) := "11111";
 	signal valor_16: std_logic_vector (31 downto 0) := "00000000000000000000000000010000"; --usado no lui
+	
 begin
     shift <= (others => offset(31));
   
@@ -134,7 +141,8 @@ begin
     
     address_to_point <= alu_result when pc_source = "00" else
                         data_from_alu_output_register when pc_source = "01" else
-                        jump_address when pc_source = "10";
+                        jump_address when pc_source = "10" else
+						branch_address when pc_source = "11";
     
 		alu_operand1 <= address_of_next_instruction when source_alu_a = "00" else 
 		                register_a when source_alu_a = "01" else
@@ -159,6 +167,8 @@ begin
 		data_in_last_modified_register <= data_to_write_in_register;
 		
 		jump_address <= address_of_next_instruction(31 downto 26) & jump_offset;
+		
+		branch_address <= data_from_alu_output_register when bltz_control = '1' and alu_result(31) = '1' else address_of_next_instruction;
 
 		pc: program_counter port map (
 		  clk, 
@@ -193,7 +203,8 @@ begin
 		  write_memory, 
 		  offset,
 		  shamt,  
-		  jump_offset); 
+		  jump_offset,
+		  bltz_control); 
 
 		bank_of_registers: register_bank port map (
 		  clk, 
