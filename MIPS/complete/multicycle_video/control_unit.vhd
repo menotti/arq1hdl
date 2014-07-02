@@ -45,6 +45,7 @@ architecture behavioral of control_unit is
   constant sw            : std_logic_vector(5 downto 0) := "101011";
   constant bltz          : std_logic_vector(5 downto 0) := "000001";
   constant bne           : std_logic_vector(5 downto 0) := "000101";
+  constant sb            : std_logic_vector(5 downto 0) := "101000";
   
   constant funct_sll     : std_logic_vector(5 downto 0) := "000000";
   constant funct_sllv    : std_logic_vector(5 downto 0) := "000100";
@@ -113,6 +114,10 @@ begin
           source_alu_a <= "01";
           source_alu_b <= "11";
           next_state <= mem;
+        elsif opcode = sb then
+          source_alu_a <= "10";
+          source_alu_b <= "11";
+          next_state <= mem; 
         elsif opcode = j then
           enable_program_counter <= '1';
           pc_source <= "10";
@@ -133,11 +138,11 @@ begin
           source_alu_b <= "10";
           alu_operation <= "001";
           next_state <= writeback;
-		elsif opcode = andi then
-		  source_alu_a <= "01";
-		  source_alu_b <= "10";
-		  alu_operation <= "000";
-		  next_state <= writeback;		  
+		    elsif opcode = andi then
+		      source_alu_a <= "01";
+		      source_alu_b <= "10";
+		      alu_operation <= "000";
+		      next_state <= writeback;		  
         elsif opcode = xori then
           source_alu_a <= "01";
           source_alu_b <= "10";
@@ -152,7 +157,7 @@ begin
           source_alu_b <= "10";
           alu_operation <= "101";
           next_state <= writeback;
-		elsif opcode = bltz then
+		    elsif opcode = bltz then
           enable_program_counter <= '1';
           pc_source <= "11";
           source_alu_a <= "01";
@@ -209,8 +214,12 @@ begin
         if opcode = lw then
           read_memory <= '1';
           next_state <= writeback;
-        else --if opcode = sw then
+        elsif opcode = sw then
           write_memory <= '1';
+          next_state <= fetch;
+        elsif opcode = sb then
+          write_memory <= '1';
+          enable_decoder <= '1';
           next_state <= fetch; 
         end if;
       when writeback =>

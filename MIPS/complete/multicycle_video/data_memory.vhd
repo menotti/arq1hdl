@@ -55,37 +55,51 @@ begin
 		variable index: integer;
    begin
    if(rising_edge(clock)) then -- Port A
-    			index := to_integer(unsigned(address_to_write)); 
-       if(write = '1') then
-            if(be(0) = '1') then
-                data(index)(0) <= data_to_write(7 downto 0);
-            end if;
-            if(be(1) = '1') then
-                data(index)(1) <= data_to_write(15 downto 8);
-            end if;
-            if(be(2) = '1') then
-                data(index)(2) <= data_to_write(23 downto 16);
-            end if;
-            if(be(3) = '1') then     
-                data(index)(3) <= data_to_write(31 downto 24);
-            end if;
-        elsif(read = '1') then
-            if(be(0) = '1') then
-                word(0) <= data(index)(0);
-            end if;
-            if(be(1) = '1') then
-                word(1) <= data(index)(1);
-            end if;
-            if(be(2) = '1') then
-                word(2) <= data(index)(2);
-            end if;
-            if(be(3) = '1') then
-                word(3) <= data(index)(3);
-            end if;
-        end if;
-        
-    end if;
-    end process;
+     index := to_integer(unsigned(address_to_write)); 
+     if(write = '1') then
+       if(be = "1111") then       
+         if(be(0) = '1') then
+           data(index)(0) <= data_to_write(7 downto 0);
+         end if;
+         if(be(1) = '1') then
+           data(index)(1) <= data_to_write(15 downto 8);
+         end if;
+         if(be(2) = '1') then
+           data(index)(2) <= data_to_write(23 downto 16);
+         end if;
+         if(be(3) = '1') then     
+           data(index)(3) <= data_to_write(31 downto 24);
+         end if;
+       else
+         if(be(0) = '1') then
+           data(index)(0) <= data_to_write(7 downto 0);
+         end if;
+         if(be(1) = '1') then
+           data(index)(1) <= data_to_write(7 downto 0);
+         end if;
+         if(be(2) = '1') then
+           data(index)(2) <= data_to_write(7 downto 0);
+         end if;
+         if(be(3) = '1') then     
+           data(index)(3) <= data_to_write(7 downto 0);
+         end if;
+       end if; 
+     elsif(read = '1') then
+       if(be(0) = '1') then
+         word(0) <= data(index)(0);
+       end if;
+       if(be(1) = '1') then
+         word(1) <= data(index)(1);
+       end if;
+       if(be(2) = '1') then
+         word(2) <= data(index)(2);
+       end if;
+       if(be(3) = '1') then
+         word(3) <= data(index)(3);
+       end if;
+     end if;   
+  end if;
+end process;
   
  	read_video: process (clock)
 	variable index: integer;

@@ -99,7 +99,7 @@ architecture behavioral of processor is
       enable: in std_logic;
       din: in std_logic_vector (1 downto 0);
       dout: out std_logic_vector (3 downto 0));
-    end component;
+  end component;
 
   signal clk: std_logic;
 
