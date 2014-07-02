@@ -30,6 +30,7 @@ add wave -group alu -radix hexadecimal sim:/t_processor/the_processor/enable_alu
 add wave -group alu -radix hexadecimal sim:/t_processor/the_processor/source_alu_a
 add wave -group alu -radix hexadecimal sim:/t_processor/the_processor/source_alu_b
 add wave -group alu -radix hexadecimal sim:/t_processor/the_processor/data_from_alu_output_register
+add wave -group alu -radix hexadecimal sim:/t_processor/the_processor/flag_z
 
 add wave -group mem -radix hexadecimal sim:/t_processor/the_processor/read_memory
 add wave -group mem -radix hexadecimal sim:/t_processor/the_processor/write_memory

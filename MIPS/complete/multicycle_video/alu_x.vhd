@@ -6,6 +6,7 @@ entity alu_x is
 	generic (width: integer := 32);
 	port (a, b: in std_logic_vector (width - 1 downto 0);
 	operation: in std_logic_vector (2 downto 0);
+	flag_z: out std_logic;
 	result: out std_logic_vector (width - 1 downto 0));
 end alu_x;
 
@@ -61,6 +62,10 @@ end component;
 end component;
 
 	signal x0, x1, x2, x3, x4, x5, x6, x7: std_logic_vector (width - 1 downto 0);
+	
+	signal result_int: std_logic_vector(width - 1 downto 0);
+	
+	constant zero_values: std_logic_vector (width - 1 downto 0) := (others => '0');
 
 	begin
 
@@ -71,6 +76,10 @@ end component;
 		slt: slt_x generic map (width) port map (a, b, x4);
 		sllx: sll_x generic map (width) port map (a, b, x5);
 		xor_x_1: xor_x generic map (width) port map (a, b, x6);
-		multx: multiplexer generic map (width) port map (x0, x1, x2, x3, x4, x5, x6, x7, 			operation, result);
+		multx: multiplexer generic map (width) port map (x0, x1, x2, x3, x4, x5, x6, x7, operation, result_int);
+		
+		flag_z <= '1' when result_int=zero_values else '0';
+		
+		result <= result_int;
  
 end structural;

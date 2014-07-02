@@ -90,6 +90,7 @@ architecture behavioral of processor is
 		port (
 			a, b: in std_logic_vector (width - 1 downto 0);
 		operation: in std_logic_vector (2 downto 0);
+		flag_z: out std_logic;
 		result: out std_logic_vector (width - 1 downto 0));
 	end component;
 
@@ -116,6 +117,7 @@ architecture behavioral of processor is
 	signal reg_dst: std_logic_vector(1 downto 0);
 	signal source_alu_a, source_alu_b, pc_source: std_logic_vector (1 downto 0);
 	signal alu_operation: std_logic_vector (2 downto 0); 
+	signal flag_z: std_logic;
 
 	-- Signals related to the memory access.
 	signal address_to_read, address_to_write: std_logic_vector (31 downto 0);
@@ -220,7 +222,7 @@ begin
 
 --		alu_input_register_b: state_register port map (clk, enable_alu_input_registers, 			data_from_register2, alu_operand2);
 
-		alu: alu_x port map (alu_operand1, alu_operand2, alu_operation, alu_result);
+		alu: alu_x port map (alu_operand1, alu_operand2, alu_operation,  flag_z , alu_result);
 
 		alu_output_register: state_register port map (clk, enable_alu_output_register,	alu_result, data_from_alu_output_register);
 
