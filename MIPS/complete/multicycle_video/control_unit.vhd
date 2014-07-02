@@ -9,6 +9,7 @@ entity control_unit is
     instruction: in std_logic_vector (31 downto 0);
     enable_program_counter,
     enable_alu_output_register: out std_logic := '0';
+    enable_decoder: out std_logic;
     register1, register2, register3: out std_logic_vector (4 downto 0);
     write_register, mem_to_register: out std_logic;
     source_alu_a: out std_logic_vector (1 downto 0); 
@@ -17,8 +18,10 @@ entity control_unit is
     reg_dst: out std_logic_vector(1 downto 0);
     alu_operation: out std_logic_vector (2 downto 0);
     read_memory, write_memory: out std_logic;
-    offset,shamt: out std_logic_vector (31 downto 0);
-    jump_offset: out std_logic_vector(25 downto 0);
+    byte_offset: out std_logic_vector (1 downto 0);
+    offset, shamt: out std_logic_vector (31 downto 0);
+    byte_enable: out std_logic_vector (1 downto 0);
+    jump_offset: out std_logic_vector (25 downto 0);
     bltz_control: out std_logic;
     bne_control: out std_logic);
 end control_unit;
@@ -71,6 +74,7 @@ begin
   register1 <= instruction(25 downto 21);
   register2 <= instruction(20 downto 16);
   register3 <= instruction(15 downto 11);
+  byte_offset <= instruction(1 downto 0);
   jump_offset <= instruction(25 downto 0);
 
   next_state_function: process(clock)
@@ -80,6 +84,7 @@ begin
       pc_source <= "00";
       enable_alu_output_register <= '0';
       enable_program_counter <= '0';
+      enable_decoder <= '0';
       read_memory <= '0';
       reg_dst <= "00";
       source_alu_a <= "00";

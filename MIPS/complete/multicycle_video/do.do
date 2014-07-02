@@ -37,6 +37,9 @@ add wave -group mem -radix hexadecimal sim:/t_processor/the_processor/write_memo
 add wave -group mem -radix hexadecimal sim:/t_processor/the_processor/write_register
 add wave -group mem -radix hexadecimal sim:/t_processor/the_processor/address_to_read
 add wave -group mem -radix hexadecimal sim:/t_processor/the_processor/address_to_write
+add wave -group mem -radix hexadecimal sim:/t_processor/the_processor/enable_decoder
+add wave -group mem -radix hexadecimal sim:/t_processor/the_processor/byte_offset
+add wave -group mem -radix binary      sim:/t_processor/the_processor/byte_enable
 add wave -group mem -radix hexadecimal sim:/t_processor/the_processor/data_from_memory
 
 

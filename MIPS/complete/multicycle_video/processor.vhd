@@ -33,7 +33,6 @@ architecture behavioral of processor is
       length: integer := 256;
       address_width: integer := 32;
       data_width: integer := 32);
-
     port (
       clock, enable: in std_logic;
       address_to_read: in std_logic_vector (address_width - 1 downto 0);
@@ -46,6 +45,7 @@ architecture behavioral of processor is
       instruction: in std_logic_vector (31 downto 0);
       enable_program_counter,
       enable_alu_output_register: out std_logic := '0';
+      enable_decoder: out std_logic;
       register1, register2, register3: out std_logic_vector (4 downto 0);
       write_register, mem_to_register: out std_logic;
       source_alu_a: out std_logic_vector (1 downto 0); 
@@ -55,6 +55,7 @@ architecture behavioral of processor is
       alu_operation: out std_logic_vector (2 downto 0);
       read_memory, write_memory: out std_logic;
       offset,shamt: out std_logic_vector (31 downto 0);
+      byte_offset: out std_logic_vector (1 downto 0);
       jump_offset: out std_logic_vector(25 downto 0);
       bltz_control: out std_logic;
       bne_control: out std_logic);
@@ -62,7 +63,6 @@ architecture behavioral of processor is
 
   component register_bank
     generic (width: integer := 32);
-
     port (
       clock: in std_logic;
       register_to_read1, register_to_read2, register_to_write: 
@@ -76,18 +76,17 @@ architecture behavioral of processor is
     generic (
       address_width: integer := 12;
       data_width: integer := 32);
-
     port (
       clock: std_logic;
       address_to_read, address_to_write, video_address: in std_logic_vector (address_width - 1 downto 0);
       data_to_write: in std_logic_vector (data_width - 1 downto 0);
       read, write: in std_logic;
+      be: in std_logic_vector (3 downto 0);
       data_out, video_out: out std_logic_vector (data_width - 1 downto 0));
 	end component;
 
   component alu_x
     generic (width: integer := 32);
-
     port (
       a, b: in std_logic_vector (width - 1 downto 0);
       operation: in std_logic_vector (2 downto 0);
@@ -95,10 +94,17 @@ architecture behavioral of processor is
       result: out std_logic_vector (width - 1 downto 0));
   end component;
 
+  component decoder_x
+    port (
+      enable: in std_logic;
+      din: in std_logic_vector (1 downto 0);
+      dout: out std_logic_vector (3 downto 0));
+    end component;
+
   signal clk: std_logic;
 
   -- control signals for state elements.
-  signal enable_program_counter, 	enable_alu_output_register: std_logic;
+  signal enable_program_counter, enable_alu_output_register: std_logic;
 
   -- Signals related to the instruction fetch state.
   signal address_of_next_instruction, instruction, data_from_instruction_register, jump_address, address_to_point: std_logic_vector(31 downto 0);
@@ -122,6 +128,9 @@ architecture behavioral of processor is
   signal shift: std_logic_vector(1 downto 0);
   signal data_from_memory, offset, offset_s, shamt: std_logic_vector(31 downto 0);
   signal read_memory, write_memory: std_logic;
+  signal enable_decoder: std_logic;
+  signal byte_offset: std_logic_vector(1 downto 0);
+  signal byte_enable: std_logic_vector(3 downto 0);
 
   -- Signals related to branch operations.
   signal branch_address: std_logic_vector (31 downto 0);
@@ -191,7 +200,8 @@ begin
     clk,
     instruction, 			
     enable_program_counter,  			
-    enable_alu_output_register, 
+    enable_alu_output_register,
+    enable_decoder,
     register1, 
     register2, 
     register3, 
@@ -205,7 +215,8 @@ begin
     read_memory, 
     write_memory, 
     offset,
-    shamt,  
+    shamt,
+    byte_offset,  
     jump_offset,
     bltz_control,
     bne_control); 
@@ -228,6 +239,11 @@ begin
 
   alu_output_register: state_register port map (clk, enable_alu_output_register,	alu_result, data_from_alu_output_register);
 
+  decoder : decoder_x port map (
+    enable_decoder,
+    byte_offset,
+    byte_enable);
+
   memory_of_data : data_memory port map (
     clock, 
     address_to_read(11 downto 0), 
@@ -235,7 +251,8 @@ begin
     video_address,	
     register_b, 
     read_memory, 
-    write_memory, 
+    write_memory,
+    byte_enable, 
     data_from_memory, 
     video_out);     
 
