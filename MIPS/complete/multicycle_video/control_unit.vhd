@@ -38,6 +38,7 @@ architecture behavioral of control_unit is
   constant addi          : std_logic_vector(5 downto 0) := "001000";
   constant slti          : std_logic_vector(5 downto 0) := "001010";
   constant ori           : std_logic_vector(5 downto 0) := "001101";
+  constant andi          : std_logic_vector(5 downto 0) := "001100";
   constant xori          : std_logic_vector(5 downto 0) := "001110";
   constant lui           : std_logic_vector(5 downto 0) := "001111"; 
   constant lw            : std_logic_vector(5 downto 0) := "100011";
@@ -132,6 +133,11 @@ begin
           source_alu_b <= "10";
           alu_operation <= "001";
           next_state <= writeback;
+		elsif opcode = andi then
+		  source_alu_a <= "01";
+		  source_alu_b <= "10";
+		  alu_operation <= "000";
+		  next_state <= writeback;		  
         elsif opcode = xori then
           source_alu_a <= "01";
           source_alu_b <= "10";
