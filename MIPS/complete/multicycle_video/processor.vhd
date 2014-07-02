@@ -56,7 +56,8 @@ architecture behavioral of processor is
       read_memory, write_memory: out std_logic;
       offset,shamt: out std_logic_vector (31 downto 0);
       jump_offset: out std_logic_vector(25 downto 0);
-	  bltz_control: out std_logic);
+	  bltz_control: out std_logic;
+	  bne_control: out std_logic);
     end component;
 
 	component register_bank
@@ -128,6 +129,7 @@ architecture behavioral of processor is
 	-- Signals related to branch operations.
 	signal branch_address: std_logic_vector (31 downto 0);
 	signal bltz_control: std_logic;
+	signal bne_control: std_logic;
 	
 	-- Auxiliary signals.
 	signal offset_constante_1: std_logic_vector (31 downto 0) := "00000000000000000000000000000001";
@@ -170,7 +172,9 @@ begin
 		
 		jump_address <= address_of_next_instruction(31 downto 26) & jump_offset;
 		
-		branch_address <= data_from_alu_output_register when bltz_control = '1' and alu_result(31) = '1' else address_of_next_instruction;
+		branch_address <= data_from_alu_output_register when (bltz_control = '1' and alu_result(31) = '1') or 
+                                                             (bne_control = '1' and flag_z = '0') 
+                                                              else address_of_next_instruction;
 
 		pc: program_counter port map (
 		  clk, 
@@ -206,7 +210,8 @@ begin
 		  offset,
 		  shamt,  
 		  jump_offset,
-		  bltz_control); 
+		  bltz_control,
+		  bne_control); 
 
 		bank_of_registers: register_bank port map (
 		  clk, 
