@@ -23,9 +23,9 @@ architecture behavioral of data_memory is
 	--type data_sequence is array (0 to 2**address_width - 1) of std_logic_vector (data_width - 1 downto 0); 
 
 --  Quartus II 
---	 signal data: data_sequence;
---  attribute ram_init_file : string;
---  attribute ram_init_file of data : signal is "data_memory.mif";
+	 signal data: data_sequence;
+   attribute ram_init_file : string;
+   attribute ram_init_file of data : signal is "data_memory.mif";
   
 -- ModelSim
 
@@ -33,14 +33,14 @@ architecture behavioral of data_memory is
     signal video_local: std_logic_vector (data_width - 1 downto 0);
     
 		signal word: word_t;
-		signal data: data_sequence := (
-		  0 => ((0) => X"01",
-		        others => X"00"),
-      1 => ((0) => X"AA",
-            (1) => X"AA",
-            (2) => X"F0",
-            (3) => X"F0"),
-      others => (others => (others => '0')));
+--		signal data: data_sequence := (
+--		  0 => ((0) => X"01",
+--		        others => X"00"),
+--      1 => ((0) => X"AA",
+--            (1) => X"AA",
+--            (2) => X"F0",
+--            (3) => X"F0"),
+--      others => (others => (others => '0')));
 		
 begin
     unpack: for i in 0 to 3 generate 
