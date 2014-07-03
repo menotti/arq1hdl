@@ -66,6 +66,6 @@ add wave -group video sim:/t_processor/disp_ena_d
 
 configure wave -shortnames 1
 
-run 700 ns
+run 1200 ns
 
 wave zoom full

@@ -11,7 +11,7 @@ entity multiplexer is
 			x4, -- set on less than 
 			x5, -- sll 
 			x6, -- xor
-			x7 -- not implemented yet.
+			x7 -- bitwise nand
 				: in std_logic_vector (width - 1 downto 0);
 		selection: in std_logic_vector (2 downto 0);
 		output: out std_logic_vector (width - 1 downto 0));
@@ -31,6 +31,7 @@ begin
 		x4 when selection = "100" else
 		x5 when selection = "101" else
 		x6 when selection = "110" else
+		x7 when selection = "111" else
 		unknown;
 
 end structural;

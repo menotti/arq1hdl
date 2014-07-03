@@ -29,8 +29,8 @@ architecture behavioral of instructions_memory is
     1 =>  X"8C090004", -- lw  $t1, 4($zero)
     2 =>  X"A009000B", -- sb  $t1, 11($zero)
     3 =>  X"8C0C0000", -- lw  $t4, 0($zero)
-	  4 =>  X"05200001", -- bltz $t1, 5
-	  5 =>  X"8C090000", -- lw  $t1, 0($zero)
+	4 =>  X"05200001", -- bltz $t1, 5
+	5 =>  X"8C090000", -- lw  $t1, 0($zero)
     6 =>  X"00094880", -- sll $t1 , $t1 , 2
     7 =>  X"00000000", -- noop
     8 =>  X"8C0A0004", -- lw  $t2, 4($zero)
@@ -43,11 +43,15 @@ architecture behavioral of instructions_memory is
     15 => X"01284825", -- or $t1, $t1, $t0
     16 => X"35290006", -- ori $t1, $t1, 6
     17 => X"39290006", -- ori $t1, $t1, 6
-	  178=> X"31290008", -- andi $t1, $t1, 8
+	18=> X"31290008", -- andi $t1, $t1, 8
     19 => X"AD0A0000", -- sw  $t2, 0($t0)
-    20 => X"0800000B", -- j 11
-    21 => X"0C00000E", -- jal 14
-    22 => X"01200008", -- jr $t1
+    20 => X"20080007", -- addi $t0, $zero, 7
+    21 => X"20090008", -- addi $t1, $zero, 8    
+    22 => X"0108402D", -- nand $t0, $t0, $t0
+    23 => X"0109482D", -- nand $t1, $t0, $t1    
+    24 => X"0800000B", -- j 11
+    25 => X"0C00000E", -- jal 14
+    26 => X"01200008", -- jr $t1
     
     others => (others => '0'));
 
