@@ -53,6 +53,7 @@ architecture behavioral of control_unit is
   constant funct_sub     : std_logic_vector(5 downto 0) := "100010";
   constant funct_and     : std_logic_vector(5 downto 0) := "100100";
   constant funct_or      : std_logic_vector(5 downto 0) := "100101";
+  constant funct_xor     : std_logic_vector(5 downto 0) := "100110";
 
   function extend_to_32(input: std_logic_vector (15 downto 0)) return std_logic_vector is 
   variable s: signed (31 downto 0);
@@ -203,6 +204,11 @@ begin
             source_alu_a <= "01";
             source_alu_b <= "00";
             alu_operation <= "000"; --and
+            next_state <= writeback;
+          elsif funct = funct_xor then
+            source_alu_a <= "01";
+            source_alu_b <= "00";
+            alu_operation <= "110";
             next_state <= writeback;
           else
             source_alu_a <= "01";
