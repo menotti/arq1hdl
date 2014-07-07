@@ -23,7 +23,7 @@ entity control_unit is
     offset, shamt: out std_logic_vector (31 downto 0);
     byte_enable: out std_logic_vector (1 downto 0);
     jump_offset: out std_logic_vector (25 downto 0);
-    bltz_control: out std_logic;
+    branch_cp_z_control: out std_logic; -- branch comparing to zero control
     bne_control: out std_logic);
 end control_unit;
 
@@ -46,12 +46,12 @@ architecture behavioral of control_unit is
   constant lui           : std_logic_vector(5 downto 0) := "001111"; 
   constant lw            : std_logic_vector(5 downto 0) := "100011";
   constant sw            : std_logic_vector(5 downto 0) := "101011";
-  constant bltz          : std_logic_vector(5 downto 0) := "000001"; -- same for bltz and bgezal
+  constant branch_cp_z   : std_logic_vector(5 downto 0) := "000001"; -- bltz; bgez; bltzal; bgezal
   constant bne           : std_logic_vector(5 downto 0) := "000101";
   constant sb            : std_logic_vector(5 downto 0) := "101000";
   
   constant funct_sll     : std_logic_vector(5 downto 0) := "000000";
-  constant funct_sllv    : std_logic_vector(5 downto 0) := "000100";
+  constant funct_sllv    : std_logic_vector(5 downto 0) := "000100";  
   constant funct_jr      : std_logic_vector(5 downto 0) := "001000";
   constant funct_sub     : std_logic_vector(5 downto 0) := "100010";
   constant funct_and     : std_logic_vector(5 downto 0) := "100100";
@@ -61,6 +61,7 @@ architecture behavioral of control_unit is
   
   constant funct_bgezal  : std_logic_vector(4 downto 0) := "10001";
   constant funct_bltz    : std_logic_vector(4 downto 0) := "00000";
+  constant funct_bgez    : std_logic_vector(4 downto 0) := "00001";
 
   function extend_to_32(input: std_logic_vector (15 downto 0)) return std_logic_vector is 
   variable s: signed (31 downto 0);
@@ -166,22 +167,21 @@ begin
           source_alu_b <= "010";
           alu_operation <= "101";
           next_state <= writeback;
-		elsif opcode = bltz then
-		  if branch_funct = funct_bltz then
-            enable_program_counter <= '1';
-            pc_source <= "11";
-            source_alu_a <= "01"; 
-            source_alu_b <= "000";
-            bltz_control <= '1';
-            next_state <= fetch;
-			
-		  elsif branch_funct = funct_bgezal then
-		      enable_alu_output_register <= '1';
-              source_alu_a <= "00";
-              source_alu_b <= "100";
-              alu_operation <= "010";
-			  next_state <= writeback;
-		  end if;
+		    elsif opcode = branch_cp_z then
+		         if branch_funct = funct_bltz then
+               enable_program_counter <= '1';
+               pc_source <= "11";
+               source_alu_a <= "01"; 
+               source_alu_b <= "000";
+               branch_cp_z_control <= '1';
+               next_state <= fetch;
+		         elsif branch_funct = (funct_bgezal or funct_bgez) then
+		           enable_alu_output_register <= '1';
+               source_alu_a <= "00";
+               source_alu_b <= "100";
+               alu_operation <= "010";
+			         next_state <= writeback;
+		         end if;
         elsif opcode = bne then
           enable_program_counter <= '1';
           pc_source <= "11";
@@ -198,7 +198,7 @@ begin
             source_alu_b <= "000";
             next_state <= fetch;
           elsif funct = funct_sllv then
-            source_alu_a <= "10";
+            source_alu_a <= "01";
             source_alu_b <= "000";
             alu_operation <= "101";
             next_state <= writeback;
@@ -264,17 +264,27 @@ begin
           mem_to_register <= '0';
           write_register <= '1';
           
-        elsif opcode = bltz and branch_funct = funct_bgezal then
-          source_alu_a <= "00";
-          source_alu_b <= "011";
-          alu_operation <= "010";
-			    if msb_a = '0' then
-			      pc_source <= "00";
-			      reg_dst <= "10";
-         	      mem_to_register <= '0';
-       			  write_register <= '1';
-       			  enable_program_counter <= '1';
-       			end if;
+        elsif opcode = branch_cp_z then
+           if branch_funct = funct_bgezal then
+             source_alu_a <= "00";
+             source_alu_b <= "011";
+             alu_operation <= "010";
+			       if msb_a = '0' then
+			         pc_source <= "00";
+			         reg_dst <= "10";
+         	     mem_to_register <= '0';
+       			     write_register <= '1';
+       			     enable_program_counter <= '1';
+       			   end if; -- msb_a = '0'
+ 			     elsif branch_funct = funct_bgez then
+ 			       source_alu_a <= "00";
+             source_alu_b <= "011";
+             alu_operation <= "010";
+			       if msb_a = '0' then
+			         pc_source <= "00";
+       			     enable_program_counter <= '1';
+       			   end if; -- msb_a = '0'
+  			     end if; -- branch_funct
         else
           reg_dst <= "01";
           write_register <= '1';

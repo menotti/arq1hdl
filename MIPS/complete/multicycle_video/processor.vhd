@@ -58,7 +58,7 @@ architecture behavioral of processor is
       offset,shamt: out std_logic_vector (31 downto 0);
       byte_offset: out std_logic_vector (1 downto 0);
       jump_offset: out std_logic_vector(25 downto 0);
-      bltz_control: out std_logic;
+      branch_cp_z_control: out std_logic;
       bne_control: out std_logic);
   end component;
 
