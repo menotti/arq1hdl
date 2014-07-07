@@ -4,22 +4,24 @@ USE ieee.numeric_std.all;
 
 ENTITY de1 IS
 	PORT(
-		CLOCK_24	:	IN		STD_LOGIC_VECTOR(0 DOWNTO 0);	
-		CLOCK_27	:	IN		STD_LOGIC_VECTOR(0 DOWNTO 0);	
-		CLOCK_50	:	IN		STD_LOGIC;	
-    KEY       : IN    STD_LOGIC_VECTOR(3 DOWNTO 0);
-    SW        : IN    STD_LOGIC_VECTOR(9 DOWNTO 0);	
-    LEDR      : OUT   STD_LOGIC_VECTOR(9 DOWNTO 0);
-    LEDG      : OUT   STD_LOGIC_VECTOR(7 DOWNTO 0);
-		VGA_R 		:	OUT		STD_LOGIC_VECTOR(3 DOWNTO 0);
-		VGA_G 		:	OUT		STD_LOGIC_VECTOR(3 DOWNTO 0);
-		VGA_B 		:	OUT		STD_LOGIC_VECTOR(3 DOWNTO 0);
-		VGA_HS 		:	OUT		STD_LOGIC;
-		VGA_VS 		:	OUT		STD_LOGIC;
-    HEX3      : OUT  STD_LOGIC_VECTOR(6 DOWNTO 0);
-    HEX2      : OUT  STD_LOGIC_VECTOR(6 DOWNTO 0);
-    HEX1      : OUT  STD_LOGIC_VECTOR(6 DOWNTO 0);
-    HEX0      : OUT  STD_LOGIC_VECTOR(6 DOWNTO 0));
+		CLOCK_24	: IN	  STD_LOGIC_VECTOR(0 DOWNTO 0);	
+		CLOCK_27	: IN	  STD_LOGIC_VECTOR(0 DOWNTO 0);	
+		CLOCK_50	: IN	  STD_LOGIC;	
+		KEY      : IN    STD_LOGIC_VECTOR(3 DOWNTO 0);
+		SW       : IN    STD_LOGIC_VECTOR(9 DOWNTO 0);	
+		LEDR     : OUT   STD_LOGIC_VECTOR(9 DOWNTO 0);
+		LEDG     : OUT   STD_LOGIC_VECTOR(7 DOWNTO 0);
+		VGA_R 	: OUT	  STD_LOGIC_VECTOR(3 DOWNTO 0);
+		VGA_G 	: OUT	  STD_LOGIC_VECTOR(3 DOWNTO 0);
+		VGA_B 	: OUT	  STD_LOGIC_VECTOR(3 DOWNTO 0);
+		VGA_HS 	: OUT	  STD_LOGIC;
+		VGA_VS 	: OUT	  STD_LOGIC;
+		HEX3     : OUT   STD_LOGIC_VECTOR(6 DOWNTO 0);
+		HEX2     : OUT   STD_LOGIC_VECTOR(6 DOWNTO 0);
+		HEX1     : OUT   STD_LOGIC_VECTOR(6 DOWNTO 0);
+		HEX0     : OUT   STD_LOGIC_VECTOR(6 DOWNTO 0);
+		PS2_DAT	: INOUT std_logic;
+        PS2_CLK 	: INOUT std_logic);
 END de1;
 
 ARCHITECTURE behavior OF de1 IS
@@ -81,16 +83,27 @@ component dec7seg
     segment   : out STD_LOGIC_VECTOR(6 downto 0));
 END component;
 
+component MOUSE
+	port(
+		  clock, reset 				: IN std_logic;
+          data_mouse					: INOUT std_logic;
+          clock_mouse 					: INOUT std_logic;
+          left_button, right_button: OUT std_logic;
+		  mouse_cursor_row 		   : OUT std_logic_vector(9 DOWNTO 0); 
+		  mouse_cursor_column		: OUT std_logic_vector(9 DOWNTO 0));    
+end component;
+
 
 SIGNAL disp_ena, pixel_clk: std_logic;
 SIGNAL row, column: integer;
 SIGNAL video_address: std_LOGIC_VECTOR(11 downto 0);
 signal instruction_address, current_instruction, data_in_last_modified_register, video_out: std_logic_vector(31 downto 0);
+SIGNAL mouse_cursor_column		: std_logic_vector(9 DOWNTO 0); 
 
 BEGIN
 
-  LEDR <= data_in_last_modified_register(9 downto 0);
-  LEDG <= current_instruction(31 downto 24);
+  --LEDR <= data_in_last_modified_register(9 downto 0);
+  --LEDG <= current_instruction(31 downto 24);
   
   d3: dec7seg port map (
     instruction_address(15 downto 12),
@@ -138,5 +151,16 @@ BEGIN
     disp_ena, 
     column, 
     row);
+	
+	mouse_sp2: MOUSE port map (
+		CLOCK_24(0),
+		sw(0),
+		PS2_DAT,
+		PS2_CLK,		
+		ledg(1),
+		ledg(0),
+		ledr,
+		mouse_cursor_column
+	);
   
 END behavior;
