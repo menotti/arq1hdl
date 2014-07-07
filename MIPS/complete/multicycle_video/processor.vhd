@@ -158,24 +158,28 @@ begin
   address_to_point <= alu_result when pc_source = "00" else
                       data_from_alu_output_register when pc_source = "01" else
                       jump_address when pc_source = "10" else
-                      branch_address when pc_source = "11";
+                      branch_address when pc_source = "11" else 
+                      (others => '0');
     
   alu_operand1 <= address_of_next_instruction when source_alu_a = "00" else 
                   register_a when source_alu_a = "01" else
                   shamt when source_alu_a = "10" else
-                  valor_16  when source_alu_a = "11";
+                  valor_16  when source_alu_a = "11" else 
+                  (others => '0');
 
   alu_operand2 <= register_b when source_alu_b = "000" else
                   offset_constante_1 when source_alu_b = "001" else 
                   offset when source_alu_b = "010" else
                   offset_s when source_alu_b = "011" else
-				          offset_constante_0 when source_alu_b = "100";
+				          offset_constante_0 when source_alu_b = "100" else 
+                  (others => '0');
 
   data_to_write_in_register <= data_from_memory when mem_to_register = '1' else data_from_alu_output_register;
 
   destination_register <= register2 when reg_dst = "00" else 
                           register3 when reg_dst = "01" else
-                          register_31 when reg_dst = "10";
+                          register_31 when reg_dst = "10" else 
+                          (others => '0');
 
   address_to_read <= data_from_alu_output_register;
   address_to_write <= data_from_alu_output_register;
