@@ -5,7 +5,7 @@ USE  IEEE.STD_LOGIC_UNSIGNED.all;
 
 ENTITY keyboard IS
 	PORT(	keyboard_clk, keyboard_data, clock_25Mhz , 
-			reset, read		: IN	STD_LOGIC;
+			reset, rd		: IN	STD_LOGIC;
 			scan_code		: OUT	STD_LOGIC_VECTOR(7 DOWNTO 0);
 			scan_ready		: OUT	STD_LOGIC);
 END keyboard;
@@ -19,9 +19,9 @@ ARCHITECTURE a OF keyboard IS
 	SIGNAL filter 					: std_logic_vector(7 downto 0);
 BEGIN
 
-PROCESS (read, ready_set)
+PROCESS (rd, ready_set)
 BEGIN
-  IF read = '1' THEN scan_ready <= '0';
+  IF rd = '1' THEN scan_ready <= '0';
   ELSIF ready_set'EVENT and ready_set = '1' THEN
 	scan_ready <= '1';
   END IF;
