@@ -59,7 +59,9 @@ architecture behavioral of processor is
       byte_offset: out std_logic_vector (1 downto 0);
       jump_offset: out std_logic_vector(25 downto 0);
       branch_cp_z_control: out std_logic;
-      bne_control: out std_logic);
+      bne_control: out std_logic;
+		syscall_control: out std_logic;
+      v0_syscall : in std_logic_vector(31 downto 0));
   end component;
 
   component register_bank
@@ -145,6 +147,10 @@ architecture behavioral of processor is
   signal offset_constante_0: std_logic_vector(31 downto 0) := "00000000000000000000000000000000";
   signal register_31 : std_logic_vector(4 downto 0) := "11111";
   signal valor_16: std_logic_vector(31 downto 0) := "00000000000000000000000000010000"; --usado no lui
+  
+   --Signals related to syscall operation
+  signal syscall_control: std_logic;
+  signal v0_syscall : std_logic_vector(31 downto 0);
 
 begin
   shift <= (others => offset(31));
@@ -154,6 +160,8 @@ begin
   msb_a <= register_a(31);
 
   instruction_address <= address_of_next_instruction;
+      
+  v0_syscall <= register_a when syscall_control = '1';
 
   address_to_point <= alu_result when pc_source = "00" else
                       data_from_alu_output_register when pc_source = "01" else
@@ -230,7 +238,9 @@ begin
     byte_offset,  
     jump_offset,
     bltz_control,
-    bne_control); 
+    bne_control,
+	 syscall_control,
+    v0_syscall); 
 
   bank_of_registers: register_bank port map (
     clk, 

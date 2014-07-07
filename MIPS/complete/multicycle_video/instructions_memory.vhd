@@ -25,7 +25,7 @@ architecture behavioral of instructions_memory is
 
 -- ModelSim
    -- signal instructions: instructions_sequence := (
- --   0 =>  X"8C080000", -- lw  $t0, 0($zero)
+   --0 =>  X"8C080000", -- lw  $t0, 0($zero)
  --   1 =>  X"8C090004", -- lw  $t1, 4($zero)
   --  2 =>  X"A009000B", -- sb  $t1, 11($zero)
    -- 3 =>  X"8C0C0000", -- lw  $t4, 0($zero)
@@ -56,7 +56,7 @@ architecture behavioral of instructions_memory is
    -- 28 => X"0C00000E", -- jal 14
     --29 => X"01200008", -- jr $t1
     
-    --others => (others => '0'));
+  --  others => (others => '0'));
 
 begin
 

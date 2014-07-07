@@ -24,7 +24,9 @@ entity control_unit is
     byte_enable: out std_logic_vector (1 downto 0);
     jump_offset: out std_logic_vector (25 downto 0);
     branch_cp_z_control: out std_logic; -- branch comparing to zero control
-    bne_control: out std_logic);
+    bne_control: out std_logic;
+	 syscall_control:out std_logic;
+    v0_syscall : in std_logic_vector (31 downto 0));
 end control_unit;
 
 architecture behavioral of control_unit is
@@ -62,7 +64,9 @@ architecture behavioral of control_unit is
   constant funct_bgezal  : std_logic_vector(4 downto 0) := "10001";
   constant funct_bltz    : std_logic_vector(4 downto 0) := "00000";
   constant funct_bgez    : std_logic_vector(4 downto 0) := "00001";
+  constant funct_syscall : std_logic_vector(5 downto 0) := "001100";
 
+  
   function extend_to_32(input: std_logic_vector (15 downto 0)) return std_logic_vector is 
   variable s: signed (31 downto 0);
   begin
@@ -104,6 +108,8 @@ begin
       mem_to_register <= '0';
       write_memory <= '0';
       write_register <= '0';
+		syscall_control <= '0';
+				
       case next_state is
       when fetch =>
         enable_program_counter <= '1';
@@ -232,6 +238,14 @@ begin
             source_alu_b <= "000";
             alu_operation <= "111"; --nand
             next_state <= writeback;
+			
+			--implementacao da syscall
+          elsif funct = funct_syscall then
+            --register1 <= "00100"; -- a0
+            --register2 <= "00010"; -- v0
+            syscall_control <= '1';
+            next_state <= fetch;    
+			
           else
             source_alu_a <= "01";
             source_alu_b <= "000";
@@ -285,6 +299,12 @@ begin
        			     enable_program_counter <= '1';
        			   end if; -- msb_a = '0'
   			     end if; -- branch_funct
+				  
+		  elsif funct = funct_syscall then
+          if v0_syscall = "00000000000000000000000000000110" then
+            
+          end if;      		
+			 
         else
           reg_dst <= "01";
           write_register <= '1';
