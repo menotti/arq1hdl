@@ -43,13 +43,14 @@ architecture behavioral of processor is
     port (
       clock: in std_logic;
       instruction: in std_logic_vector (31 downto 0);
+	    msb_a: in std_logic;
       enable_program_counter,
       enable_alu_output_register: out std_logic := '0';
       enable_decoder: out std_logic;
       register1, register2, register3: out std_logic_vector (4 downto 0);
       write_register, mem_to_register: out std_logic;
       source_alu_a: out std_logic_vector (1 downto 0); 
-      source_alu_b: out std_logic_vector (1 downto 0);
+      source_alu_b: out std_logic_vector (2 downto 0);
       pc_source: out std_logic_vector (1 downto 0);  
       reg_dst: out std_logic_vector(1 downto 0);
       alu_operation: out std_logic_vector (2 downto 0);
@@ -119,8 +120,8 @@ architecture behavioral of processor is
   signal alu_operand1, alu_operand2: std_logic_vector(31 downto 0);
   signal register_a, register_b, alu_result, data_from_alu_output_register: std_logic_vector(31 downto 0);
   signal reg_dst: std_logic_vector(1 downto 0);
-  signal source_alu_a, source_alu_b, pc_source: std_logic_vector(1 downto 0);
-  signal alu_operation: std_logic_vector(2 downto 0); 
+  signal source_alu_a, pc_source: std_logic_vector(1 downto 0);
+  signal alu_operation, source_alu_b: std_logic_vector(2 downto 0); 
   signal flag_z: std_logic;
 
   -- Signals related to the memory access.
@@ -136,16 +137,21 @@ architecture behavioral of processor is
   signal branch_address: std_logic_vector (31 downto 0);
   signal bltz_control: std_logic;
   signal bne_control: std_logic;
+  
+  signal msb_a: std_logic;
 
   -- Auxiliary signals.
   signal offset_constante_1: std_logic_vector(31 downto 0) := "00000000000000000000000000000001";
+  signal offset_constante_0: std_logic_vector(31 downto 0) := "00000000000000000000000000000000";
   signal register_31 : std_logic_vector(4 downto 0) := "11111";
   signal valor_16: std_logic_vector(31 downto 0) := "00000000000000000000000000010000"; --usado no lui
 
 begin
   shift <= (others => offset(31));
 
-  offset_s <= shift & offset(31 downto 2);
+  offset_s <= offset(31 downto 2) & shift;
+  
+  msb_a <= register_a(31);
 
   instruction_address <= address_of_next_instruction;
 
@@ -159,10 +165,11 @@ begin
                   shamt when source_alu_a = "10" else
                   valor_16  when source_alu_a = "11";
 
-  alu_operand2 <= register_b when source_alu_b = "00" else
-                  offset_constante_1 when source_alu_b = "01" else 
-                  offset when source_alu_b = "10" else
-                  offset_s when source_alu_b = "11";
+  alu_operand2 <= register_b when source_alu_b = "000" else
+                  offset_constante_1 when source_alu_b = "001" else 
+                  offset when source_alu_b = "010" else
+                  offset_s when source_alu_b = "011" else
+				          offset_constante_0 when source_alu_b = "100";
 
   data_to_write_in_register <= data_from_memory when mem_to_register = '1' else data_from_alu_output_register;
 
@@ -178,9 +185,8 @@ begin
 	
   jump_address <= address_of_next_instruction(31 downto 26) & jump_offset;
 	
-  branch_address <= data_from_alu_output_register when (bltz_control = '1' and alu_result(31) = '1') or 
-                                                       (bne_control = '1' and flag_z = '0') 
-                                                       else address_of_next_instruction;
+  branch_address <= data_from_alu_output_register when (bltz_control = '1' and alu_result(31) = '1') or (bne_control = '1' and flag_z = '0') else 
+                    address_of_next_instruction;
 
   pc: program_counter port map (
     clk,
@@ -198,7 +204,8 @@ begin
 
   state_machine: control_unit port map (
     clk,
-    instruction, 			
+    instruction,
+	msb_a,
     enable_program_counter,  			
     enable_alu_output_register,
     enable_decoder,

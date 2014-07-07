@@ -7,13 +7,14 @@ entity control_unit is
   port (
     clock: in std_logic;
     instruction: in std_logic_vector (31 downto 0);
+	  msb_a: in std_logic;
     enable_program_counter,
     enable_alu_output_register: out std_logic := '0';
     enable_decoder: out std_logic;
     register1, register2, register3: out std_logic_vector (4 downto 0);
     write_register, mem_to_register: out std_logic;
     source_alu_a: out std_logic_vector (1 downto 0); 
-    source_alu_b: out std_logic_vector (1 downto 0);
+    source_alu_b: out std_logic_vector (2 downto 0);
     pc_source: out std_logic_vector (1 downto 0);  
     reg_dst: out std_logic_vector(1 downto 0);
     alu_operation: out std_logic_vector (2 downto 0);
@@ -31,7 +32,9 @@ architecture behavioral of control_unit is
   signal next_state: state := fetch;
   signal opcode: std_logic_vector(5 downto 0);
   signal funct: std_logic_vector(5 downto 0);
-
+  signal branch_funct: std_logic_vector(4 downto 0);
+  
+  
   constant r             : std_logic_vector(5 downto 0) := "000000";
   constant j             : std_logic_vector(5 downto 0) := "000010";
   constant jal           : std_logic_vector(5 downto 0) := "000011";
@@ -43,7 +46,7 @@ architecture behavioral of control_unit is
   constant lui           : std_logic_vector(5 downto 0) := "001111"; 
   constant lw            : std_logic_vector(5 downto 0) := "100011";
   constant sw            : std_logic_vector(5 downto 0) := "101011";
-  constant bltz          : std_logic_vector(5 downto 0) := "000001";
+  constant bltz          : std_logic_vector(5 downto 0) := "000001"; -- same for bltz and bgezal
   constant bne           : std_logic_vector(5 downto 0) := "000101";
   constant sb            : std_logic_vector(5 downto 0) := "101000";
   
@@ -55,6 +58,9 @@ architecture behavioral of control_unit is
   constant funct_or      : std_logic_vector(5 downto 0) := "100101";
   constant funct_xor     : std_logic_vector(5 downto 0) := "100110";
   constant funct_nand    : std_logic_vector(5 downto 0) := "101101"; --45
+  
+  constant funct_bgezal  : std_logic_vector(4 downto 0) := "10001";
+  constant funct_bltz    : std_logic_vector(4 downto 0) := "00000";
 
   function extend_to_32(input: std_logic_vector (15 downto 0)) return std_logic_vector is 
   variable s: signed (31 downto 0);
@@ -80,6 +86,7 @@ begin
   register3 <= instruction(15 downto 11);
   byte_offset <= instruction(1 downto 0);
   jump_offset <= instruction(25 downto 0);
+  branch_funct <= instruction(20 downto 16);
 
   next_state_function: process(clock)
   begin
@@ -92,7 +99,7 @@ begin
       read_memory <= '0';
       reg_dst <= "00";
       source_alu_a <= "00";
-      source_alu_b <= "01";
+      source_alu_b <= "001";
       mem_to_register <= '0';
       write_memory <= '0';
       write_register <= '0';
@@ -101,24 +108,24 @@ begin
         enable_program_counter <= '1';
         next_state <= decode;
       when decode =>
-	    enable_alu_output_register <= '1';
-        source_alu_a <= "00";
-        source_alu_b <= "10";
-        alu_operation <= "010";
-        next_state <= alu;
+	      enable_alu_output_register <= '1';
+          source_alu_a <= "00";
+          source_alu_b <= "010";
+          alu_operation <= "010";
+         next_state <= alu;
       when alu =>
         enable_alu_output_register <= '1';
         if opcode = lw then
           source_alu_a <= "01";
-          source_alu_b <= "11";
+          source_alu_b <= "011";
           next_state <= mem;
         elsif opcode = sw then
           source_alu_a <= "01";
-          source_alu_b <= "11";
+          source_alu_b <= "011";
           next_state <= mem;
         elsif opcode = sb then
           source_alu_a <= "10";
-          source_alu_b <= "11";
+          source_alu_b <= "011";
           next_state <= mem; 
         elsif opcode = j then
           enable_program_counter <= '1';
@@ -126,51 +133,60 @@ begin
           next_state <= fetch;
         elsif opcode = slti then
           source_alu_a <= "01";
-          source_alu_b <= "10";
+          source_alu_b <= "010";
           alu_operation <= "100";
           next_state <= writeback;
         elsif opcode = jal then
           enable_program_counter <= '1';
           pc_source <= "10";
           source_alu_a <= "00";
-          source_alu_b <= "01";
+          source_alu_b <= "001";
           next_state <= writeback;
         elsif opcode = ori then
           source_alu_a <= "01";
-          source_alu_b <= "10";
+          source_alu_b <= "010";
           alu_operation <= "001";
           next_state <= writeback;
 		    elsif opcode = andi then
 		      source_alu_a <= "01";
-		      source_alu_b <= "10";
+		      source_alu_b <= "010";
 		      alu_operation <= "000";
 		      next_state <= writeback;		  
         elsif opcode = xori then
           source_alu_a <= "01";
-          source_alu_b <= "10";
+          source_alu_b <= "010";
           alu_operation <= "001";
           next_state <= writeback;
         elsif opcode = addi then
           source_alu_a <= "01";
-          source_alu_b <= "10";
+          source_alu_b <= "010";
           next_state <= writeback;
         elsif opcode = lui then
           source_alu_a <= "11";
-          source_alu_b <= "10";
+          source_alu_b <= "010";
           alu_operation <= "101";
           next_state <= writeback;
-		    elsif opcode = bltz then
-          enable_program_counter <= '1';
-          pc_source <= "11";
-          source_alu_a <= "01";
-          source_alu_b <= "00";
-          bltz_control <= '1';
-          next_state <= fetch;
+		elsif opcode = bltz then
+		  if branch_funct = funct_bltz then
+            enable_program_counter <= '1';
+            pc_source <= "11";
+            source_alu_a <= "01"; 
+            source_alu_b <= "000";
+            bltz_control <= '1';
+            next_state <= fetch;
+			
+		  elsif branch_funct = funct_bgezal then
+		      enable_alu_output_register <= '1';
+              source_alu_a <= "00";
+              source_alu_b <= "100";
+              alu_operation <= "010";
+			  next_state <= writeback;
+		  end if;
         elsif opcode = bne then
           enable_program_counter <= '1';
           pc_source <= "11";
           source_alu_a <= "01";
-          source_alu_b <= "00";
+          source_alu_b <= "000";
           alu_operation <= "011";
           bne_control <= '1';
           next_state <= fetch;
@@ -179,46 +195,46 @@ begin
             enable_program_counter <= '1';
             pc_source <= "00";
             source_alu_a <= "01";
-            source_alu_b <= "00";
+            source_alu_b <= "000";
             next_state <= fetch;
           elsif funct = funct_sllv then
             source_alu_a <= "10";
-            source_alu_b <= "00";
+            source_alu_b <= "000";
             alu_operation <= "101";
             next_state <= writeback;
           elsif funct = funct_sll then
             source_alu_a <= "10";
-            source_alu_b <= "00";
+            source_alu_b <= "000";
             alu_operation <= "101";
             next_state <= writeback;
           elsif funct = funct_or then          
             alu_operation <= "001";
             source_alu_a <= "01";
-            source_alu_b <= "00";
+            source_alu_b <= "000";
             next_state <= writeback;
           elsif funct = funct_sub then
             source_alu_a <= "01";
-            source_alu_b <= "00";
+            source_alu_b <= "000";
             alu_operation <= "011";
             next_state <= writeback;
           elsif funct = funct_and then
             source_alu_a <= "01";
-            source_alu_b <= "00";
+            source_alu_b <= "000";
             alu_operation <= "000"; --and
             next_state <= writeback;
           elsif funct = funct_xor then
             source_alu_a <= "01";
-            source_alu_b <= "00";
+            source_alu_b <= "000";
             alu_operation <= "110";
             next_state <= writeback;
           elsif funct = funct_nand then
             source_alu_a <= "01";
-            source_alu_b <= "00";
+            source_alu_b <= "000";
             alu_operation <= "111"; --nand
             next_state <= writeback;
           else
             source_alu_a <= "01";
-            source_alu_b <= "00";
+            source_alu_b <= "000";
             next_state <= writeback;
           end if;  
         end if;
@@ -237,16 +253,32 @@ begin
       when writeback =>
         if opcode = lw then
           mem_to_register <= '1';
+          write_register <= '1';
         elsif opcode = slti or opcode = lui then
           reg_dst <= "00";
+          write_register <= '1';
         elsif opcode = jal then
           reg_dst <= "10"; 
+          write_register <= '1';
         elsif opcode = addi then
           mem_to_register <= '0';
+          write_register <= '1';
+          
+        elsif opcode = bltz and branch_funct = funct_bgezal then
+          source_alu_a <= "00";
+          source_alu_b <= "011";
+          alu_operation <= "010";
+			    if msb_a = '0' then
+			      pc_source <= "00";
+			      reg_dst <= "10";
+         	      mem_to_register <= '0';
+       			  write_register <= '1';
+       			  enable_program_counter <= '1';
+       			end if;
         else
           reg_dst <= "01";
+          write_register <= '1';
         end if;        
-        write_register <= '1';
         next_state <= fetch;
       end case;    
     end if;
