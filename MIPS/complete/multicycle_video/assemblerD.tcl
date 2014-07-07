@@ -1,0 +1,587 @@
+set fileInput [open "teste.txt"]
+set fileOutput [open "convertido.txt" "w"]
+
+proc opConverter { word } {
+	switch $word {
+		"add" {
+			set word "000000"
+			return $word
+		}
+		"addi" {
+			set word "001000"
+			return $word
+		}
+		"addiu" {
+			set word "001001"
+			return $word
+		}
+		"andi" {
+			set word "001100"
+			return $word
+		}
+		"beq" {
+			set word "000100"
+			return $word
+		}
+		"bgez" {
+			set word "000001"
+			return $word
+		}
+		"bgezal" {
+			set word "000001"
+			return $word
+		}
+		"bgtz" {
+			set word "000111"
+			return $word
+		}
+		"blez" {
+			set word "000110"
+			return $word
+		}
+		"bltz" {
+			set word "000001"
+			return $word
+		}
+		"bltzal" {
+			set word "000001"
+			return $word
+		}
+		"bne" {
+			set word "000101"
+			return $word
+		}
+		"j" {
+			set word "000010"
+			return $word
+		}
+		"jal" {
+			set word "000011"
+			return $word
+		}
+		"jr" {
+			set word "000000"
+			return $word
+		}
+		"lb" {
+			set word "100000"
+			return $word
+		}
+		"lui" {
+			set word "001111"
+			return $word
+		}
+		"lw" {
+			set word "100011"
+			return $word
+		}
+		"mfhi" {
+			set word "001000"
+			return $word
+		}
+		"mflo" {
+			set word "000000"
+			return $word
+		}
+		"mult" {
+			set word "000000"
+			return $word
+		}
+		"multu" {
+			set word "000000"
+			return $word
+		}
+		"noop" {
+			set word "000000"
+			return $word
+		}
+		"ori" {
+			set word "001101"
+			return $word
+		}
+		"sb" {
+			set word "101000"
+			return $word
+		}
+		"sll" {
+			set word "000000"
+			return $word
+		}
+		"sllv" {
+			set word "000000"
+			return $word
+		}
+		"slti" {
+			set word "001010"
+			return $word
+		}
+		"sltiu" {
+			set word "001011"
+			return $word
+		}
+		"sra" {
+			set word "000000"
+			return $word
+		}
+		"srl" {
+			set word "000000"
+			return $word
+		}
+		"srlv" {
+			set word "000000"
+			return $word
+		}
+		"sw" {
+			set word "101011"
+			return $word
+		}
+		"syscall" {
+			set word "000000"
+			return $word
+		}
+		"xori" {
+			set word "001110"
+			return $word
+		}
+	} 
+}
+
+proc functConverter { word } {
+	switch $word {
+		"add" {
+			set word "100000"
+			return $word
+		}
+		"addu" {
+			set word "100001"
+			return $word
+		}
+		"and" {
+			set word "100100"
+			return $word
+		}
+		"or" {
+			set word "100101"
+			return $word
+		}
+		"sub" {
+			set word "100010"
+			return $word
+		}
+		"slt" {
+			set word "101010"
+			return $word
+		}
+		"subu" {
+			set word "100011"
+			return $word
+		}
+		"sltu" {
+			set word "101011"
+			return $word
+		}
+		"div" {
+			set word "011010"
+			return $word
+		}
+		"divu" {
+			set word "011011"
+			return $word
+		}
+		"mfhi" {
+			set word "010000"
+			return $word
+		}
+		"mflo" {
+			set word "000101"
+			return $word
+		}
+		"mult" {
+			set word "011000"
+			return $word
+		}
+		"multu" {
+			set word "011001"
+			return $word
+		}
+		"sllv" {
+			set word "000100"
+			return $word
+		}
+		"srlv" {
+			set word "000110"
+			return $word
+		}
+		"xor" {
+			set word "100110"
+			return $word
+		}
+		"sra" {
+			set word "000011"
+			return $word
+		}
+		"srl" {
+			set word "000010"
+			return $word
+		}
+		default
+			puts "ERRO NA INSTRUCAO: $word"
+			set word "ERRO NA INSTRUCAO"
+			return $word
+	} 
+}
+
+#converte registradores
+proc registerConverter { word } {
+	switch $word {
+		"$zero" {
+			set word "00000"
+			return $word
+		}
+		"$v0" {
+			set word "00010"
+			return $word
+		}
+		"$v1" {
+			set word "00011"
+			return $word
+		}
+		"$a0" {
+			set word "00100"
+			return $word
+		}
+		"$a1" {
+			set word "00101"
+			return $word
+		}
+		"$a2" {
+			set word "00110"
+			return $word
+		}
+		"$a3" {
+			set word "00111"
+			return $word
+		}
+		"$t0" {
+			set word "01000"
+			return $word
+		}
+		"$t1" {
+			set word "01001"
+			return $word
+		}
+		"$t2" {
+			set word "01010"
+			return $word
+		}
+		"$t3" {
+			set word "01011"
+			return $word
+		}
+		"$t4" {
+			set word "01100"
+			return $word
+		}
+		"$t5" {
+			set word "01101"
+			return $word
+		}
+		"$t6" {
+			set word "01110"
+			return $word
+		}
+		"$t7" {
+			set word "01111"
+			return $word
+		}
+		"$ra" {
+			set word "11111"
+			return $word
+		}
+		default {
+			puts "Erro no código, nenhum registrador encontrado, resgistrador no arquivo de saida"
+			return $word
+		}
+	}
+}
+
+proc increaseIndex { line i } {
+	while { [string index $line $i] != " "} {
+		incr i 1
+	}
+	incr i 1
+	return $i
+}
+
+proc getWord { line i } {
+	set word ""
+	while { [string index $line $i] != " "} {
+		if { [string index $line $i] == "," } {
+			incr i 1
+		} else {
+			append word [string index $line $i]
+			incr i 1
+		}
+	}
+	puts $word
+	return $word
+}
+
+#define o tipo da instrução
+proc instructionType { word } {
+	if { $word == "add" || $word == "addu" || $word == "and" || 
+		 $word == "or" || $word == "sub" || $word == "xor" || 
+		 $word == "slt" || $word == "subu" || $word == "sltu" || 
+		 $word == "div" || $word == "divu" || $word == "mfhi" || 
+		 $word == "mfhi"|| $word == "mflo" || $word == "mult" || 
+		 $word == "multu" || $word == "sllv" || $word == "srlv" } {
+		 	return 1
+	}
+	if { $word == "lw" || $word == "sw" || $word == "lb" || 
+		 $word == "lbu" || $word == "sw" || $word == "lui" || $word == "sb" } {
+		return 2
+	}
+	if { $word == "andi" || $word == "addiu" || $word == "sll" ||
+	     $word == "addi" || $word == "ori" || $word == "xori" || 
+	     $word == "slti" || $word == "sltiu" || $word == "sra" || $word == "srl" } {
+	     	return 3
+	}
+	if { $word == "beq" || $word == "bne" || $word == "bgez" || 
+		 $word == "bgezal" || $word == "bltzal" || $word == "bgtz" ||
+		 $word == "blez" || $word == "bltz" } {
+		 	return 4
+	}
+	if { $word == "j" || $word == "jal" || $word == "jr" } {
+        return 5
+	}
+	if { $word == "syscall" || $word == "noop" } {
+        return 6
+	}
+	if { $word == "move" } {
+		return 7
+	}
+	return 0;
+}
+
+#transforma decimal para binario
+proc decimalBinary { word } { 
+    binary scan [binary format c $word] B* bin 
+    string range $bin end-4 end
+}
+
+proc immBinary { word } { 
+    binary scan [binary format W $word] b* bin 
+    string range $bin end-15 end
+}
+}
+
+set word ""
+set instruction ""
+set opType 0
+set i 0
+
+#partes das instruções
+set op ""
+set rs ""
+set rt ""
+set rd ""
+set shamt ""
+set imm ""
+set funct ""
+
+#cabeçalho do arquivo de saida
+puts $fileOutput "WIDTH=32;"
+puts $fileOutput "DEPTH=256;"
+puts $fileOutput ""
+puts $fileOutput "ADDRESS_RADIX=DEC;"
+puts $fileOutput "DATA_RADIX=BIN;"
+puts $fileOutput ""
+puts $fileOutput "CONTENT BEGIN"
+
+#loop olha palavra por palavra onde o limite é o tamanho da string
+while { [gets $fileInput line] >= 0 } { 
+	set i 0
+	#ignora comentários
+	if { [string index $line 0] == "#"} {
+	} else {
+		#pega palavra
+		set word [getWord $line $i]
+		set i [increaseIndex $line $i]
+		set opType [instructionType $word]
+		set funct $word
+
+		#se for r-type
+		if { $opType == 1 } {
+			set op [opConverter $word]
+			if { $word == "mfhi" || $word == "mflo" } {
+				set rs 00000
+				set rt 00000
+			} else {
+				set word [getWord $line $i]
+				set i [increaseIndex $line $i]
+				set rs [registerConverter $word]
+				set word [getWord $line $i]
+				set i [increaseIndex $line $i]
+				set rt [registerConverter $word]
+			}
+			set shamt 00000
+			set funct [opConverter $funct]
+			#a partir daqui une todas as partes em uma unica string para colocar no arquivo de saida
+			if { $funct == "011010" || $funct == "011011" || $funct == "011000" || $funct == "011001" } {
+				append instruction $op
+				append instruction $rt
+				append instruction $rs
+				append instruction "00000"
+				append instruction $shamt
+				append instruction $funct
+			} elseif { $funct == "000100" || $funct == "000110"} {
+				append instruction $op
+				append instruction $rt
+				append instruction $rs
+				append instruction $rd
+				append instruction $shamt
+				append instruction $funct
+			} else {
+				append instruction $op
+				append instruction $rs
+				append instruction $rt
+				append instruction $rd
+				append instruction $shamt
+				append instruction $funct
+			}
+			puts $fileOutput $instruction
+			set instruction ""
+		} elseif { $opType == 2 } {
+			set op [opConverter $word]
+			set word [getWord $line $i]
+			set i [increaseIndex $i]
+			set rt [registerConverter $word]
+			set word [getWord $line $i]
+			set i [increaseIndex $i]
+			set rs [registerConverter $word]
+			set word [getWord $line $i]
+			set imm [decimalBinary $word]
+
+			append instruction $op
+			append instruction $rs
+			append instruction $rt
+			append instruction $imm
+
+			puts $fileOutput $instruction
+			set instruction ""
+
+		} elseif { $opType == 3} {
+			set op [opConverter $word]
+			set funct $word
+			set word [getWord $line $i]
+			set i [increaseIndex $i]
+			set rt [registerConverter $word]
+			set word [getWord $line $i]
+			set i [increaseIndex $i]
+			set rs [registerConverter $word]
+
+			if { $funct == "sll" || $funct == "sra" || $funct == "srl" } {
+				set word [getWord $line $i]
+				set i [increaseIndex $i]
+				set shamt [decimalBinary $word]
+				set funct [functConverter $funct]
+				append instruction $op
+				append instruction "00000"
+				append instruction $rs
+				append instruction $rt
+				append instruction $shamt
+				append instruction $funct
+			} else {
+				set word [getWord $line $i]
+				set i [increaseIndex $i]
+				set imm [immBinary $word]
+				append instruction $op
+				append instruction $rs
+				append instruction $rt
+				append instruction $imm
+			}
+
+			puts $fileOutput $instruction
+			set instruction ""
+
+		#incompleto devido a falta de label
+		} elseif { $opType == 4 } {
+			set op [opConverter $word]
+			set funct $word
+			set word [getWord $line $i]
+			set i [increaseIndex $i]
+			set rs [registerConverter $word]
+			set word [getWord $line $i]
+			set i [increaseIndex $i]
+
+			if { funct == "bgez"} {
+				set rt "00001"
+			} elseif { funct == "bgezal" } {
+				set rt "10001"
+			} elseif { funct == "bltzal" } {
+				set rt "10000"
+			} elseif { funct == "bgtz" || funct == "blez"  || funct == "bltz" } {
+				set rt "00000"
+			} else {
+				set rt { registerConverter $word }
+			}
+
+			set word [getWord $line $i]
+			set i [increaseIndex $i]
+			set imm [immBinary $word]
+
+			append instruction $op
+			append instruction $rs
+			append instruction $rt
+			append instruction $imm
+
+			puts $fileOutput $instruction
+			set instruction ""
+
+		#incompleto devido a falta de label
+		} elseif { $opType == 5 } {
+			set op [opConverter $word]
+			set funct $word
+			set word [getWord $word $i]
+			set i [increaseIndex $i]
+
+			if { funct = "jr" } {
+				set rs [registerConverter $word]
+				append instruction $op
+				append instruction $rs
+				append instruction "000000000000000001000"
+			} else {
+				set immed $word
+			}
+		
+		} elseif { $opType == 6 } {
+			if { $word == "noop" } {
+				set instruction "00000000000000000000000000000000"
+			} elseif { $word == "syscall" } {
+				set instruction "00000000000000000000000000001100"
+			}
+
+			puts $fileOutput $instruction
+			set instruction ""	
+		
+		} elseif { $opType == 7 } {
+			set op [opConverter $word]
+			set funct $word
+			set word [getWord $word $i]
+			set i [increaseIndex $i]
+			set rd [registerConverter $word]
+			set word [getWord $word $i]
+			set i [increaseIndex $i]
+			set imm [immBinary $word]
+			set rs "00000"
+			
+			append instruction "001000"
+			append instruction $rs
+			append instruction $rd
+			append instruction $imm
+
+			puts $fileOutput $instruction
+			set instruction ""			
+		}
+	}	
+}
