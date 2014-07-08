@@ -172,14 +172,14 @@ begin
   offset <= extend_to_32(instruction(15 downto 0));
   shift <= (others => offset(31));
 
-  offset_s <= offset(31 downto 2) & shift;
+  offset_s <= shift & offset(31 downto 2);
   
   msb_a <= register_a(31);
 
   instruction_address <= address_of_next_instruction;
       
-  v0_syscall <= register_a when syscall_control = '1';
-
+  v0_syscall_register: state_register port map (clk, syscall_control,	register_a, v0_syscall);
+    
   address_to_point <= alu_result when pc_source = "00" else
                       data_from_alu_output_register when pc_source = "01" else
                       jump_address when pc_source = "10" else
@@ -229,8 +229,6 @@ begin
     address_of_next_instruction,
     instruction);
 
-  --instruction_register: state_register port map (clk, enable_instruction_register, instruction, data_from_instruction_register); 
-
   state_machine: control_unit port map (
     clk,
     instruction,
@@ -267,10 +265,6 @@ begin
     register_a, 
     register_b);  
 
---  alu_input_register_a: state_register port map (clk, enable_alu_input_registers, data_from_register1, data_from_alu_input_a);
-
---  alu_input_register_b: state_register port map (clk, enable_alu_input_registers, data_from_register2, alu_operand2);
-
   alu: alu_x port map (alu_operand1, alu_operand2, alu_operation,  flag_z , alu_result);
 
   alu_output_register: state_register port map (clk, enable_alu_output_register,	alu_result, data_from_alu_output_register);
@@ -291,8 +285,6 @@ begin
     byte_enable, 
     data_from_memory, 
     video_out);     
-
---  data_memory_register: state_register port map (clk, enable_data_memory_register, data_from_memory, data_from_memory_register);
 
   process (clock, turn_off)
     begin
