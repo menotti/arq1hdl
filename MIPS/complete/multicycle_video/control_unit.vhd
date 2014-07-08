@@ -1,7 +1,7 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
-use ieee.numeric_std.all;
+
 
 entity control_unit is 
   port (
@@ -20,7 +20,6 @@ entity control_unit is
     alu_operation: out std_logic_vector (2 downto 0);
     read_memory, write_memory: out std_logic;
     byte_offset: out std_logic_vector (1 downto 0);
-    offset, shamt: out std_logic_vector (31 downto 0);
     byte_enable: out std_logic_vector (1 downto 0);
     jump_offset: out std_logic_vector (25 downto 0);
     branch_cp_z_control: out std_logic; -- branch comparing to zero control
@@ -65,25 +64,9 @@ architecture behavioral of control_unit is
   constant funct_bltz    : std_logic_vector(4 downto 0) := "00000";
   constant funct_bgez    : std_logic_vector(4 downto 0) := "00001";
   constant funct_syscall : std_logic_vector(5 downto 0) := "001100";
-
-  
-  function extend_to_32(input: std_logic_vector (15 downto 0)) return std_logic_vector is 
-  variable s: signed (31 downto 0);
-  begin
-    s := resize(signed(input), s'length);
-    return std_logic_vector(s);  
-  end;
-  
-  function extend_to_32_shamt(input: std_logic_vector (4 downto 0)) return std_logic_vector is 
-  variable s: signed (31 downto 0);
-  begin
-    s := resize(signed(input), s'length);
-    return std_logic_vector(s);  
-  end;
   
 begin
-  shamt <= extend_to_32_shamt(instruction(10 downto 6));
-  offset <= extend_to_32(instruction(15 downto 0));
+  
   opcode <= instruction(31 downto 26);
   funct <= instruction(5 downto 0);
   register1 <= instruction(25 downto 21);

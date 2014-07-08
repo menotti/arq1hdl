@@ -1,6 +1,7 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
+use ieee.numeric_std.all;
 
 entity processor is
   port (clock, turn_off: in std_logic;
@@ -55,7 +56,6 @@ architecture behavioral of processor is
       reg_dst: out std_logic_vector(1 downto 0);
       alu_operation: out std_logic_vector (2 downto 0);
       read_memory, write_memory: out std_logic;
-      offset,shamt: out std_logic_vector (31 downto 0);
       byte_offset: out std_logic_vector (1 downto 0);
       jump_offset: out std_logic_vector(25 downto 0);
       branch_cp_z_control: out std_logic;
@@ -151,8 +151,25 @@ architecture behavioral of processor is
    --Signals related to syscall operation
   signal syscall_control: std_logic;
   signal v0_syscall : std_logic_vector(31 downto 0);
+  
+  function extend_to_32(input: std_logic_vector (15 downto 0)) return std_logic_vector is 
+  variable s: signed (31 downto 0);
+  begin
+    s := resize(signed(input), s'length);
+    return std_logic_vector(s);  
+  end;
+  
+  function extend_to_32_shamt(input: std_logic_vector (4 downto 0)) return std_logic_vector is 
+  variable s: signed (31 downto 0);
+  begin
+    s := resize(signed(input), s'length);
+    return std_logic_vector(s);  
+  end;
 
 begin
+  
+  shamt <= extend_to_32_shamt(instruction(10 downto 6));
+  offset <= extend_to_32(instruction(15 downto 0));
   shift <= (others => offset(31));
 
   offset_s <= offset(31 downto 2) & shift;
@@ -233,8 +250,6 @@ begin
     alu_operation, 			
     read_memory, 
     write_memory, 
-    offset,
-    shamt,
     byte_offset,  
     jump_offset,
     bltz_control,
