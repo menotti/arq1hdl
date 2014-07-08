@@ -1,8 +1,8 @@
 <?xml version="1.0" ?>
 <LOG_ROOT>
 	<PROJECT NAME="De2">
-		<CBX_INST_ENTRY INSTANCE_NAME="|De2|processor:cpu|data_memory:memory_of_data|altsyncram:data_rtl_0" CBX_FILE_NAME="altsyncram_git1.tdf"/>
-		<CBX_INST_ENTRY INSTANCE_NAME="|De2|processor:cpu|instructions_memory:memory_of_instructions|altsyncram:instructions_rtl_0" CBX_FILE_NAME="altsyncram_vs61.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|De2|processor:cpu|data_memory:memory_of_data|altsyncram:data_rtl_0" CBX_FILE_NAME="altsyncram_met1.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|De2|processor:cpu|instructions_memory:memory_of_instructions|altsyncram:instructions_rtl_0" CBX_FILE_NAME="altsyncram_5p61.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|De2|vga_pll:pll|altpll:altpll_component" CBX_FILE_NAME="vga_pll_altpll.v"/>
 	</PROJECT>
 </LOG_ROOT>

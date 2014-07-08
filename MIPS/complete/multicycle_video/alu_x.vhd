@@ -82,7 +82,7 @@ end component;
 		slt: slt_x generic map (width) port map (a, b, x4);
 		sllx: sll_x generic map (width) port map (a, b, x5);
 		xor_x_1: xor_x generic map (width) port map (a, b, x6);
-		nand_x_1: nand_x generic map (width) port map (a, b, x7);
+
 		multx: multiplexer generic map (width) port map (x0, x1, x2, x3, x4, x5, x6, x7, operation, result_int);
 		
 		flag_z <= '1' when result_int=zero_values else '0';

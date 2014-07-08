@@ -1,5 +1,5 @@
 Analysis & Synthesis report for De2
-Mon Jul 07 16:40:16 2014
+Tue Jul 08 11:22:41 2014
 Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
 
 
@@ -17,15 +17,15 @@ Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edit
   9. Analysis & Synthesis IP Cores Summary
  10. State Machine - |De2|MOUSE:mouse_sp2|mouse_state
  11. State Machine - |De2|processor:cpu|control_unit:state_machine|next_state
- 12. User-Specified and Inferred Latches
- 13. Registers Removed During Synthesis
- 14. General Register Statistics
- 15. Inverted Register Statistics
- 16. Registers Packed Into Inferred Megafunctions
- 17. Multiplexer Restructuring Statistics (Restructuring Performed)
- 18. Source assignments for processor:cpu|data_memory:memory_of_data|altsyncram:data_rtl_0|altsyncram_vav1:auto_generated
- 19. Source assignments for processor:cpu|instructions_memory:memory_of_instructions|altsyncram:instructions_rtl_0|altsyncram_5p61:auto_generated
- 20. Parameter Settings for User Entity Instance: vga_pll:pll|altpll:altpll_component
+ 12. Registers Removed During Synthesis
+ 13. General Register Statistics
+ 14. Inverted Register Statistics
+ 15. Registers Packed Into Inferred Megafunctions
+ 16. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 17. Source assignments for processor:cpu|data_memory:memory_of_data|altsyncram:data_rtl_0|altsyncram_met1:auto_generated
+ 18. Source assignments for processor:cpu|instructions_memory:memory_of_instructions|altsyncram:instructions_rtl_0|altsyncram_5p61:auto_generated
+ 19. Parameter Settings for User Entity Instance: vga_pll:pll|altpll:altpll_component
+ 20. Parameter Settings for User Entity Instance: processor:cpu|state_register:v0_syscall_register
  21. Parameter Settings for User Entity Instance: processor:cpu|program_counter:pc
  22. Parameter Settings for User Entity Instance: processor:cpu|instructions_memory:memory_of_instructions
  23. Parameter Settings for User Entity Instance: processor:cpu|register_bank:bank_of_registers
@@ -37,26 +37,28 @@ Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edit
  29. Parameter Settings for User Entity Instance: processor:cpu|alu_x:alu|slt_x:slt
  30. Parameter Settings for User Entity Instance: processor:cpu|alu_x:alu|slt_x:slt|subtractor_x:subtractor
  31. Parameter Settings for User Entity Instance: processor:cpu|alu_x:alu|sll_x:sllx
- 32. Parameter Settings for User Entity Instance: processor:cpu|alu_x:alu|multiplexer:multx
- 33. Parameter Settings for User Entity Instance: processor:cpu|state_register:alu_output_register
- 34. Parameter Settings for User Entity Instance: processor:cpu|data_memory:memory_of_data
- 35. Parameter Settings for User Entity Instance: address_video:docoder
- 36. Parameter Settings for User Entity Instance: vga_controller:video
- 37. Parameter Settings for Inferred Entity Instance: processor:cpu|data_memory:memory_of_data|altsyncram:data_rtl_0
- 38. Parameter Settings for Inferred Entity Instance: processor:cpu|instructions_memory:memory_of_instructions|altsyncram:instructions_rtl_0
- 39. altpll Parameter Settings by Entity Instance
- 40. altsyncram Parameter Settings by Entity Instance
- 41. Port Connectivity Checks: "keyboard:teclado"
- 42. Port Connectivity Checks: "MOUSE:mouse_sp2"
- 43. Port Connectivity Checks: "vga_controller:video"
- 44. Port Connectivity Checks: "processor:cpu|alu_x:alu|slt_x:slt|subtractor_x:subtractor"
- 45. Port Connectivity Checks: "processor:cpu|alu_x:alu|subtractor_x:subtractor|adder:\stages:0:adder1"
- 46. Port Connectivity Checks: "processor:cpu|alu_x:alu|subtractor_x:subtractor|adder:\stages:31:adder1"
- 47. Port Connectivity Checks: "processor:cpu|alu_x:alu|full_adder_x:adder|adder:\stages:0:adder1"
- 48. Port Connectivity Checks: "processor:cpu|alu_x:alu|full_adder_x:adder|adder:\stages:31:adder1"
- 49. Port Connectivity Checks: "processor:cpu"
- 50. Elapsed Time Per Partition
- 51. Analysis & Synthesis Messages
+ 32. Parameter Settings for User Entity Instance: processor:cpu|alu_x:alu|xor_x:xor_x_1
+ 33. Parameter Settings for User Entity Instance: processor:cpu|alu_x:alu|multiplexer:multx
+ 34. Parameter Settings for User Entity Instance: processor:cpu|state_register:alu_output_register
+ 35. Parameter Settings for User Entity Instance: processor:cpu|data_memory:memory_of_data
+ 36. Parameter Settings for User Entity Instance: address_video:docoder
+ 37. Parameter Settings for User Entity Instance: vga_controller:video
+ 38. Parameter Settings for Inferred Entity Instance: processor:cpu|data_memory:memory_of_data|altsyncram:data_rtl_0
+ 39. Parameter Settings for Inferred Entity Instance: processor:cpu|instructions_memory:memory_of_instructions|altsyncram:instructions_rtl_0
+ 40. altpll Parameter Settings by Entity Instance
+ 41. altsyncram Parameter Settings by Entity Instance
+ 42. Port Connectivity Checks: "keyboard:teclado"
+ 43. Port Connectivity Checks: "MOUSE:mouse_sp2"
+ 44. Port Connectivity Checks: "vga_controller:video"
+ 45. Port Connectivity Checks: "processor:cpu|alu_x:alu|slt_x:slt|subtractor_x:subtractor"
+ 46. Port Connectivity Checks: "processor:cpu|alu_x:alu|subtractor_x:subtractor|adder:\stages:0:adder1"
+ 47. Port Connectivity Checks: "processor:cpu|alu_x:alu|subtractor_x:subtractor|adder:\stages:31:adder1"
+ 48. Port Connectivity Checks: "processor:cpu|alu_x:alu|full_adder_x:adder|adder:\stages:0:adder1"
+ 49. Port Connectivity Checks: "processor:cpu|alu_x:alu|full_adder_x:adder|adder:\stages:31:adder1"
+ 50. Port Connectivity Checks: "processor:cpu|control_unit:state_machine"
+ 51. Port Connectivity Checks: "processor:cpu"
+ 52. Elapsed Time Per Partition
+ 53. Analysis & Synthesis Messages
 
 
 
@@ -82,15 +84,15 @@ applicable agreement for further details.
 +--------------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                         ;
 +------------------------------------+-------------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Mon Jul 07 16:40:12 2014           ;
+; Analysis & Synthesis Status        ; Successful - Tue Jul 08 11:22:41 2014           ;
 ; Quartus II 64-Bit Version          ; 13.0.1 Build 232 06/12/2013 SP 1 SJ Web Edition ;
 ; Revision Name                      ; De2                                             ;
 ; Top-level Entity Name              ; De2                                             ;
 ; Family                             ; Cyclone IV E                                    ;
-; Total logic elements               ; 3,350                                           ;
-;     Total combinational functions  ; 2,254                                           ;
-;     Dedicated logic registers      ; 1,334                                           ;
-; Total registers                    ; 1334                                            ;
+; Total logic elements               ; 3,516                                           ;
+;     Total combinational functions  ; 2,446                                           ;
+;     Dedicated logic registers      ; 1,336                                           ;
+; Total registers                    ; 1336                                            ;
 ; Total pins                         ; 137                                             ;
 ; Total virtual pins                 ; 0                                               ;
 ; Total memory bits                  ; 139,296                                         ;
@@ -197,53 +199,55 @@ Parallel compilation was disabled, but you have multiple processors available. E
 +----------------------------+--------+
 
 
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Source Files Read                                                                                                                                                                                                                                                  ;
-+-----------------------------------------------------------------------------------+-----------------+-------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------+---------+
-; File Name with User-Entered Path                                                  ; Used in Netlist ; File Type                                             ; File Name with Absolute Path                                                                                    ; Library ;
-+-----------------------------------------------------------------------------------+-----------------+-------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------+---------+
-; ../keyboard.vhd                                                                   ; yes             ; User VHDL File                                        ; E:/Lab de Arq/TRABALHO_FINAL/MIPS/complete/multicycle_video/keyboard.vhd                                        ;         ;
-; ../mouse.vhd                                                                      ; yes             ; User VHDL File                                        ; E:/Lab de Arq/TRABALHO_FINAL/MIPS/complete/multicycle_video/mouse.vhd                                           ;         ;
-; vga_pll.vhd                                                                       ; yes             ; User Wizard-Generated File                            ; E:/Lab de Arq/TRABALHO_FINAL/MIPS/complete/multicycle_video/altera_de2/vga_pll.vhd                              ;         ;
-; De2.vhdl                                                                          ; yes             ; User VHDL File                                        ; E:/Lab de Arq/TRABALHO_FINAL/MIPS/complete/multicycle_video/altera_de2/De2.vhdl                                 ;         ;
-; ../vga_controller.vhd                                                             ; yes             ; User VHDL File                                        ; E:/Lab de Arq/TRABALHO_FINAL/MIPS/complete/multicycle_video/vga_controller.vhd                                  ;         ;
-; ../subtractor_x.vhd                                                               ; yes             ; User VHDL File                                        ; E:/Lab de Arq/TRABALHO_FINAL/MIPS/complete/multicycle_video/subtractor_x.vhd                                    ;         ;
-; ../state_register.vhd                                                             ; yes             ; User VHDL File                                        ; E:/Lab de Arq/TRABALHO_FINAL/MIPS/complete/multicycle_video/state_register.vhd                                  ;         ;
-; ../slt_x.vhd                                                                      ; yes             ; User VHDL File                                        ; E:/Lab de Arq/TRABALHO_FINAL/MIPS/complete/multicycle_video/slt_x.vhd                                           ;         ;
-; ../sll_x.vhd                                                                      ; yes             ; User VHDL File                                        ; E:/Lab de Arq/TRABALHO_FINAL/MIPS/complete/multicycle_video/sll_x.vhd                                           ;         ;
-; ../register_bank.vhd                                                              ; yes             ; User VHDL File                                        ; E:/Lab de Arq/TRABALHO_FINAL/MIPS/complete/multicycle_video/register_bank.vhd                                   ;         ;
-; ../program_counter.vhd                                                            ; yes             ; User VHDL File                                        ; E:/Lab de Arq/TRABALHO_FINAL/MIPS/complete/multicycle_video/program_counter.vhd                                 ;         ;
-; ../processor.vhd                                                                  ; yes             ; User VHDL File                                        ; E:/Lab de Arq/TRABALHO_FINAL/MIPS/complete/multicycle_video/processor.vhd                                       ;         ;
-; ../or_x.vhd                                                                       ; yes             ; User VHDL File                                        ; E:/Lab de Arq/TRABALHO_FINAL/MIPS/complete/multicycle_video/or_x.vhd                                            ;         ;
-; ../multiplexer.vhd                                                                ; yes             ; User VHDL File                                        ; E:/Lab de Arq/TRABALHO_FINAL/MIPS/complete/multicycle_video/multiplexer.vhd                                     ;         ;
-; ../instructions_memory.vhd                                                        ; yes             ; User VHDL File                                        ; E:/Lab de Arq/TRABALHO_FINAL/MIPS/complete/multicycle_video/instructions_memory.vhd                             ;         ;
-; ../full_adder_x.vhd                                                               ; yes             ; User VHDL File                                        ; E:/Lab de Arq/TRABALHO_FINAL/MIPS/complete/multicycle_video/full_adder_x.vhd                                    ;         ;
-; ../dec7seg.vhd                                                                    ; yes             ; User VHDL File                                        ; E:/Lab de Arq/TRABALHO_FINAL/MIPS/complete/multicycle_video/dec7seg.vhd                                         ;         ;
-; ../data_memory.vhd                                                                ; yes             ; User VHDL File                                        ; E:/Lab de Arq/TRABALHO_FINAL/MIPS/complete/multicycle_video/data_memory.vhd                                     ;         ;
-; ../control_unit.vhd                                                               ; yes             ; User VHDL File                                        ; E:/Lab de Arq/TRABALHO_FINAL/MIPS/complete/multicycle_video/control_unit.vhd                                    ;         ;
-; ../and_x.vhd                                                                      ; yes             ; User VHDL File                                        ; E:/Lab de Arq/TRABALHO_FINAL/MIPS/complete/multicycle_video/and_x.vhd                                           ;         ;
-; ../alu_x.vhd                                                                      ; yes             ; User VHDL File                                        ; E:/Lab de Arq/TRABALHO_FINAL/MIPS/complete/multicycle_video/alu_x.vhd                                           ;         ;
-; ../address_video.vhd                                                              ; yes             ; User VHDL File                                        ; E:/Lab de Arq/TRABALHO_FINAL/MIPS/complete/multicycle_video/address_video.vhd                                   ;         ;
-; ../adder.vhd                                                                      ; yes             ; User VHDL File                                        ; E:/Lab de Arq/TRABALHO_FINAL/MIPS/complete/multicycle_video/adder.vhd                                           ;         ;
-; altpll.tdf                                                                        ; yes             ; Megafunction                                          ; c:/altera/13.0sp1/quartus/libraries/megafunctions/altpll.tdf                                                    ;         ;
-; aglobal130.inc                                                                    ; yes             ; Megafunction                                          ; c:/altera/13.0sp1/quartus/libraries/megafunctions/aglobal130.inc                                                ;         ;
-; stratix_pll.inc                                                                   ; yes             ; Megafunction                                          ; c:/altera/13.0sp1/quartus/libraries/megafunctions/stratix_pll.inc                                               ;         ;
-; stratixii_pll.inc                                                                 ; yes             ; Megafunction                                          ; c:/altera/13.0sp1/quartus/libraries/megafunctions/stratixii_pll.inc                                             ;         ;
-; cycloneii_pll.inc                                                                 ; yes             ; Megafunction                                          ; c:/altera/13.0sp1/quartus/libraries/megafunctions/cycloneii_pll.inc                                             ;         ;
-; db/vga_pll_altpll.v                                                               ; yes             ; Auto-Generated Megafunction                           ; E:/Lab de Arq/TRABALHO_FINAL/MIPS/complete/multicycle_video/altera_de2/db/vga_pll_altpll.v                      ;         ;
-; altsyncram.tdf                                                                    ; yes             ; Megafunction                                          ; c:/altera/13.0sp1/quartus/libraries/megafunctions/altsyncram.tdf                                                ;         ;
-; stratix_ram_block.inc                                                             ; yes             ; Megafunction                                          ; c:/altera/13.0sp1/quartus/libraries/megafunctions/stratix_ram_block.inc                                         ;         ;
-; lpm_mux.inc                                                                       ; yes             ; Megafunction                                          ; c:/altera/13.0sp1/quartus/libraries/megafunctions/lpm_mux.inc                                                   ;         ;
-; lpm_decode.inc                                                                    ; yes             ; Megafunction                                          ; c:/altera/13.0sp1/quartus/libraries/megafunctions/lpm_decode.inc                                                ;         ;
-; a_rdenreg.inc                                                                     ; yes             ; Megafunction                                          ; c:/altera/13.0sp1/quartus/libraries/megafunctions/a_rdenreg.inc                                                 ;         ;
-; altrom.inc                                                                        ; yes             ; Megafunction                                          ; c:/altera/13.0sp1/quartus/libraries/megafunctions/altrom.inc                                                    ;         ;
-; altram.inc                                                                        ; yes             ; Megafunction                                          ; c:/altera/13.0sp1/quartus/libraries/megafunctions/altram.inc                                                    ;         ;
-; altdpram.inc                                                                      ; yes             ; Megafunction                                          ; c:/altera/13.0sp1/quartus/libraries/megafunctions/altdpram.inc                                                  ;         ;
-; db/altsyncram_vav1.tdf                                                            ; yes             ; Auto-Generated Megafunction                           ; E:/Lab de Arq/TRABALHO_FINAL/MIPS/complete/multicycle_video/altera_de2/db/altsyncram_vav1.tdf                   ;         ;
-; db/de2.ram0_data_memory_8cd63da5.hdl.mif                                          ; yes             ; Auto-Generated Auto-Found Memory Initialization File  ; E:/Lab de Arq/TRABALHO_FINAL/MIPS/complete/multicycle_video/altera_de2/db/de2.ram0_data_memory_8cd63da5.hdl.mif ;         ;
-; db/altsyncram_5p61.tdf                                                            ; yes             ; Auto-Generated Megafunction                           ; E:/Lab de Arq/TRABALHO_FINAL/MIPS/complete/multicycle_video/altera_de2/db/altsyncram_5p61.tdf                   ;         ;
-; /lab de arq/trabalho_final/mips/complete/multicycle_video/instructions_memory.mif ; yes             ; Auto-Found Memory Initialization File                 ; /lab de arq/trabalho_final/mips/complete/multicycle_video/instructions_memory.mif                               ;         ;
-+-----------------------------------------------------------------------------------+-----------------+-------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------+---------+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                                                                                                                                                     ;
++-----------------------------------------------------------------------------------------------------------+-----------------+----------------------------------------+-----------------------------------------------------------------------------------------------------------+---------+
+; File Name with User-Entered Path                                                                          ; Used in Netlist ; File Type                              ; File Name with Absolute Path                                                                              ; Library ;
++-----------------------------------------------------------------------------------------------------------+-----------------+----------------------------------------+-----------------------------------------------------------------------------------------------------------+---------+
+; ../instructions_memory.vhd                                                                                ; yes             ; User VHDL File                         ; C:/ModelSim/TRABALHO_FINAL/MIPS/complete/multicycle_video/instructions_memory.vhd                         ;         ;
+; ../xor_x.vhd                                                                                              ; yes             ; User VHDL File                         ; C:/ModelSim/TRABALHO_FINAL/MIPS/complete/multicycle_video/xor_x.vhd                                       ;         ;
+; ../decoder_x.vhd                                                                                          ; yes             ; User VHDL File                         ; C:/ModelSim/TRABALHO_FINAL/MIPS/complete/multicycle_video/decoder_x.vhd                                   ;         ;
+; ../keyboard.vhd                                                                                           ; yes             ; User VHDL File                         ; C:/ModelSim/TRABALHO_FINAL/MIPS/complete/multicycle_video/keyboard.vhd                                    ;         ;
+; ../mouse.vhd                                                                                              ; yes             ; User VHDL File                         ; C:/ModelSim/TRABALHO_FINAL/MIPS/complete/multicycle_video/mouse.vhd                                       ;         ;
+; vga_pll.vhd                                                                                               ; yes             ; User Wizard-Generated File             ; C:/ModelSim/TRABALHO_FINAL/MIPS/complete/multicycle_video/altera_de2_115/vga_pll.vhd                      ;         ;
+; De2.vhdl                                                                                                  ; yes             ; User VHDL File                         ; C:/ModelSim/TRABALHO_FINAL/MIPS/complete/multicycle_video/altera_de2_115/De2.vhdl                         ;         ;
+; ../vga_controller.vhd                                                                                     ; yes             ; User VHDL File                         ; C:/ModelSim/TRABALHO_FINAL/MIPS/complete/multicycle_video/vga_controller.vhd                              ;         ;
+; ../subtractor_x.vhd                                                                                       ; yes             ; User VHDL File                         ; C:/ModelSim/TRABALHO_FINAL/MIPS/complete/multicycle_video/subtractor_x.vhd                                ;         ;
+; ../state_register.vhd                                                                                     ; yes             ; User VHDL File                         ; C:/ModelSim/TRABALHO_FINAL/MIPS/complete/multicycle_video/state_register.vhd                              ;         ;
+; ../slt_x.vhd                                                                                              ; yes             ; User VHDL File                         ; C:/ModelSim/TRABALHO_FINAL/MIPS/complete/multicycle_video/slt_x.vhd                                       ;         ;
+; ../sll_x.vhd                                                                                              ; yes             ; User VHDL File                         ; C:/ModelSim/TRABALHO_FINAL/MIPS/complete/multicycle_video/sll_x.vhd                                       ;         ;
+; ../register_bank.vhd                                                                                      ; yes             ; User VHDL File                         ; C:/ModelSim/TRABALHO_FINAL/MIPS/complete/multicycle_video/register_bank.vhd                               ;         ;
+; ../program_counter.vhd                                                                                    ; yes             ; User VHDL File                         ; C:/ModelSim/TRABALHO_FINAL/MIPS/complete/multicycle_video/program_counter.vhd                             ;         ;
+; ../processor.vhd                                                                                          ; yes             ; User VHDL File                         ; C:/ModelSim/TRABALHO_FINAL/MIPS/complete/multicycle_video/processor.vhd                                   ;         ;
+; ../or_x.vhd                                                                                               ; yes             ; User VHDL File                         ; C:/ModelSim/TRABALHO_FINAL/MIPS/complete/multicycle_video/or_x.vhd                                        ;         ;
+; ../multiplexer.vhd                                                                                        ; yes             ; User VHDL File                         ; C:/ModelSim/TRABALHO_FINAL/MIPS/complete/multicycle_video/multiplexer.vhd                                 ;         ;
+; ../full_adder_x.vhd                                                                                       ; yes             ; User VHDL File                         ; C:/ModelSim/TRABALHO_FINAL/MIPS/complete/multicycle_video/full_adder_x.vhd                                ;         ;
+; ../dec7seg.vhd                                                                                            ; yes             ; User VHDL File                         ; C:/ModelSim/TRABALHO_FINAL/MIPS/complete/multicycle_video/dec7seg.vhd                                     ;         ;
+; ../data_memory.vhd                                                                                        ; yes             ; User VHDL File                         ; C:/ModelSim/TRABALHO_FINAL/MIPS/complete/multicycle_video/data_memory.vhd                                 ;         ;
+; ../control_unit.vhd                                                                                       ; yes             ; User VHDL File                         ; C:/ModelSim/TRABALHO_FINAL/MIPS/complete/multicycle_video/control_unit.vhd                                ;         ;
+; ../and_x.vhd                                                                                              ; yes             ; User VHDL File                         ; C:/ModelSim/TRABALHO_FINAL/MIPS/complete/multicycle_video/and_x.vhd                                       ;         ;
+; ../alu_x.vhd                                                                                              ; yes             ; User VHDL File                         ; C:/ModelSim/TRABALHO_FINAL/MIPS/complete/multicycle_video/alu_x.vhd                                       ;         ;
+; ../address_video.vhd                                                                                      ; yes             ; User VHDL File                         ; C:/ModelSim/TRABALHO_FINAL/MIPS/complete/multicycle_video/address_video.vhd                               ;         ;
+; ../adder.vhd                                                                                              ; yes             ; User VHDL File                         ; C:/ModelSim/TRABALHO_FINAL/MIPS/complete/multicycle_video/adder.vhd                                       ;         ;
+; altpll.tdf                                                                                                ; yes             ; Megafunction                           ; c:/altera/13.0sp1/quartus/libraries/megafunctions/altpll.tdf                                              ;         ;
+; aglobal130.inc                                                                                            ; yes             ; Megafunction                           ; c:/altera/13.0sp1/quartus/libraries/megafunctions/aglobal130.inc                                          ;         ;
+; stratix_pll.inc                                                                                           ; yes             ; Megafunction                           ; c:/altera/13.0sp1/quartus/libraries/megafunctions/stratix_pll.inc                                         ;         ;
+; stratixii_pll.inc                                                                                         ; yes             ; Megafunction                           ; c:/altera/13.0sp1/quartus/libraries/megafunctions/stratixii_pll.inc                                       ;         ;
+; cycloneii_pll.inc                                                                                         ; yes             ; Megafunction                           ; c:/altera/13.0sp1/quartus/libraries/megafunctions/cycloneii_pll.inc                                       ;         ;
+; db/vga_pll_altpll.v                                                                                       ; yes             ; Auto-Generated Megafunction            ; C:/ModelSim/TRABALHO_FINAL/MIPS/complete/multicycle_video/altera_de2_115/db/vga_pll_altpll.v              ;         ;
+; altsyncram.tdf                                                                                            ; yes             ; Megafunction                           ; c:/altera/13.0sp1/quartus/libraries/megafunctions/altsyncram.tdf                                          ;         ;
+; stratix_ram_block.inc                                                                                     ; yes             ; Megafunction                           ; c:/altera/13.0sp1/quartus/libraries/megafunctions/stratix_ram_block.inc                                   ;         ;
+; lpm_mux.inc                                                                                               ; yes             ; Megafunction                           ; c:/altera/13.0sp1/quartus/libraries/megafunctions/lpm_mux.inc                                             ;         ;
+; lpm_decode.inc                                                                                            ; yes             ; Megafunction                           ; c:/altera/13.0sp1/quartus/libraries/megafunctions/lpm_decode.inc                                          ;         ;
+; a_rdenreg.inc                                                                                             ; yes             ; Megafunction                           ; c:/altera/13.0sp1/quartus/libraries/megafunctions/a_rdenreg.inc                                           ;         ;
+; altrom.inc                                                                                                ; yes             ; Megafunction                           ; c:/altera/13.0sp1/quartus/libraries/megafunctions/altrom.inc                                              ;         ;
+; altram.inc                                                                                                ; yes             ; Megafunction                           ; c:/altera/13.0sp1/quartus/libraries/megafunctions/altram.inc                                              ;         ;
+; altdpram.inc                                                                                              ; yes             ; Megafunction                           ; c:/altera/13.0sp1/quartus/libraries/megafunctions/altdpram.inc                                            ;         ;
+; db/altsyncram_met1.tdf                                                                                    ; yes             ; Auto-Generated Megafunction            ; C:/ModelSim/TRABALHO_FINAL/MIPS/complete/multicycle_video/altera_de2_115/db/altsyncram_met1.tdf           ;         ;
+; /modelsim/trabalho_final/mips/complete/multicycle_video/data_memory.mif                                   ; yes             ; Auto-Found Memory Initialization File  ; /modelsim/trabalho_final/mips/complete/multicycle_video/data_memory.mif                                   ;         ;
+; db/altsyncram_5p61.tdf                                                                                    ; yes             ; Auto-Generated Megafunction            ; C:/ModelSim/TRABALHO_FINAL/MIPS/complete/multicycle_video/altera_de2_115/db/altsyncram_5p61.tdf           ;         ;
+; /users/lucas/desktop/versão_de2_155/trabalho_final/mips/complete/multicycle_video/instructions_memory.mif ; yes             ; Auto-Found Memory Initialization File  ; /users/lucas/desktop/versão_de2_155/trabalho_final/mips/complete/multicycle_video/instructions_memory.mif ;         ;
++-----------------------------------------------------------------------------------------------------------+-----------------+----------------------------------------+-----------------------------------------------------------------------------------------------------------+---------+
 
 
 +-----------------------------------------------------------------+
@@ -251,20 +255,20 @@ Parallel compilation was disabled, but you have multiple processors available. E
 +---------------------------------------------+-------------------+
 ; Resource                                    ; Usage             ;
 +---------------------------------------------+-------------------+
-; Estimated Total logic elements              ; 3,350             ;
+; Estimated Total logic elements              ; 3,516             ;
 ;                                             ;                   ;
-; Total combinational functions               ; 2254              ;
+; Total combinational functions               ; 2446              ;
 ; Logic element usage by number of LUT inputs ;                   ;
-;     -- 4 input functions                    ; 1899              ;
-;     -- 3 input functions                    ; 245               ;
-;     -- <=2 input functions                  ; 110               ;
+;     -- 4 input functions                    ; 2043              ;
+;     -- 3 input functions                    ; 265               ;
+;     -- <=2 input functions                  ; 138               ;
 ;                                             ;                   ;
 ; Logic elements by mode                      ;                   ;
-;     -- normal mode                          ; 2200              ;
+;     -- normal mode                          ; 2392              ;
 ;     -- arithmetic mode                      ; 54                ;
 ;                                             ;                   ;
-; Total registers                             ; 1334              ;
-;     -- Dedicated logic registers            ; 1334              ;
+; Total registers                             ; 1336              ;
+;     -- Dedicated logic registers            ; 1336              ;
 ;     -- I/O registers                        ; 0                 ;
 ;                                             ;                   ;
 ; I/O pins                                    ; 137               ;
@@ -274,9 +278,9 @@ Parallel compilation was disabled, but you have multiple processors available. E
 ;     -- PLLs                                 ; 1                 ;
 ;                                             ;                   ;
 ; Maximum fan-out node                        ; processor:cpu|clk ;
-; Maximum fan-out                             ; 1204              ;
-; Total fan-out                               ; 13944             ;
-; Average fan-out                             ; 3.55              ;
+; Maximum fan-out                             ; 1206              ;
+; Total fan-out                               ; 14658             ;
+; Average fan-out                             ; 3.56              ;
 +---------------------------------------------+-------------------+
 
 
@@ -285,90 +289,95 @@ Parallel compilation was disabled, but you have multiple processors available. E
 +----------------------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+----------------------------------------------------------------------------------------------------------------------------+--------------+
 ; Compilation Hierarchy Node                         ; LC Combinationals ; LC Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                                                        ; Library Name ;
 +----------------------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+----------------------------------------------------------------------------------------------------------------------------+--------------+
-; |De2                                               ; 2254 (1)          ; 1334 (0)     ; 139296      ; 0            ; 0       ; 0         ; 137  ; 0            ; |De2                                                                                                                       ; work         ;
-;    |MOUSE:mouse_sp2|                               ; 84 (84)           ; 91 (91)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|MOUSE:mouse_sp2                                                                                                       ; work         ;
+; |De2                                               ; 2446 (1)          ; 1336 (0)     ; 139296      ; 0            ; 0       ; 0         ; 137  ; 0            ; |De2                                                                                                                       ; work         ;
+;    |MOUSE:mouse_sp2|                               ; 85 (85)           ; 91 (91)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|MOUSE:mouse_sp2                                                                                                       ; work         ;
 ;    |address_video:docoder|                         ; 42 (42)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|address_video:docoder                                                                                                 ; work         ;
 ;    |dec7seg:d0|                                    ; 7 (7)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|dec7seg:d0                                                                                                            ; work         ;
 ;    |dec7seg:d1|                                    ; 7 (7)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|dec7seg:d1                                                                                                            ; work         ;
 ;    |keyboard:teclado|                              ; 12 (12)           ; 31 (31)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|keyboard:teclado                                                                                                      ; work         ;
-;    |processor:cpu|                                 ; 2046 (161)        ; 1172 (0)     ; 139296      ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu                                                                                                         ; work         ;
-;       |alu_x:alu|                                  ; 406 (0)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu                                                                                               ; work         ;
-;          |full_adder_x:adder|                      ; 59 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|full_adder_x:adder                                                                            ; work         ;
+;    |processor:cpu|                                 ; 2237 (177)        ; 1174 (0)     ; 139296      ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu                                                                                                         ; work         ;
+;       |alu_x:alu|                                  ; 523 (0)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu                                                                                               ; work         ;
+;          |and_x:and_x_1|                           ; 5 (5)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|and_x:and_x_1                                                                                 ; work         ;
+;          |full_adder_x:adder|                      ; 64 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|full_adder_x:adder                                                                            ; work         ;
 ;             |adder:\stages:10:adder1|              ; 4 (4)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|full_adder_x:adder|adder:\stages:10:adder1                                                    ; work         ;
 ;             |adder:\stages:11:adder1|              ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|full_adder_x:adder|adder:\stages:11:adder1                                                    ; work         ;
-;             |adder:\stages:12:adder1|              ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|full_adder_x:adder|adder:\stages:12:adder1                                                    ; work         ;
+;             |adder:\stages:12:adder1|              ; 4 (4)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|full_adder_x:adder|adder:\stages:12:adder1                                                    ; work         ;
 ;             |adder:\stages:13:adder1|              ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|full_adder_x:adder|adder:\stages:13:adder1                                                    ; work         ;
-;             |adder:\stages:14:adder1|              ; 3 (3)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|full_adder_x:adder|adder:\stages:14:adder1                                                    ; work         ;
+;             |adder:\stages:14:adder1|              ; 4 (4)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|full_adder_x:adder|adder:\stages:14:adder1                                                    ; work         ;
 ;             |adder:\stages:15:adder1|              ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|full_adder_x:adder|adder:\stages:15:adder1                                                    ; work         ;
-;             |adder:\stages:16:adder1|              ; 3 (3)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|full_adder_x:adder|adder:\stages:16:adder1                                                    ; work         ;
+;             |adder:\stages:16:adder1|              ; 5 (5)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|full_adder_x:adder|adder:\stages:16:adder1                                                    ; work         ;
 ;             |adder:\stages:17:adder1|              ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|full_adder_x:adder|adder:\stages:17:adder1                                                    ; work         ;
-;             |adder:\stages:18:adder1|              ; 3 (3)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|full_adder_x:adder|adder:\stages:18:adder1                                                    ; work         ;
-;             |adder:\stages:19:adder1|              ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|full_adder_x:adder|adder:\stages:19:adder1                                                    ; work         ;
+;             |adder:\stages:18:adder1|              ; 4 (4)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|full_adder_x:adder|adder:\stages:18:adder1                                                    ; work         ;
+;             |adder:\stages:19:adder1|              ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|full_adder_x:adder|adder:\stages:19:adder1                                                    ; work         ;
 ;             |adder:\stages:1:adder1|               ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|full_adder_x:adder|adder:\stages:1:adder1                                                     ; work         ;
-;             |adder:\stages:20:adder1|              ; 3 (3)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|full_adder_x:adder|adder:\stages:20:adder1                                                    ; work         ;
+;             |adder:\stages:20:adder1|              ; 5 (5)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|full_adder_x:adder|adder:\stages:20:adder1                                                    ; work         ;
 ;             |adder:\stages:21:adder1|              ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|full_adder_x:adder|adder:\stages:21:adder1                                                    ; work         ;
-;             |adder:\stages:22:adder1|              ; 3 (3)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|full_adder_x:adder|adder:\stages:22:adder1                                                    ; work         ;
-;             |adder:\stages:23:adder1|              ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|full_adder_x:adder|adder:\stages:23:adder1                                                    ; work         ;
+;             |adder:\stages:22:adder1|              ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|full_adder_x:adder|adder:\stages:22:adder1                                                    ; work         ;
+;             |adder:\stages:23:adder1|              ; 3 (3)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|full_adder_x:adder|adder:\stages:23:adder1                                                    ; work         ;
 ;             |adder:\stages:24:adder1|              ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|full_adder_x:adder|adder:\stages:24:adder1                                                    ; work         ;
-;             |adder:\stages:25:adder1|              ; 3 (3)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|full_adder_x:adder|adder:\stages:25:adder1                                                    ; work         ;
-;             |adder:\stages:26:adder1|              ; 3 (3)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|full_adder_x:adder|adder:\stages:26:adder1                                                    ; work         ;
+;             |adder:\stages:25:adder1|              ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|full_adder_x:adder|adder:\stages:25:adder1                                                    ; work         ;
+;             |adder:\stages:26:adder1|              ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|full_adder_x:adder|adder:\stages:26:adder1                                                    ; work         ;
 ;             |adder:\stages:27:adder1|              ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|full_adder_x:adder|adder:\stages:27:adder1                                                    ; work         ;
-;             |adder:\stages:28:adder1|              ; 3 (3)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|full_adder_x:adder|adder:\stages:28:adder1                                                    ; work         ;
-;             |adder:\stages:30:adder1|              ; 3 (3)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|full_adder_x:adder|adder:\stages:30:adder1                                                    ; work         ;
-;             |adder:\stages:31:adder1|              ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|full_adder_x:adder|adder:\stages:31:adder1                                                    ; work         ;
+;             |adder:\stages:28:adder1|              ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|full_adder_x:adder|adder:\stages:28:adder1                                                    ; work         ;
+;             |adder:\stages:29:adder1|              ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|full_adder_x:adder|adder:\stages:29:adder1                                                    ; work         ;
+;             |adder:\stages:30:adder1|              ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|full_adder_x:adder|adder:\stages:30:adder1                                                    ; work         ;
 ;             |adder:\stages:3:adder1|               ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|full_adder_x:adder|adder:\stages:3:adder1                                                     ; work         ;
 ;             |adder:\stages:4:adder1|               ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|full_adder_x:adder|adder:\stages:4:adder1                                                     ; work         ;
 ;             |adder:\stages:5:adder1|               ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|full_adder_x:adder|adder:\stages:5:adder1                                                     ; work         ;
-;             |adder:\stages:6:adder1|               ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|full_adder_x:adder|adder:\stages:6:adder1                                                     ; work         ;
+;             |adder:\stages:6:adder1|               ; 4 (4)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|full_adder_x:adder|adder:\stages:6:adder1                                                     ; work         ;
 ;             |adder:\stages:7:adder1|               ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|full_adder_x:adder|adder:\stages:7:adder1                                                     ; work         ;
 ;             |adder:\stages:8:adder1|               ; 4 (4)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|full_adder_x:adder|adder:\stages:8:adder1                                                     ; work         ;
 ;             |adder:\stages:9:adder1|               ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|full_adder_x:adder|adder:\stages:9:adder1                                                     ; work         ;
-;          |multiplexer:multx|                       ; 177 (177)         ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|multiplexer:multx                                                                             ; work         ;
-;          |or_x:or_x_1|                             ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|or_x:or_x_1                                                                                   ; work         ;
-;          |sll_x:sllx|                              ; 128 (128)         ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|sll_x:sllx                                                                                    ; work         ;
-;          |slt_x:slt|                               ; 38 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|slt_x:slt                                                                                     ; work         ;
-;             |subtractor_x:subtractor|              ; 38 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|slt_x:slt|subtractor_x:subtractor                                                             ; work         ;
-;                |adder:\stages:0:adder1|            ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|slt_x:slt|subtractor_x:subtractor|adder:\stages:0:adder1                                      ; work         ;
-;                |adder:\stages:10:adder1|           ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|slt_x:slt|subtractor_x:subtractor|adder:\stages:10:adder1                                     ; work         ;
-;                |adder:\stages:11:adder1|           ; 3 (3)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|slt_x:slt|subtractor_x:subtractor|adder:\stages:11:adder1                                     ; work         ;
-;                |adder:\stages:12:adder1|           ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|slt_x:slt|subtractor_x:subtractor|adder:\stages:12:adder1                                     ; work         ;
-;                |adder:\stages:13:adder1|           ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|slt_x:slt|subtractor_x:subtractor|adder:\stages:13:adder1                                     ; work         ;
+;          |multiplexer:multx|                       ; 215 (215)         ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|multiplexer:multx                                                                             ; work         ;
+;          |or_x:or_x_1|                             ; 18 (18)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|or_x:or_x_1                                                                                   ; work         ;
+;          |sll_x:sllx|                              ; 149 (149)         ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|sll_x:sllx                                                                                    ; work         ;
+;          |slt_x:slt|                               ; 40 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|slt_x:slt                                                                                     ; work         ;
+;             |subtractor_x:subtractor|              ; 40 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|slt_x:slt|subtractor_x:subtractor                                                             ; work         ;
+;                |adder:\stages:10:adder1|           ; 3 (3)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|slt_x:slt|subtractor_x:subtractor|adder:\stages:10:adder1                                     ; work         ;
+;                |adder:\stages:11:adder1|           ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|slt_x:slt|subtractor_x:subtractor|adder:\stages:11:adder1                                     ; work         ;
+;                |adder:\stages:13:adder1|           ; 3 (3)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|slt_x:slt|subtractor_x:subtractor|adder:\stages:13:adder1                                     ; work         ;
 ;                |adder:\stages:14:adder1|           ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|slt_x:slt|subtractor_x:subtractor|adder:\stages:14:adder1                                     ; work         ;
-;                |adder:\stages:15:adder1|           ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|slt_x:slt|subtractor_x:subtractor|adder:\stages:15:adder1                                     ; work         ;
-;                |adder:\stages:16:adder1|           ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|slt_x:slt|subtractor_x:subtractor|adder:\stages:16:adder1                                     ; work         ;
+;                |adder:\stages:16:adder1|           ; 3 (3)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|slt_x:slt|subtractor_x:subtractor|adder:\stages:16:adder1                                     ; work         ;
 ;                |adder:\stages:17:adder1|           ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|slt_x:slt|subtractor_x:subtractor|adder:\stages:17:adder1                                     ; work         ;
 ;                |adder:\stages:18:adder1|           ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|slt_x:slt|subtractor_x:subtractor|adder:\stages:18:adder1                                     ; work         ;
 ;                |adder:\stages:19:adder1|           ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|slt_x:slt|subtractor_x:subtractor|adder:\stages:19:adder1                                     ; work         ;
 ;                |adder:\stages:1:adder1|            ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|slt_x:slt|subtractor_x:subtractor|adder:\stages:1:adder1                                      ; work         ;
-;                |adder:\stages:20:adder1|           ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|slt_x:slt|subtractor_x:subtractor|adder:\stages:20:adder1                                     ; work         ;
 ;                |adder:\stages:21:adder1|           ; 3 (3)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|slt_x:slt|subtractor_x:subtractor|adder:\stages:21:adder1                                     ; work         ;
-;                |adder:\stages:22:adder1|           ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|slt_x:slt|subtractor_x:subtractor|adder:\stages:22:adder1                                     ; work         ;
-;                |adder:\stages:23:adder1|           ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|slt_x:slt|subtractor_x:subtractor|adder:\stages:23:adder1                                     ; work         ;
-;                |adder:\stages:25:adder1|           ; 3 (3)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|slt_x:slt|subtractor_x:subtractor|adder:\stages:25:adder1                                     ; work         ;
+;                |adder:\stages:22:adder1|           ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|slt_x:slt|subtractor_x:subtractor|adder:\stages:22:adder1                                     ; work         ;
+;                |adder:\stages:24:adder1|           ; 3 (3)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|slt_x:slt|subtractor_x:subtractor|adder:\stages:24:adder1                                     ; work         ;
+;                |adder:\stages:25:adder1|           ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|slt_x:slt|subtractor_x:subtractor|adder:\stages:25:adder1                                     ; work         ;
 ;                |adder:\stages:26:adder1|           ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|slt_x:slt|subtractor_x:subtractor|adder:\stages:26:adder1                                     ; work         ;
-;                |adder:\stages:27:adder1|           ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|slt_x:slt|subtractor_x:subtractor|adder:\stages:27:adder1                                     ; work         ;
-;                |adder:\stages:28:adder1|           ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|slt_x:slt|subtractor_x:subtractor|adder:\stages:28:adder1                                     ; work         ;
+;                |adder:\stages:28:adder1|           ; 4 (4)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|slt_x:slt|subtractor_x:subtractor|adder:\stages:28:adder1                                     ; work         ;
 ;                |adder:\stages:29:adder1|           ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|slt_x:slt|subtractor_x:subtractor|adder:\stages:29:adder1                                     ; work         ;
+;                |adder:\stages:2:adder1|            ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|slt_x:slt|subtractor_x:subtractor|adder:\stages:2:adder1                                      ; work         ;
 ;                |adder:\stages:31:adder1|           ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|slt_x:slt|subtractor_x:subtractor|adder:\stages:31:adder1                                     ; work         ;
-;                |adder:\stages:3:adder1|            ; 3 (3)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|slt_x:slt|subtractor_x:subtractor|adder:\stages:3:adder1                                      ; work         ;
-;                |adder:\stages:4:adder1|            ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|slt_x:slt|subtractor_x:subtractor|adder:\stages:4:adder1                                      ; work         ;
+;                |adder:\stages:4:adder1|            ; 3 (3)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|slt_x:slt|subtractor_x:subtractor|adder:\stages:4:adder1                                      ; work         ;
 ;                |adder:\stages:5:adder1|            ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|slt_x:slt|subtractor_x:subtractor|adder:\stages:5:adder1                                      ; work         ;
-;                |adder:\stages:6:adder1|            ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|slt_x:slt|subtractor_x:subtractor|adder:\stages:6:adder1                                      ; work         ;
-;                |adder:\stages:7:adder1|            ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|slt_x:slt|subtractor_x:subtractor|adder:\stages:7:adder1                                      ; work         ;
+;                |adder:\stages:7:adder1|            ; 4 (4)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|slt_x:slt|subtractor_x:subtractor|adder:\stages:7:adder1                                      ; work         ;
 ;                |adder:\stages:8:adder1|            ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|slt_x:slt|subtractor_x:subtractor|adder:\stages:8:adder1                                      ; work         ;
-;                |adder:\stages:9:adder1|            ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|slt_x:slt|subtractor_x:subtractor|adder:\stages:9:adder1                                      ; work         ;
-;          |subtractor_x:subtractor|                 ; 3 (0)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|subtractor_x:subtractor                                                                       ; work         ;
-;             |adder:\stages:25:adder1|              ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|subtractor_x:subtractor|adder:\stages:25:adder1                                               ; work         ;
-;             |adder:\stages:26:adder1|              ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|subtractor_x:subtractor|adder:\stages:26:adder1                                               ; work         ;
-;       |control_unit:state_machine|                 ; 50 (50)           ; 20 (20)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|control_unit:state_machine                                                                              ; work         ;
+;          |subtractor_x:subtractor|                 ; 13 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|subtractor_x:subtractor                                                                       ; work         ;
+;             |adder:\stages:10:adder1|              ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|subtractor_x:subtractor|adder:\stages:10:adder1                                               ; work         ;
+;             |adder:\stages:11:adder1|              ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|subtractor_x:subtractor|adder:\stages:11:adder1                                               ; work         ;
+;             |adder:\stages:12:adder1|              ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|subtractor_x:subtractor|adder:\stages:12:adder1                                               ; work         ;
+;             |adder:\stages:14:adder1|              ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|subtractor_x:subtractor|adder:\stages:14:adder1                                               ; work         ;
+;             |adder:\stages:16:adder1|              ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|subtractor_x:subtractor|adder:\stages:16:adder1                                               ; work         ;
+;             |adder:\stages:17:adder1|              ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|subtractor_x:subtractor|adder:\stages:17:adder1                                               ; work         ;
+;             |adder:\stages:1:adder1|               ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|subtractor_x:subtractor|adder:\stages:1:adder1                                                ; work         ;
+;             |adder:\stages:21:adder1|              ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|subtractor_x:subtractor|adder:\stages:21:adder1                                               ; work         ;
+;             |adder:\stages:24:adder1|              ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|subtractor_x:subtractor|adder:\stages:24:adder1                                               ; work         ;
+;             |adder:\stages:5:adder1|               ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|subtractor_x:subtractor|adder:\stages:5:adder1                                                ; work         ;
+;             |adder:\stages:6:adder1|               ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|subtractor_x:subtractor|adder:\stages:6:adder1                                                ; work         ;
+;             |adder:\stages:8:adder1|               ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|subtractor_x:subtractor|adder:\stages:8:adder1                                                ; work         ;
+;          |xor_x:xor_x_1|                           ; 19 (19)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|alu_x:alu|xor_x:xor_x_1                                                                                 ; work         ;
+;       |control_unit:state_machine|                 ; 97 (97)           ; 22 (22)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|control_unit:state_machine                                                                              ; work         ;
 ;       |data_memory:memory_of_data|                 ; 0 (0)             ; 0 (0)        ; 131072      ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|data_memory:memory_of_data                                                                              ; work         ;
 ;          |altsyncram:data_rtl_0|                   ; 0 (0)             ; 0 (0)        ; 131072      ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|data_memory:memory_of_data|altsyncram:data_rtl_0                                                        ; work         ;
-;             |altsyncram_vav1:auto_generated|       ; 0 (0)             ; 0 (0)        ; 131072      ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|data_memory:memory_of_data|altsyncram:data_rtl_0|altsyncram_vav1:auto_generated                         ; work         ;
+;             |altsyncram_met1:auto_generated|       ; 0 (0)             ; 0 (0)        ; 131072      ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|data_memory:memory_of_data|altsyncram:data_rtl_0|altsyncram_met1:auto_generated                         ; work         ;
 ;       |instructions_memory:memory_of_instructions| ; 0 (0)             ; 0 (0)        ; 8224        ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|instructions_memory:memory_of_instructions                                                              ; work         ;
 ;          |altsyncram:instructions_rtl_0|           ; 0 (0)             ; 0 (0)        ; 8224        ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|instructions_memory:memory_of_instructions|altsyncram:instructions_rtl_0                                ; work         ;
 ;             |altsyncram_5p61:auto_generated|       ; 0 (0)             ; 0 (0)        ; 8224        ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|instructions_memory:memory_of_instructions|altsyncram:instructions_rtl_0|altsyncram_5p61:auto_generated ; work         ;
-;       |program_counter:pc|                         ; 30 (30)           ; 32 (32)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|program_counter:pc                                                                                      ; work         ;
-;       |register_bank:bank_of_registers|            ; 1399 (1399)       ; 1088 (1088)  ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|register_bank:bank_of_registers                                                                         ; work         ;
+;       |program_counter:pc|                         ; 46 (46)           ; 32 (32)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|program_counter:pc                                                                                      ; work         ;
+;       |register_bank:bank_of_registers|            ; 1394 (1394)       ; 1088 (1088)  ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|register_bank:bank_of_registers                                                                         ; work         ;
 ;       |state_register:alu_output_register|         ; 0 (0)             ; 32 (32)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|processor:cpu|state_register:alu_output_register                                                                      ; work         ;
 ;    |vga_controller:video|                          ; 55 (55)           ; 40 (40)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|vga_controller:video                                                                                                  ; work         ;
 ;    |vga_pll:pll|                                   ; 0 (0)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |De2|vga_pll:pll                                                                                                           ; work         ;
@@ -378,23 +387,23 @@ Parallel compilation was disabled, but you have multiple processors available. E
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
 
-+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis RAM Summary                                                                                                                                                                                                                                         ;
-+----------------------------------------------------------------------------------------------------------------------------------+------+----------------+--------------+--------------+--------------+--------------+--------+------------------------------------------+
-; Name                                                                                                                             ; Type ; Mode           ; Port A Depth ; Port A Width ; Port B Depth ; Port B Width ; Size   ; MIF                                      ;
-+----------------------------------------------------------------------------------------------------------------------------------+------+----------------+--------------+--------------+--------------+--------------+--------+------------------------------------------+
-; processor:cpu|data_memory:memory_of_data|altsyncram:data_rtl_0|altsyncram_vav1:auto_generated|ALTSYNCRAM                         ; AUTO ; True Dual Port ; 4096         ; 32           ; 4096         ; 32           ; 131072 ; db/De2.ram0_data_memory_8cd63da5.hdl.mif ;
-; processor:cpu|instructions_memory:memory_of_instructions|altsyncram:instructions_rtl_0|altsyncram_5p61:auto_generated|ALTSYNCRAM ; AUTO ; ROM            ; 257          ; 32           ; --           ; --           ; 8224   ; ../instructions_memory.mif               ;
-+----------------------------------------------------------------------------------------------------------------------------------+------+----------------+--------------+--------------+--------------+--------------+--------+------------------------------------------+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis RAM Summary                                                                                                                                                                                                                           ;
++----------------------------------------------------------------------------------------------------------------------------------+------+----------------+--------------+--------------+--------------+--------------+--------+----------------------------+
+; Name                                                                                                                             ; Type ; Mode           ; Port A Depth ; Port A Width ; Port B Depth ; Port B Width ; Size   ; MIF                        ;
++----------------------------------------------------------------------------------------------------------------------------------+------+----------------+--------------+--------------+--------------+--------------+--------+----------------------------+
+; processor:cpu|data_memory:memory_of_data|altsyncram:data_rtl_0|altsyncram_met1:auto_generated|ALTSYNCRAM                         ; AUTO ; True Dual Port ; 4096         ; 32           ; 4096         ; 32           ; 131072 ; ../data_memory.mif         ;
+; processor:cpu|instructions_memory:memory_of_instructions|altsyncram:instructions_rtl_0|altsyncram_5p61:auto_generated|ALTSYNCRAM ; AUTO ; ROM            ; 257          ; 32           ; --           ; --           ; 8224   ; ../instructions_memory.mif ;
++----------------------------------------------------------------------------------------------------------------------------------+------+----------------+--------------+--------------+--------------+--------------+--------+----------------------------+
 
 
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis IP Cores Summary                                                                                                                                 ;
-+--------+--------------+---------+--------------+--------------+------------------+------------------------------------------------------------------------------------+
-; Vendor ; IP Core Name ; Version ; Release Date ; License Type ; Entity Instance  ; IP Include File                                                                    ;
-+--------+--------------+---------+--------------+--------------+------------------+------------------------------------------------------------------------------------+
-; Altera ; ALTPLL       ; 13.0    ; N/A          ; N/A          ; |De2|vga_pll:pll ; E:/Lab de Arq/TRABALHO_FINAL/MIPS/complete/multicycle_video/altera_de2/vga_pll.vhd ;
-+--------+--------------+---------+--------------+--------------+------------------+------------------------------------------------------------------------------------+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis IP Cores Summary                                                                                                                                   ;
++--------+--------------+---------+--------------+--------------+------------------+--------------------------------------------------------------------------------------+
+; Vendor ; IP Core Name ; Version ; Release Date ; License Type ; Entity Instance  ; IP Include File                                                                      ;
++--------+--------------+---------+--------------+--------------+------------------+--------------------------------------------------------------------------------------+
+; Altera ; ALTPLL       ; 13.0    ; N/A          ; N/A          ; |De2|vga_pll:pll ; C:/ModelSim/TRABALHO_FINAL/MIPS/complete/multicycle_video/altera_de2_115/vga_pll.vhd ;
++--------+--------------+---------+--------------+--------------+------------------+--------------------------------------------------------------------------------------+
 
 
 Encoding Type:  One-Hot
@@ -426,38 +435,24 @@ Encoding Type:  One-Hot
 +----------------------+----------------------+----------------+----------------+-------------------+------------------+
 
 
-+---------------------------------------------------------------------------------------------------------------------+
-; User-Specified and Inferred Latches                                                                                 ;
-+----------------------------------------------------+---------------------------------------+------------------------+
-; Latch Name                                         ; Latch Enable Signal                   ; Free of Timing Hazards ;
-+----------------------------------------------------+---------------------------------------+------------------------+
-; processor:cpu|destination_register[4]              ; processor:cpu|destination_register[4] ; yes                    ;
-; processor:cpu|destination_register[0]              ; processor:cpu|destination_register[4] ; yes                    ;
-; processor:cpu|destination_register[1]              ; processor:cpu|destination_register[4] ; yes                    ;
-; processor:cpu|destination_register[2]              ; processor:cpu|destination_register[4] ; yes                    ;
-; processor:cpu|destination_register[3]              ; processor:cpu|destination_register[4] ; yes                    ;
-; Number of user-specified and inferred latches = 5  ;                                       ;                        ;
-+----------------------------------------------------+---------------------------------------+------------------------+
-Note: All latches listed above may not be present at the end of synthesis due to various synthesis optimizations.
-
-
-+------------------------------------------------------------------------------------------------+
-; Registers Removed During Synthesis                                                             ;
-+-------------------------------------------------------+----------------------------------------+
-; Register name                                         ; Reason for Removal                     ;
-+-------------------------------------------------------+----------------------------------------+
-; vga_controller:video|column[10,11]                    ; Stuck at GND due to stuck port data_in ;
-; vga_controller:video|row[10,11]                       ; Stuck at GND due to stuck port data_in ;
-; processor:cpu|control_unit:state_machine|pc_source[0] ; Stuck at GND due to stuck port data_in ;
-; MOUSE:mouse_sp2|CHAROUT[4..7]                         ; Stuck at VCC due to stuck port data_in ;
-; MOUSE:mouse_sp2|CHAROUT[3]                            ; Stuck at GND due to stuck port data_in ;
-; MOUSE:mouse_sp2|CHAROUT[2]                            ; Stuck at VCC due to stuck port data_in ;
-; MOUSE:mouse_sp2|CHAROUT[0,1]                          ; Stuck at GND due to stuck port data_in ;
-; MOUSE:mouse_sp2|SHIFTOUT[10]                          ; Stuck at VCC due to stuck port data_in ;
-; MOUSE:mouse_sp2|cursor_row[9]                         ; Stuck at GND due to stuck port data_in ;
-; vga_controller:video|row[9]                           ; Stuck at GND due to stuck port data_in ;
-; Total Number of Removed Registers = 16                ;                                        ;
-+-------------------------------------------------------+----------------------------------------+
++-------------------------------------------------------------------------------------------------------+
+; Registers Removed During Synthesis                                                                    ;
++--------------------------------------------------------------+----------------------------------------+
+; Register name                                                ; Reason for Removal                     ;
++--------------------------------------------------------------+----------------------------------------+
+; vga_controller:video|column[10,11]                           ; Stuck at GND due to stuck port data_in ;
+; vga_controller:video|row[10,11]                              ; Stuck at GND due to stuck port data_in ;
+; MOUSE:mouse_sp2|CHAROUT[4..7]                                ; Stuck at VCC due to stuck port data_in ;
+; MOUSE:mouse_sp2|CHAROUT[3]                                   ; Stuck at GND due to stuck port data_in ;
+; MOUSE:mouse_sp2|CHAROUT[2]                                   ; Stuck at VCC due to stuck port data_in ;
+; MOUSE:mouse_sp2|CHAROUT[0,1]                                 ; Stuck at GND due to stuck port data_in ;
+; MOUSE:mouse_sp2|SHIFTOUT[10]                                 ; Stuck at VCC due to stuck port data_in ;
+; processor:cpu|control_unit:state_machine|branch_cp_z_control ; Stuck at VCC due to stuck port data_in ;
+; processor:cpu|control_unit:state_machine|bne_control         ; Stuck at VCC due to stuck port data_in ;
+; MOUSE:mouse_sp2|cursor_row[9]                                ; Stuck at GND due to stuck port data_in ;
+; vga_controller:video|row[9]                                  ; Stuck at GND due to stuck port data_in ;
+; Total Number of Removed Registers = 17                       ;                                        ;
++--------------------------------------------------------------+----------------------------------------+
 
 
 +------------------------------------------------------+
@@ -465,9 +460,9 @@ Note: All latches listed above may not be present at the end of synthesis due to
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 1334  ;
-; Number of registers using Synchronous Clear  ; 2     ;
-; Number of registers using Synchronous Load   ; 29    ;
+; Total registers                              ; 1336  ;
+; Number of registers using Synchronous Clear  ; 3     ;
+; Number of registers using Synchronous Load   ; 38    ;
 ; Number of registers using Asynchronous Clear ; 43    ;
 ; Number of registers using Asynchronous Load  ; 0     ;
 ; Number of registers using Clock Enable       ; 1197  ;
@@ -501,33 +496,33 @@ Note: All latches listed above may not be present at the end of synthesis due to
 +---------------------------------------------------------------------------------+-----------------------------------------------------------------------------+------+
 
 
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                              ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------------------------------+
-; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                    ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------------------------------+
-; 3:1                ; 10 bits   ; 20 LEs        ; 10 LEs               ; 10 LEs                 ; Yes        ; |De2|MOUSE:mouse_sp2|new_cursor_row[9]                        ;
-; 3:1                ; 6 bits    ; 12 LEs        ; 0 LEs                ; 12 LEs                 ; Yes        ; |De2|processor:cpu|program_counter:pc|current_address[29]     ;
-; 4:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |De2|processor:cpu|control_unit:state_machine|reg_dst[1]      ;
-; 5:1                ; 10 bits   ; 30 LEs        ; 20 LEs               ; 10 LEs                 ; Yes        ; |De2|MOUSE:mouse_sp2|cursor_row[3]                            ;
-; 6:1                ; 3 bits    ; 12 LEs        ; 12 LEs               ; 0 LEs                  ; Yes        ; |De2|processor:cpu|control_unit:state_machine|pc_source[1]    ;
-; 8:1                ; 2 bits    ; 10 LEs        ; 10 LEs               ; 0 LEs                  ; Yes        ; |De2|processor:cpu|control_unit:state_machine|source_alu_b[1] ;
-; 3:1                ; 27 bits   ; 54 LEs        ; 54 LEs               ; 0 LEs                  ; No         ; |De2|processor:cpu|alu_operand1[26]                           ;
-; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |De2|processor:cpu|alu_operand1[1]                            ;
-; 3:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |De2|processor:cpu|alu_operand2[14]                           ;
-; 3:1                ; 10 bits   ; 20 LEs        ; 20 LEs               ; 0 LEs                  ; No         ; |De2|vga_controller:video|v_count                             ;
-; 4:1                ; 13 bits   ; 26 LEs        ; 26 LEs               ; 0 LEs                  ; No         ; |De2|processor:cpu|alu_operand2[4]                            ;
-; 3:1                ; 5 bits    ; 10 LEs        ; 10 LEs               ; 0 LEs                  ; No         ; |De2|processor:cpu|destination_register[0]                    ;
-; 3:1                ; 17 bits   ; 34 LEs        ; 34 LEs               ; 0 LEs                  ; No         ; |De2|processor:cpu|alu_operand2[26]                           ;
-; 8:1                ; 15 bits   ; 75 LEs        ; 60 LEs               ; 15 LEs                 ; No         ; |De2|processor:cpu|alu_x:alu|multiplexer:multx|output[6]      ;
-; 9:1                ; 8 bits    ; 48 LEs        ; 32 LEs               ; 16 LEs                 ; No         ; |De2|processor:cpu|alu_x:alu|multiplexer:multx|output[19]     ;
-; 10:1               ; 4 bits    ; 24 LEs        ; 24 LEs               ; 0 LEs                  ; No         ; |De2|processor:cpu|alu_x:alu|multiplexer:multx|output[24]     ;
-; 11:1               ; 2 bits    ; 14 LEs        ; 12 LEs               ; 2 LEs                  ; No         ; |De2|processor:cpu|alu_x:alu|multiplexer:multx|output[28]     ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------------------------------+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                               ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------------------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                     ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------------------------------------------+
+; 3:1                ; 10 bits   ; 20 LEs        ; 10 LEs               ; 10 LEs                 ; Yes        ; |De2|MOUSE:mouse_sp2|new_cursor_row[5]                         ;
+; 5:1                ; 10 bits   ; 30 LEs        ; 20 LEs               ; 10 LEs                 ; Yes        ; |De2|MOUSE:mouse_sp2|cursor_row[5]                             ;
+; 7:1                ; 6 bits    ; 24 LEs        ; 12 LEs               ; 12 LEs                 ; Yes        ; |De2|processor:cpu|program_counter:pc|current_address[31]      ;
+; 7:1                ; 26 bits   ; 104 LEs       ; 52 LEs               ; 52 LEs                 ; Yes        ; |De2|processor:cpu|program_counter:pc|current_address[0]       ;
+; 20:1               ; 2 bits    ; 26 LEs        ; 20 LEs               ; 6 LEs                  ; Yes        ; |De2|processor:cpu|control_unit:state_machine|alu_operation[2] ;
+; 3:1                ; 27 bits   ; 54 LEs        ; 54 LEs               ; 0 LEs                  ; No         ; |De2|processor:cpu|alu_operand1[17]                            ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; No         ; |De2|processor:cpu|alu_operand1[1]                             ;
+; 3:1                ; 10 bits   ; 20 LEs        ; 20 LEs               ; 0 LEs                  ; No         ; |De2|vga_controller:video|v_count                              ;
+; 4:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |De2|processor:cpu|control_unit:state_machine|next_state       ;
+; 4:1                ; 19 bits   ; 38 LEs        ; 38 LEs               ; 0 LEs                  ; No         ; |De2|processor:cpu|alu_operand2[31]                            ;
+; 3:1                ; 5 bits    ; 10 LEs        ; 10 LEs               ; 0 LEs                  ; No         ; |De2|processor:cpu|destination_register[4]                     ;
+; 6:1                ; 13 bits   ; 52 LEs        ; 39 LEs               ; 13 LEs                 ; No         ; |De2|processor:cpu|alu_operand2[10]                            ;
+; 9:1                ; 15 bits   ; 90 LEs        ; 60 LEs               ; 30 LEs                 ; No         ; |De2|processor:cpu|alu_x:alu|multiplexer:multx|output[14]      ;
+; 10:1               ; 8 bits    ; 48 LEs        ; 40 LEs               ; 8 LEs                  ; No         ; |De2|processor:cpu|alu_x:alu|multiplexer:multx|output[23]      ;
+; 11:1               ; 4 bits    ; 28 LEs        ; 24 LEs               ; 4 LEs                  ; No         ; |De2|processor:cpu|alu_x:alu|multiplexer:multx|output[27]      ;
+; 12:1               ; 2 bits    ; 16 LEs        ; 14 LEs               ; 2 LEs                  ; No         ; |De2|processor:cpu|alu_x:alu|multiplexer:multx|output[29]      ;
+; 13:1               ; 2 bits    ; 16 LEs        ; 14 LEs               ; 2 LEs                  ; No         ; |De2|processor:cpu|alu_x:alu|multiplexer:multx|output[31]      ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------------------------------------------+
 
 
 +----------------------------------------------------------------------------------------------------------------------+
-; Source assignments for processor:cpu|data_memory:memory_of_data|altsyncram:data_rtl_0|altsyncram_vav1:auto_generated ;
+; Source assignments for processor:cpu|data_memory:memory_of_data|altsyncram:data_rtl_0|altsyncram_met1:auto_generated ;
 +---------------------------------+--------------------+------+--------------------------------------------------------+
 ; Assignment                      ; Value              ; From ; To                                                     ;
 +---------------------------------+--------------------+------+--------------------------------------------------------+
@@ -918,6 +913,16 @@ Note: All latches listed above may not be present at the end of synthesis due to
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
++-----------------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: processor:cpu|state_register:v0_syscall_register ;
++----------------+-------+----------------------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                                 ;
++----------------+-------+----------------------------------------------------------------------+
+; width          ; 32    ; Signed Integer                                                       ;
++----------------+-------+----------------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
 +-------------------------------------------------------------------------------+
 ; Parameter Settings for User Entity Instance: processor:cpu|program_counter:pc ;
 +----------------+-------+------------------------------------------------------+
@@ -1030,6 +1035,16 @@ Note: In order to hide this table in the UI and the text report file, please set
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
++------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: processor:cpu|alu_x:alu|xor_x:xor_x_1 ;
++----------------+-------+-----------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                      ;
++----------------+-------+-----------------------------------------------------------+
+; width          ; 32    ; Signed Integer                                            ;
++----------------+-------+-----------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
 +----------------------------------------------------------------------------------------+
 ; Parameter Settings for User Entity Instance: processor:cpu|alu_x:alu|multiplexer:multx ;
 +----------------+-------+---------------------------------------------------------------+
@@ -1092,62 +1107,62 @@ Note: In order to hide this table in the UI and the text report file, please set
 
 +-----------------------------------------------------------------------------------------------------------------+
 ; Parameter Settings for Inferred Entity Instance: processor:cpu|data_memory:memory_of_data|altsyncram:data_rtl_0 ;
-+------------------------------------+------------------------------------------+---------------------------------+
-; Parameter Name                     ; Value                                    ; Type                            ;
-+------------------------------------+------------------------------------------+---------------------------------+
-; BYTE_SIZE_BLOCK                    ; 8                                        ; Untyped                         ;
-; AUTO_CARRY_CHAINS                  ; ON                                       ; AUTO_CARRY                      ;
-; IGNORE_CARRY_BUFFERS               ; OFF                                      ; IGNORE_CARRY                    ;
-; AUTO_CASCADE_CHAINS                ; ON                                       ; AUTO_CASCADE                    ;
-; IGNORE_CASCADE_BUFFERS             ; OFF                                      ; IGNORE_CASCADE                  ;
-; WIDTH_BYTEENA                      ; 1                                        ; Untyped                         ;
-; OPERATION_MODE                     ; BIDIR_DUAL_PORT                          ; Untyped                         ;
-; WIDTH_A                            ; 32                                       ; Untyped                         ;
-; WIDTHAD_A                          ; 12                                       ; Untyped                         ;
-; NUMWORDS_A                         ; 4096                                     ; Untyped                         ;
-; OUTDATA_REG_A                      ; UNREGISTERED                             ; Untyped                         ;
-; ADDRESS_ACLR_A                     ; NONE                                     ; Untyped                         ;
-; OUTDATA_ACLR_A                     ; NONE                                     ; Untyped                         ;
-; WRCONTROL_ACLR_A                   ; NONE                                     ; Untyped                         ;
-; INDATA_ACLR_A                      ; NONE                                     ; Untyped                         ;
-; BYTEENA_ACLR_A                     ; NONE                                     ; Untyped                         ;
-; WIDTH_B                            ; 32                                       ; Untyped                         ;
-; WIDTHAD_B                          ; 12                                       ; Untyped                         ;
-; NUMWORDS_B                         ; 4096                                     ; Untyped                         ;
-; INDATA_REG_B                       ; CLOCK0                                   ; Untyped                         ;
-; WRCONTROL_WRADDRESS_REG_B          ; CLOCK0                                   ; Untyped                         ;
-; RDCONTROL_REG_B                    ; CLOCK1                                   ; Untyped                         ;
-; ADDRESS_REG_B                      ; CLOCK0                                   ; Untyped                         ;
-; OUTDATA_REG_B                      ; UNREGISTERED                             ; Untyped                         ;
-; BYTEENA_REG_B                      ; CLOCK1                                   ; Untyped                         ;
-; INDATA_ACLR_B                      ; NONE                                     ; Untyped                         ;
-; WRCONTROL_ACLR_B                   ; NONE                                     ; Untyped                         ;
-; ADDRESS_ACLR_B                     ; NONE                                     ; Untyped                         ;
-; OUTDATA_ACLR_B                     ; NONE                                     ; Untyped                         ;
-; RDCONTROL_ACLR_B                   ; NONE                                     ; Untyped                         ;
-; BYTEENA_ACLR_B                     ; NONE                                     ; Untyped                         ;
-; WIDTH_BYTEENA_A                    ; 1                                        ; Untyped                         ;
-; WIDTH_BYTEENA_B                    ; 1                                        ; Untyped                         ;
-; RAM_BLOCK_TYPE                     ; AUTO                                     ; Untyped                         ;
-; BYTE_SIZE                          ; 8                                        ; Untyped                         ;
-; READ_DURING_WRITE_MODE_MIXED_PORTS ; OLD_DATA                                 ; Untyped                         ;
-; READ_DURING_WRITE_MODE_PORT_A      ; NEW_DATA_NO_NBE_READ                     ; Untyped                         ;
-; READ_DURING_WRITE_MODE_PORT_B      ; NEW_DATA_NO_NBE_READ                     ; Untyped                         ;
-; INIT_FILE                          ; db/De2.ram0_data_memory_8cd63da5.hdl.mif ; Untyped                         ;
-; INIT_FILE_LAYOUT                   ; PORT_A                                   ; Untyped                         ;
-; MAXIMUM_DEPTH                      ; 0                                        ; Untyped                         ;
-; CLOCK_ENABLE_INPUT_A               ; NORMAL                                   ; Untyped                         ;
-; CLOCK_ENABLE_INPUT_B               ; NORMAL                                   ; Untyped                         ;
-; CLOCK_ENABLE_OUTPUT_A              ; NORMAL                                   ; Untyped                         ;
-; CLOCK_ENABLE_OUTPUT_B              ; NORMAL                                   ; Untyped                         ;
-; CLOCK_ENABLE_CORE_A                ; USE_INPUT_CLKEN                          ; Untyped                         ;
-; CLOCK_ENABLE_CORE_B                ; USE_INPUT_CLKEN                          ; Untyped                         ;
-; ENABLE_ECC                         ; FALSE                                    ; Untyped                         ;
-; ECC_PIPELINE_STAGE_ENABLED         ; FALSE                                    ; Untyped                         ;
-; WIDTH_ECCSTATUS                    ; 3                                        ; Untyped                         ;
-; DEVICE_FAMILY                      ; Cyclone IV E                             ; Untyped                         ;
-; CBXI_PARAMETER                     ; altsyncram_vav1                          ; Untyped                         ;
-+------------------------------------+------------------------------------------+---------------------------------+
++------------------------------------+----------------------+-----------------------------------------------------+
+; Parameter Name                     ; Value                ; Type                                                ;
++------------------------------------+----------------------+-----------------------------------------------------+
+; BYTE_SIZE_BLOCK                    ; 8                    ; Untyped                                             ;
+; AUTO_CARRY_CHAINS                  ; ON                   ; AUTO_CARRY                                          ;
+; IGNORE_CARRY_BUFFERS               ; OFF                  ; IGNORE_CARRY                                        ;
+; AUTO_CASCADE_CHAINS                ; ON                   ; AUTO_CASCADE                                        ;
+; IGNORE_CASCADE_BUFFERS             ; OFF                  ; IGNORE_CASCADE                                      ;
+; WIDTH_BYTEENA                      ; 1                    ; Untyped                                             ;
+; OPERATION_MODE                     ; BIDIR_DUAL_PORT      ; Untyped                                             ;
+; WIDTH_A                            ; 32                   ; Untyped                                             ;
+; WIDTHAD_A                          ; 12                   ; Untyped                                             ;
+; NUMWORDS_A                         ; 4096                 ; Untyped                                             ;
+; OUTDATA_REG_A                      ; UNREGISTERED         ; Untyped                                             ;
+; ADDRESS_ACLR_A                     ; NONE                 ; Untyped                                             ;
+; OUTDATA_ACLR_A                     ; NONE                 ; Untyped                                             ;
+; WRCONTROL_ACLR_A                   ; NONE                 ; Untyped                                             ;
+; INDATA_ACLR_A                      ; NONE                 ; Untyped                                             ;
+; BYTEENA_ACLR_A                     ; NONE                 ; Untyped                                             ;
+; WIDTH_B                            ; 32                   ; Untyped                                             ;
+; WIDTHAD_B                          ; 12                   ; Untyped                                             ;
+; NUMWORDS_B                         ; 4096                 ; Untyped                                             ;
+; INDATA_REG_B                       ; CLOCK0               ; Untyped                                             ;
+; WRCONTROL_WRADDRESS_REG_B          ; CLOCK0               ; Untyped                                             ;
+; RDCONTROL_REG_B                    ; CLOCK1               ; Untyped                                             ;
+; ADDRESS_REG_B                      ; CLOCK0               ; Untyped                                             ;
+; OUTDATA_REG_B                      ; UNREGISTERED         ; Untyped                                             ;
+; BYTEENA_REG_B                      ; CLOCK1               ; Untyped                                             ;
+; INDATA_ACLR_B                      ; NONE                 ; Untyped                                             ;
+; WRCONTROL_ACLR_B                   ; NONE                 ; Untyped                                             ;
+; ADDRESS_ACLR_B                     ; NONE                 ; Untyped                                             ;
+; OUTDATA_ACLR_B                     ; NONE                 ; Untyped                                             ;
+; RDCONTROL_ACLR_B                   ; NONE                 ; Untyped                                             ;
+; BYTEENA_ACLR_B                     ; NONE                 ; Untyped                                             ;
+; WIDTH_BYTEENA_A                    ; 1                    ; Untyped                                             ;
+; WIDTH_BYTEENA_B                    ; 1                    ; Untyped                                             ;
+; RAM_BLOCK_TYPE                     ; AUTO                 ; Untyped                                             ;
+; BYTE_SIZE                          ; 8                    ; Untyped                                             ;
+; READ_DURING_WRITE_MODE_MIXED_PORTS ; OLD_DATA             ; Untyped                                             ;
+; READ_DURING_WRITE_MODE_PORT_A      ; NEW_DATA_NO_NBE_READ ; Untyped                                             ;
+; READ_DURING_WRITE_MODE_PORT_B      ; NEW_DATA_NO_NBE_READ ; Untyped                                             ;
+; INIT_FILE                          ; ../data_memory.mif   ; Untyped                                             ;
+; INIT_FILE_LAYOUT                   ; PORT_A               ; Untyped                                             ;
+; MAXIMUM_DEPTH                      ; 0                    ; Untyped                                             ;
+; CLOCK_ENABLE_INPUT_A               ; NORMAL               ; Untyped                                             ;
+; CLOCK_ENABLE_INPUT_B               ; NORMAL               ; Untyped                                             ;
+; CLOCK_ENABLE_OUTPUT_A              ; NORMAL               ; Untyped                                             ;
+; CLOCK_ENABLE_OUTPUT_B              ; NORMAL               ; Untyped                                             ;
+; CLOCK_ENABLE_CORE_A                ; USE_INPUT_CLKEN      ; Untyped                                             ;
+; CLOCK_ENABLE_CORE_B                ; USE_INPUT_CLKEN      ; Untyped                                             ;
+; ENABLE_ECC                         ; FALSE                ; Untyped                                             ;
+; ECC_PIPELINE_STAGE_ENABLED         ; FALSE                ; Untyped                                             ;
+; WIDTH_ECCSTATUS                    ; 3                    ; Untyped                                             ;
+; DEVICE_FAMILY                      ; Cyclone IV E         ; Untyped                                             ;
+; CBXI_PARAMETER                     ; altsyncram_met1      ; Untyped                                             ;
++------------------------------------+----------------------+-----------------------------------------------------+
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
@@ -1333,6 +1348,15 @@ Note: In order to hide this table in the UI and the text report file, please set
 +------+--------+----------+-------------------------------------------------------------------------------------+
 
 
++--------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "processor:cpu|control_unit:state_machine"                                                                       ;
++-------------+--------+----------+----------------------------------------------------------------------------------------------------------+
+; Port        ; Type   ; Severity ; Details                                                                                                  ;
++-------------+--------+----------+----------------------------------------------------------------------------------------------------------+
+; byte_enable ; Output ; Warning  ; Declared by entity but not connected by instance. Logic that only feeds a dangling port will be removed. ;
++-------------+--------+----------+----------------------------------------------------------------------------------------------------------+
+
+
 +------------------------------------------------------------------------------------------------------------------------------------------+
 ; Port Connectivity Checks: "processor:cpu"                                                                                                ;
 +--------------------------------+--------+----------+-------------------------------------------------------------------------------------+
@@ -1349,7 +1373,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-; Top            ; 00:00:11     ;
+; Top            ; 00:00:23     ;
 +----------------+--------------+
 
 
@@ -1359,13 +1383,25 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus II 64-Bit Analysis & Synthesis
     Info: Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
-    Info: Processing started: Mon Jul 07 16:39:44 2014
+    Info: Processing started: Tue Jul 08 11:22:09 2014
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off De2 -c De2
 Warning (20028): Parallel compilation is not licensed and has been disabled
-Info (12021): Found 2 design units, including 1 entities, in source file /lab de arq/trabalho_final/mips/complete/multicycle_video/keyboard.vhd
+Info (12021): Found 2 design units, including 1 entities, in source file /modelsim/trabalho_final/mips/complete/multicycle_video/instructions_memory.vhd
+    Info (12022): Found design unit 1: instructions_memory-behavioral
+    Info (12023): Found entity 1: instructions_memory
+Info (12021): Found 2 design units, including 1 entities, in source file /modelsim/trabalho_final/mips/complete/multicycle_video/xor_x.vhd
+    Info (12022): Found design unit 1: xor_x-structural
+    Info (12023): Found entity 1: xor_x
+Info (12021): Found 2 design units, including 1 entities, in source file /modelsim/trabalho_final/mips/complete/multicycle_video/nand_x.vhd
+    Info (12022): Found design unit 1: nand_x-structural
+    Info (12023): Found entity 1: nand_x
+Info (12021): Found 2 design units, including 1 entities, in source file /modelsim/trabalho_final/mips/complete/multicycle_video/decoder_x.vhd
+    Info (12022): Found design unit 1: decoder_x-descript
+    Info (12023): Found entity 1: decoder_x
+Info (12021): Found 2 design units, including 1 entities, in source file /modelsim/trabalho_final/mips/complete/multicycle_video/keyboard.vhd
     Info (12022): Found design unit 1: keyboard-a
     Info (12023): Found entity 1: keyboard
-Info (12021): Found 2 design units, including 1 entities, in source file /lab de arq/trabalho_final/mips/complete/multicycle_video/mouse.vhd
+Info (12021): Found 2 design units, including 1 entities, in source file /modelsim/trabalho_final/mips/complete/multicycle_video/mouse.vhd
     Info (12022): Found design unit 1: MOUSE-behavior
     Info (12023): Found entity 1: MOUSE
 Info (12021): Found 2 design units, including 1 entities, in source file vga_pll.vhd
@@ -1374,64 +1410,61 @@ Info (12021): Found 2 design units, including 1 entities, in source file vga_pll
 Info (12021): Found 2 design units, including 1 entities, in source file de2.vhdl
     Info (12022): Found design unit 1: De2-behavior
     Info (12023): Found entity 1: De2
-Info (12021): Found 2 design units, including 1 entities, in source file /lab de arq/trabalho_final/mips/complete/multicycle_video/vga_controller.vhd
+Info (12021): Found 2 design units, including 1 entities, in source file /modelsim/trabalho_final/mips/complete/multicycle_video/vga_controller.vhd
     Info (12022): Found design unit 1: vga_controller-behavior
     Info (12023): Found entity 1: vga_controller
-Info (12021): Found 2 design units, including 1 entities, in source file /lab de arq/trabalho_final/mips/complete/multicycle_video/t_processor.vhd
+Info (12021): Found 2 design units, including 1 entities, in source file /modelsim/trabalho_final/mips/complete/multicycle_video/t_processor.vhd
     Info (12022): Found design unit 1: t_processor-behavioral
     Info (12023): Found entity 1: t_processor
-Info (12021): Found 2 design units, including 1 entities, in source file /lab de arq/trabalho_final/mips/complete/multicycle_video/subtractor_x.vhd
+Info (12021): Found 2 design units, including 1 entities, in source file /modelsim/trabalho_final/mips/complete/multicycle_video/subtractor_x.vhd
     Info (12022): Found design unit 1: subtractor_x-structural
     Info (12023): Found entity 1: subtractor_x
-Info (12021): Found 2 design units, including 1 entities, in source file /lab de arq/trabalho_final/mips/complete/multicycle_video/state_register.vhd
+Info (12021): Found 2 design units, including 1 entities, in source file /modelsim/trabalho_final/mips/complete/multicycle_video/state_register.vhd
     Info (12022): Found design unit 1: state_register-behavioral
     Info (12023): Found entity 1: state_register
-Info (12021): Found 2 design units, including 1 entities, in source file /lab de arq/trabalho_final/mips/complete/multicycle_video/slt_x.vhd
+Info (12021): Found 2 design units, including 1 entities, in source file /modelsim/trabalho_final/mips/complete/multicycle_video/slt_x.vhd
     Info (12022): Found design unit 1: slt_x-structural
     Info (12023): Found entity 1: slt_x
-Info (12021): Found 2 design units, including 1 entities, in source file /lab de arq/trabalho_final/mips/complete/multicycle_video/sll_x.vhd
+Info (12021): Found 2 design units, including 1 entities, in source file /modelsim/trabalho_final/mips/complete/multicycle_video/sll_x.vhd
     Info (12022): Found design unit 1: sll_x-structural
     Info (12023): Found entity 1: sll_x
-Info (12021): Found 2 design units, including 1 entities, in source file /lab de arq/trabalho_final/mips/complete/multicycle_video/register_bank.vhd
+Info (12021): Found 2 design units, including 1 entities, in source file /modelsim/trabalho_final/mips/complete/multicycle_video/register_bank.vhd
     Info (12022): Found design unit 1: register_bank-behavioral
     Info (12023): Found entity 1: register_bank
-Info (12021): Found 2 design units, including 1 entities, in source file /lab de arq/trabalho_final/mips/complete/multicycle_video/program_counter.vhd
+Info (12021): Found 2 design units, including 1 entities, in source file /modelsim/trabalho_final/mips/complete/multicycle_video/program_counter.vhd
     Info (12022): Found design unit 1: program_counter-behavioral
     Info (12023): Found entity 1: program_counter
-Info (12021): Found 2 design units, including 1 entities, in source file /lab de arq/trabalho_final/mips/complete/multicycle_video/processor.vhd
+Info (12021): Found 2 design units, including 1 entities, in source file /modelsim/trabalho_final/mips/complete/multicycle_video/processor.vhd
     Info (12022): Found design unit 1: processor-behavioral
     Info (12023): Found entity 1: processor
-Info (12021): Found 2 design units, including 1 entities, in source file /lab de arq/trabalho_final/mips/complete/multicycle_video/or_x.vhd
+Info (12021): Found 2 design units, including 1 entities, in source file /modelsim/trabalho_final/mips/complete/multicycle_video/or_x.vhd
     Info (12022): Found design unit 1: or_x-structural
     Info (12023): Found entity 1: or_x
-Info (12021): Found 2 design units, including 1 entities, in source file /lab de arq/trabalho_final/mips/complete/multicycle_video/multiplexer.vhd
+Info (12021): Found 2 design units, including 1 entities, in source file /modelsim/trabalho_final/mips/complete/multicycle_video/multiplexer.vhd
     Info (12022): Found design unit 1: multiplexer-structural
     Info (12023): Found entity 1: multiplexer
-Info (12021): Found 2 design units, including 1 entities, in source file /lab de arq/trabalho_final/mips/complete/multicycle_video/instructions_memory.vhd
-    Info (12022): Found design unit 1: instructions_memory-behavioral
-    Info (12023): Found entity 1: instructions_memory
-Info (12021): Found 2 design units, including 1 entities, in source file /lab de arq/trabalho_final/mips/complete/multicycle_video/full_adder_x.vhd
+Info (12021): Found 2 design units, including 1 entities, in source file /modelsim/trabalho_final/mips/complete/multicycle_video/full_adder_x.vhd
     Info (12022): Found design unit 1: full_adder_x-structural
     Info (12023): Found entity 1: full_adder_x
-Info (12021): Found 2 design units, including 1 entities, in source file /lab de arq/trabalho_final/mips/complete/multicycle_video/dec7seg.vhd
+Info (12021): Found 2 design units, including 1 entities, in source file /modelsim/trabalho_final/mips/complete/multicycle_video/dec7seg.vhd
     Info (12022): Found design unit 1: dec7seg-ONLY
     Info (12023): Found entity 1: dec7seg
-Info (12021): Found 2 design units, including 1 entities, in source file /lab de arq/trabalho_final/mips/complete/multicycle_video/data_memory.vhd
+Info (12021): Found 2 design units, including 1 entities, in source file /modelsim/trabalho_final/mips/complete/multicycle_video/data_memory.vhd
     Info (12022): Found design unit 1: data_memory-behavioral
     Info (12023): Found entity 1: data_memory
-Info (12021): Found 2 design units, including 1 entities, in source file /lab de arq/trabalho_final/mips/complete/multicycle_video/control_unit.vhd
+Info (12021): Found 2 design units, including 1 entities, in source file /modelsim/trabalho_final/mips/complete/multicycle_video/control_unit.vhd
     Info (12022): Found design unit 1: control_unit-behavioral
     Info (12023): Found entity 1: control_unit
-Info (12021): Found 2 design units, including 1 entities, in source file /lab de arq/trabalho_final/mips/complete/multicycle_video/and_x.vhd
+Info (12021): Found 2 design units, including 1 entities, in source file /modelsim/trabalho_final/mips/complete/multicycle_video/and_x.vhd
     Info (12022): Found design unit 1: and_x-structural
     Info (12023): Found entity 1: and_x
-Info (12021): Found 2 design units, including 1 entities, in source file /lab de arq/trabalho_final/mips/complete/multicycle_video/alu_x.vhd
+Info (12021): Found 2 design units, including 1 entities, in source file /modelsim/trabalho_final/mips/complete/multicycle_video/alu_x.vhd
     Info (12022): Found design unit 1: alu_x-structural
     Info (12023): Found entity 1: alu_x
-Info (12021): Found 2 design units, including 1 entities, in source file /lab de arq/trabalho_final/mips/complete/multicycle_video/address_video.vhd
+Info (12021): Found 2 design units, including 1 entities, in source file /modelsim/trabalho_final/mips/complete/multicycle_video/address_video.vhd
     Info (12022): Found design unit 1: address_video-behavior
     Info (12023): Found entity 1: address_video
-Info (12021): Found 2 design units, including 1 entities, in source file /lab de arq/trabalho_final/mips/complete/multicycle_video/adder.vhd
+Info (12021): Found 2 design units, including 1 entities, in source file /modelsim/trabalho_final/mips/complete/multicycle_video/adder.vhd
     Info (12022): Found design unit 1: adder-structural
     Info (12023): Found entity 1: adder
 Info (12127): Elaborating entity "De2" for the top level hierarchy
@@ -1515,118 +1548,19 @@ Info (12021): Found 1 design units, including 1 entities, in source file db/vga_
     Info (12023): Found entity 1: vga_pll_altpll
 Info (12128): Elaborating entity "vga_pll_altpll" for hierarchy "vga_pll:pll|altpll:altpll_component|vga_pll_altpll:auto_generated"
 Info (12128): Elaborating entity "processor" for hierarchy "processor:cpu"
-Warning (10540): VHDL Signal Declaration warning at processor.vhd(125): used explicit default value for signal "offset_constante_1" because signal was never assigned a value
-Warning (10540): VHDL Signal Declaration warning at processor.vhd(126): used explicit default value for signal "register_31" because signal was never assigned a value
-Warning (10540): VHDL Signal Declaration warning at processor.vhd(127): used explicit default value for signal "valor_16" because signal was never assigned a value
-Info (10041): Inferred latch for "destination_register[0]" at processor.vhd(151)
-Info (10041): Inferred latch for "destination_register[1]" at processor.vhd(151)
-Info (10041): Inferred latch for "destination_register[2]" at processor.vhd(151)
-Info (10041): Inferred latch for "destination_register[3]" at processor.vhd(151)
-Info (10041): Inferred latch for "destination_register[4]" at processor.vhd(151)
-Info (10041): Inferred latch for "alu_operand2[0]" at processor.vhd(144)
-Info (10041): Inferred latch for "alu_operand2[1]" at processor.vhd(144)
-Info (10041): Inferred latch for "alu_operand2[2]" at processor.vhd(144)
-Info (10041): Inferred latch for "alu_operand2[3]" at processor.vhd(144)
-Info (10041): Inferred latch for "alu_operand2[4]" at processor.vhd(144)
-Info (10041): Inferred latch for "alu_operand2[5]" at processor.vhd(144)
-Info (10041): Inferred latch for "alu_operand2[6]" at processor.vhd(144)
-Info (10041): Inferred latch for "alu_operand2[7]" at processor.vhd(144)
-Info (10041): Inferred latch for "alu_operand2[8]" at processor.vhd(144)
-Info (10041): Inferred latch for "alu_operand2[9]" at processor.vhd(144)
-Info (10041): Inferred latch for "alu_operand2[10]" at processor.vhd(144)
-Info (10041): Inferred latch for "alu_operand2[11]" at processor.vhd(144)
-Info (10041): Inferred latch for "alu_operand2[12]" at processor.vhd(144)
-Info (10041): Inferred latch for "alu_operand2[13]" at processor.vhd(144)
-Info (10041): Inferred latch for "alu_operand2[14]" at processor.vhd(144)
-Info (10041): Inferred latch for "alu_operand2[15]" at processor.vhd(144)
-Info (10041): Inferred latch for "alu_operand2[16]" at processor.vhd(144)
-Info (10041): Inferred latch for "alu_operand2[17]" at processor.vhd(144)
-Info (10041): Inferred latch for "alu_operand2[18]" at processor.vhd(144)
-Info (10041): Inferred latch for "alu_operand2[19]" at processor.vhd(144)
-Info (10041): Inferred latch for "alu_operand2[20]" at processor.vhd(144)
-Info (10041): Inferred latch for "alu_operand2[21]" at processor.vhd(144)
-Info (10041): Inferred latch for "alu_operand2[22]" at processor.vhd(144)
-Info (10041): Inferred latch for "alu_operand2[23]" at processor.vhd(144)
-Info (10041): Inferred latch for "alu_operand2[24]" at processor.vhd(144)
-Info (10041): Inferred latch for "alu_operand2[25]" at processor.vhd(144)
-Info (10041): Inferred latch for "alu_operand2[26]" at processor.vhd(144)
-Info (10041): Inferred latch for "alu_operand2[27]" at processor.vhd(144)
-Info (10041): Inferred latch for "alu_operand2[28]" at processor.vhd(144)
-Info (10041): Inferred latch for "alu_operand2[29]" at processor.vhd(144)
-Info (10041): Inferred latch for "alu_operand2[30]" at processor.vhd(144)
-Info (10041): Inferred latch for "alu_operand2[31]" at processor.vhd(144)
-Info (10041): Inferred latch for "alu_operand1[0]" at processor.vhd(139)
-Info (10041): Inferred latch for "alu_operand1[1]" at processor.vhd(139)
-Info (10041): Inferred latch for "alu_operand1[2]" at processor.vhd(139)
-Info (10041): Inferred latch for "alu_operand1[3]" at processor.vhd(139)
-Info (10041): Inferred latch for "alu_operand1[4]" at processor.vhd(139)
-Info (10041): Inferred latch for "alu_operand1[5]" at processor.vhd(139)
-Info (10041): Inferred latch for "alu_operand1[6]" at processor.vhd(139)
-Info (10041): Inferred latch for "alu_operand1[7]" at processor.vhd(139)
-Info (10041): Inferred latch for "alu_operand1[8]" at processor.vhd(139)
-Info (10041): Inferred latch for "alu_operand1[9]" at processor.vhd(139)
-Info (10041): Inferred latch for "alu_operand1[10]" at processor.vhd(139)
-Info (10041): Inferred latch for "alu_operand1[11]" at processor.vhd(139)
-Info (10041): Inferred latch for "alu_operand1[12]" at processor.vhd(139)
-Info (10041): Inferred latch for "alu_operand1[13]" at processor.vhd(139)
-Info (10041): Inferred latch for "alu_operand1[14]" at processor.vhd(139)
-Info (10041): Inferred latch for "alu_operand1[15]" at processor.vhd(139)
-Info (10041): Inferred latch for "alu_operand1[16]" at processor.vhd(139)
-Info (10041): Inferred latch for "alu_operand1[17]" at processor.vhd(139)
-Info (10041): Inferred latch for "alu_operand1[18]" at processor.vhd(139)
-Info (10041): Inferred latch for "alu_operand1[19]" at processor.vhd(139)
-Info (10041): Inferred latch for "alu_operand1[20]" at processor.vhd(139)
-Info (10041): Inferred latch for "alu_operand1[21]" at processor.vhd(139)
-Info (10041): Inferred latch for "alu_operand1[22]" at processor.vhd(139)
-Info (10041): Inferred latch for "alu_operand1[23]" at processor.vhd(139)
-Info (10041): Inferred latch for "alu_operand1[24]" at processor.vhd(139)
-Info (10041): Inferred latch for "alu_operand1[25]" at processor.vhd(139)
-Info (10041): Inferred latch for "alu_operand1[26]" at processor.vhd(139)
-Info (10041): Inferred latch for "alu_operand1[27]" at processor.vhd(139)
-Info (10041): Inferred latch for "alu_operand1[28]" at processor.vhd(139)
-Info (10041): Inferred latch for "alu_operand1[29]" at processor.vhd(139)
-Info (10041): Inferred latch for "alu_operand1[30]" at processor.vhd(139)
-Info (10041): Inferred latch for "alu_operand1[31]" at processor.vhd(139)
-Info (10041): Inferred latch for "address_to_point[0]" at processor.vhd(135)
-Info (10041): Inferred latch for "address_to_point[1]" at processor.vhd(135)
-Info (10041): Inferred latch for "address_to_point[2]" at processor.vhd(135)
-Info (10041): Inferred latch for "address_to_point[3]" at processor.vhd(135)
-Info (10041): Inferred latch for "address_to_point[4]" at processor.vhd(135)
-Info (10041): Inferred latch for "address_to_point[5]" at processor.vhd(135)
-Info (10041): Inferred latch for "address_to_point[6]" at processor.vhd(135)
-Info (10041): Inferred latch for "address_to_point[7]" at processor.vhd(135)
-Info (10041): Inferred latch for "address_to_point[8]" at processor.vhd(135)
-Info (10041): Inferred latch for "address_to_point[9]" at processor.vhd(135)
-Info (10041): Inferred latch for "address_to_point[10]" at processor.vhd(135)
-Info (10041): Inferred latch for "address_to_point[11]" at processor.vhd(135)
-Info (10041): Inferred latch for "address_to_point[12]" at processor.vhd(135)
-Info (10041): Inferred latch for "address_to_point[13]" at processor.vhd(135)
-Info (10041): Inferred latch for "address_to_point[14]" at processor.vhd(135)
-Info (10041): Inferred latch for "address_to_point[15]" at processor.vhd(135)
-Info (10041): Inferred latch for "address_to_point[16]" at processor.vhd(135)
-Info (10041): Inferred latch for "address_to_point[17]" at processor.vhd(135)
-Info (10041): Inferred latch for "address_to_point[18]" at processor.vhd(135)
-Info (10041): Inferred latch for "address_to_point[19]" at processor.vhd(135)
-Info (10041): Inferred latch for "address_to_point[20]" at processor.vhd(135)
-Info (10041): Inferred latch for "address_to_point[21]" at processor.vhd(135)
-Info (10041): Inferred latch for "address_to_point[22]" at processor.vhd(135)
-Info (10041): Inferred latch for "address_to_point[23]" at processor.vhd(135)
-Info (10041): Inferred latch for "address_to_point[24]" at processor.vhd(135)
-Info (10041): Inferred latch for "address_to_point[25]" at processor.vhd(135)
-Info (10041): Inferred latch for "address_to_point[26]" at processor.vhd(135)
-Info (10041): Inferred latch for "address_to_point[27]" at processor.vhd(135)
-Info (10041): Inferred latch for "address_to_point[28]" at processor.vhd(135)
-Info (10041): Inferred latch for "address_to_point[29]" at processor.vhd(135)
-Info (10041): Inferred latch for "address_to_point[30]" at processor.vhd(135)
-Info (10041): Inferred latch for "address_to_point[31]" at processor.vhd(135)
+Warning (10540): VHDL Signal Declaration warning at processor.vhd(146): used explicit default value for signal "offset_constante_1" because signal was never assigned a value
+Warning (10540): VHDL Signal Declaration warning at processor.vhd(147): used explicit default value for signal "offset_constante_0" because signal was never assigned a value
+Warning (10540): VHDL Signal Declaration warning at processor.vhd(148): used explicit default value for signal "register_31" because signal was never assigned a value
+Warning (10540): VHDL Signal Declaration warning at processor.vhd(149): used explicit default value for signal "valor_16" because signal was never assigned a value
+Info (12128): Elaborating entity "state_register" for hierarchy "processor:cpu|state_register:v0_syscall_register"
 Info (12128): Elaborating entity "program_counter" for hierarchy "processor:cpu|program_counter:pc"
 Info (12128): Elaborating entity "instructions_memory" for hierarchy "processor:cpu|instructions_memory:memory_of_instructions"
-Warning (10541): VHDL Signal Declaration warning at instructions_memory.vhd(22): used implicit default value for signal "instructions" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations.
+Warning (10541): VHDL Signal Declaration warning at instructions_memory.vhd(31): used implicit default value for signal "instructions" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations.
 Info (12128): Elaborating entity "control_unit" for hierarchy "processor:cpu|control_unit:state_machine"
+Warning (10541): VHDL Signal Declaration warning at control_unit.vhd(23): used implicit default value for signal "byte_enable" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations.
 Info (12128): Elaborating entity "register_bank" for hierarchy "processor:cpu|register_bank:bank_of_registers"
 Info (12128): Elaborating entity "alu_x" for hierarchy "processor:cpu|alu_x:alu"
-Warning (10541): VHDL Signal Declaration warning at alu_x.vhd(57): used implicit default value for signal "x6" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations.
-Warning (10541): VHDL Signal Declaration warning at alu_x.vhd(57): used implicit default value for signal "x7" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations.
+Warning (10541): VHDL Signal Declaration warning at alu_x.vhd(70): used implicit default value for signal "x7" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations.
 Info (12128): Elaborating entity "and_x" for hierarchy "processor:cpu|alu_x:alu|and_x:and_x_1"
 Info (12128): Elaborating entity "or_x" for hierarchy "processor:cpu|alu_x:alu|or_x:or_x_1"
 Info (12128): Elaborating entity "full_adder_x" for hierarchy "processor:cpu|alu_x:alu|full_adder_x:adder"
@@ -1634,9 +1568,14 @@ Info (12128): Elaborating entity "adder" for hierarchy "processor:cpu|alu_x:alu|
 Info (12128): Elaborating entity "subtractor_x" for hierarchy "processor:cpu|alu_x:alu|subtractor_x:subtractor"
 Info (12128): Elaborating entity "slt_x" for hierarchy "processor:cpu|alu_x:alu|slt_x:slt"
 Info (12128): Elaborating entity "sll_x" for hierarchy "processor:cpu|alu_x:alu|sll_x:sllx"
+Info (12128): Elaborating entity "xor_x" for hierarchy "processor:cpu|alu_x:alu|xor_x:xor_x_1"
 Info (12128): Elaborating entity "multiplexer" for hierarchy "processor:cpu|alu_x:alu|multiplexer:multx"
-Warning (10540): VHDL Signal Declaration warning at multiplexer.vhd(21): used explicit default value for signal "unknown" because signal was never assigned a value
-Info (12128): Elaborating entity "state_register" for hierarchy "processor:cpu|state_register:alu_output_register"
+Warning (10540): VHDL Signal Declaration warning at multiplexer.vhd(22): used explicit default value for signal "unknown" because signal was never assigned a value
+Info (12128): Elaborating entity "decoder_x" for hierarchy "processor:cpu|decoder_x:decoder"
+Info (10041): Inferred latch for "dout[0]" at decoder_x.vhd(15)
+Info (10041): Inferred latch for "dout[1]" at decoder_x.vhd(15)
+Info (10041): Inferred latch for "dout[2]" at decoder_x.vhd(15)
+Info (10041): Inferred latch for "dout[3]" at decoder_x.vhd(15)
 Info (12128): Elaborating entity "data_memory" for hierarchy "processor:cpu|data_memory:memory_of_data"
 Info (12128): Elaborating entity "address_video" for hierarchy "address_video:docoder"
 Info (12128): Elaborating entity "vga_controller" for hierarchy "vga_controller:video"
@@ -1647,134 +1586,6 @@ Warning (10492): VHDL Process Statement warning at mouse.vhd(157): signal "CHARO
 Warning (10492): VHDL Process Statement warning at mouse.vhd(158): signal "CHAROUT" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
 Warning (10492): VHDL Process Statement warning at mouse.vhd(159): signal "CHAROUT" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
 Info (12128): Elaborating entity "keyboard" for hierarchy "keyboard:teclado"
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[1]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[2]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[3]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[4]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[5]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[6]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[7]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[8]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[9]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[10]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[11]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[12]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[13]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[14]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[15]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[16]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[17]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[18]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[19]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[20]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[21]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[22]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[23]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[24]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[25]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[26]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[27]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[28]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[29]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[30]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[31]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[0]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[1]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[2]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[3]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[4]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[5]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[6]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[7]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[8]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[9]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[10]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[11]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[12]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[13]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[14]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[15]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[16]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[17]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[18]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[19]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[20]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[21]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[22]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[23]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[24]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[25]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[26]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[27]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[28]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[29]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[30]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[31]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|address_to_point[0]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand2[2]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand2[3]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand2[4]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand2[5]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand2[6]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand2[7]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand2[8]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand2[9]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand2[10]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand2[11]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand2[12]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand2[13]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand2[14]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand2[15]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand2[16]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand2[17]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand2[18]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand2[19]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand2[20]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand2[21]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand2[22]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand2[23]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand2[24]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand2[25]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand2[26]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand2[27]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand2[28]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand2[29]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand2[30]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand2[31]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand1[1]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand1[2]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand1[3]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand1[4]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand1[5]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand1[6]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand1[7]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand1[8]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand1[9]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand1[10]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand1[11]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand1[12]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand1[13]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand1[14]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand1[15]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand1[16]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand1[17]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand1[18]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand1[19]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand1[20]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand1[21]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand1[22]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand1[23]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand1[24]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand1[25]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand1[26]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand1[27]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand1[28]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand1[29]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand1[30]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand1[31]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand2[1]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand2[0]" is permanently enabled
-Warning (14026): LATCH primitive "processor:cpu|alu_operand1[0]" is permanently enabled
 Info (276014): Found 2 instances of uninferred RAM logic
     Info (276007): RAM logic "processor:cpu|register_bank:bank_of_registers|registers" is uninferred due to asynchronous read logic
     Info (276007): RAM logic "processor:cpu|register_bank:bank_of_registers|registers" is uninferred due to asynchronous read logic
@@ -1797,7 +1608,7 @@ Info (19000): Inferred 2 megafunctions from design logic
         Info (286033): Parameter ADDRESS_ACLR_A set to NONE
         Info (286033): Parameter ADDRESS_ACLR_B set to NONE
         Info (286033): Parameter OUTDATA_ACLR_B set to NONE
-        Info (286033): Parameter INIT_FILE set to db/De2.ram0_data_memory_8cd63da5.hdl.mif
+        Info (286033): Parameter INIT_FILE set to ../data_memory.mif
         Info (286033): Parameter READ_DURING_WRITE_MODE_MIXED_PORTS set to OLD_DATA
     Info (276029): Inferred altsyncram megafunction from the following design logic: "processor:cpu|instructions_memory:memory_of_instructions|instructions_rtl_0" 
         Info (286033): Parameter OPERATION_MODE set to ROM
@@ -1829,10 +1640,10 @@ Info (12133): Instantiated megafunction "processor:cpu|data_memory:memory_of_dat
     Info (12134): Parameter "ADDRESS_ACLR_A" = "NONE"
     Info (12134): Parameter "ADDRESS_ACLR_B" = "NONE"
     Info (12134): Parameter "OUTDATA_ACLR_B" = "NONE"
-    Info (12134): Parameter "INIT_FILE" = "db/De2.ram0_data_memory_8cd63da5.hdl.mif"
+    Info (12134): Parameter "INIT_FILE" = "../data_memory.mif"
     Info (12134): Parameter "READ_DURING_WRITE_MODE_MIXED_PORTS" = "OLD_DATA"
-Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_vav1.tdf
-    Info (12023): Found entity 1: altsyncram_vav1
+Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_met1.tdf
+    Info (12023): Found entity 1: altsyncram_met1
 Info (12130): Elaborated megafunction instantiation "processor:cpu|instructions_memory:memory_of_instructions|altsyncram:instructions_rtl_0"
 Info (12133): Instantiated megafunction "processor:cpu|instructions_memory:memory_of_instructions|altsyncram:instructions_rtl_0" with the following parameter:
     Info (12134): Parameter "OPERATION_MODE" = "ROM"
@@ -1847,16 +1658,7 @@ Info (12133): Instantiated megafunction "processor:cpu|instructions_memory:memor
     Info (12134): Parameter "INIT_FILE" = "../instructions_memory.mif"
 Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_5p61.tdf
     Info (12023): Found entity 1: altsyncram_5p61
-Warning (13012): Latch processor:cpu|destination_register[4] has unsafe behavior
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal processor:cpu|control_unit:state_machine|reg_dst[0]
-Warning (13012): Latch processor:cpu|destination_register[0] has unsafe behavior
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal processor:cpu|control_unit:state_machine|reg_dst[0]
-Warning (13012): Latch processor:cpu|destination_register[1] has unsafe behavior
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal processor:cpu|control_unit:state_machine|reg_dst[0]
-Warning (13012): Latch processor:cpu|destination_register[2] has unsafe behavior
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal processor:cpu|control_unit:state_machine|reg_dst[0]
-Warning (13012): Latch processor:cpu|destination_register[3] has unsafe behavior
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal processor:cpu|control_unit:state_machine|reg_dst[0]
+Warning (12241): 1 hierarchies have connectivity warnings - see the Connectivity Checks report folder
 Info (13000): Registers with preset signals will power-up high
 Info (13003): DEV_CLRn pin will set, and not reset, register with preset signal due to NOT Gate Push-Back
 Warning (13024): Output pins are stuck at VCC or GND
@@ -1945,17 +1747,17 @@ Warning (21074): Design contains 21 input pin(s) that do not drive logic
     Warning (15610): No output dependent on input pin "SW[15]"
     Warning (15610): No output dependent on input pin "SW[16]"
     Warning (15610): No output dependent on input pin "SW[17]"
-Info (21057): Implemented 3641 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 3808 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 23 input pins
     Info (21059): Implemented 112 output pins
     Info (21060): Implemented 2 bidirectional pins
-    Info (21061): Implemented 3439 logic cells
+    Info (21061): Implemented 3606 logic cells
     Info (21064): Implemented 64 RAM segments
     Info (21065): Implemented 1 PLLs
-Info: Quartus II 64-Bit Analysis & Synthesis was successful. 0 errors, 247 warnings
-    Info: Peak virtual memory: 523 megabytes
-    Info: Processing ended: Mon Jul 07 16:40:18 2014
-    Info: Elapsed time: 00:00:34
-    Info: Total CPU time (on all processors): 00:00:17
+Info: Quartus II 64-Bit Analysis & Synthesis was successful. 0 errors, 111 warnings
+    Info: Peak virtual memory: 521 megabytes
+    Info: Processing ended: Tue Jul 08 11:22:41 2014
+    Info: Elapsed time: 00:00:32
+    Info: Total CPU time (on all processors): 00:00:32
 
 

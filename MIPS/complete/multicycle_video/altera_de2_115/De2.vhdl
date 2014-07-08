@@ -134,10 +134,31 @@ SIGNAL ledr1 : STD_LOGIC_VECTOR (9 downto 0);
 BEGIN
 
   
-  
+  --LEDG <= "0" & current_instruction(31 downto 24);
 	LEDR <= "00000000" & ledr1;
 		
- 
+ -- d3: dec7seg port map (
+   -- instruction_address(15 downto 12),
+   -- HEX3);  
+
+	 
+		--HEX4 <= HEX3;
+		--HEX5 <= HEX2;
+		--HEX6 <= HEX1;
+		--HEX7 <= HEX0;
+		
+  --d2: dec7seg port map (
+  --  instruction_address(11 downto 8),
+  --  HEX2);  
+
+  --d1: dec7seg port map (
+  --  instruction_address(7 downto 4),
+  --  HEX1);  
+
+ --- d0: dec7seg port map (
+  --  instruction_address(3 downto 0),
+   -- HEX0);
+
 
   d1: dec7seg port map (
     scan_code_key(7 downto 4),
