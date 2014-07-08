@@ -1,0 +1,185 @@
+------------------------------------------------------------
+TimeQuest Timing Analyzer Summary
+------------------------------------------------------------
+
+Type  : Slow 1200mV 85C Model Setup 'pll|altpll_component|auto_generated|pll1|clk[1]'
+Slack : -4.394
+TNS   : -16.567
+
+Type  : Slow 1200mV 85C Model Setup 'MOUSE:mouse_sp2|clock_mouse_FILTER'
+Slack : -1.610
+TNS   : -87.856
+
+Type  : Slow 1200mV 85C Model Setup 'keyboard:teclado|keyboard_clk_filtered'
+Slack : -0.834
+TNS   : -14.825
+
+Type  : Slow 1200mV 85C Model Setup 'pll|altpll_component|auto_generated|pll1|clk[0]'
+Slack : 13.883
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Hold 'MOUSE:mouse_sp2|clock_mouse_FILTER'
+Slack : -1.426
+TNS   : -76.228
+
+Type  : Slow 1200mV 85C Model Hold 'pll|altpll_component|auto_generated|pll1|clk[0]'
+Slack : 0.280
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Hold 'pll|altpll_component|auto_generated|pll1|clk[1]'
+Slack : 0.331
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Hold 'keyboard:teclado|keyboard_clk_filtered'
+Slack : 0.346
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Recovery 'MOUSE:mouse_sp2|clock_mouse_FILTER'
+Slack : 0.218
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Removal 'MOUSE:mouse_sp2|clock_mouse_FILTER'
+Slack : -1.358
+TNS   : -21.332
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'MOUSE:mouse_sp2|clock_mouse_FILTER'
+Slack : -1.000
+TNS   : -64.000
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'keyboard:teclado|keyboard_clk_filtered'
+Slack : -1.000
+TNS   : -22.000
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'CLOCK_50'
+Slack : 9.829
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'pll|altpll_component|auto_generated|pll1|clk[0]'
+Slack : 19.427
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'pll|altpll_component|auto_generated|pll1|clk[1]'
+Slack : 20.507
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Setup 'pll|altpll_component|auto_generated|pll1|clk[1]'
+Slack : -3.832
+TNS   : -14.402
+
+Type  : Slow 1200mV 0C Model Setup 'MOUSE:mouse_sp2|clock_mouse_FILTER'
+Slack : -1.363
+TNS   : -73.217
+
+Type  : Slow 1200mV 0C Model Setup 'keyboard:teclado|keyboard_clk_filtered'
+Slack : -0.657
+TNS   : -11.158
+
+Type  : Slow 1200mV 0C Model Setup 'pll|altpll_component|auto_generated|pll1|clk[0]'
+Slack : 16.374
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Hold 'MOUSE:mouse_sp2|clock_mouse_FILTER'
+Slack : -1.159
+TNS   : -61.458
+
+Type  : Slow 1200mV 0C Model Hold 'pll|altpll_component|auto_generated|pll1|clk[0]'
+Slack : 0.273
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Hold 'pll|altpll_component|auto_generated|pll1|clk[1]'
+Slack : 0.287
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Hold 'keyboard:teclado|keyboard_clk_filtered'
+Slack : 0.301
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Recovery 'MOUSE:mouse_sp2|clock_mouse_FILTER'
+Slack : 0.105
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Removal 'MOUSE:mouse_sp2|clock_mouse_FILTER'
+Slack : -1.104
+TNS   : -17.224
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'MOUSE:mouse_sp2|clock_mouse_FILTER'
+Slack : -1.000
+TNS   : -64.000
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'keyboard:teclado|keyboard_clk_filtered'
+Slack : -1.000
+TNS   : -22.000
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'CLOCK_50'
+Slack : 9.847
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'pll|altpll_component|auto_generated|pll1|clk[0]'
+Slack : 19.410
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'pll|altpll_component|auto_generated|pll1|clk[1]'
+Slack : 20.517
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Setup 'pll|altpll_component|auto_generated|pll1|clk[1]'
+Slack : -2.757
+TNS   : -10.427
+
+Type  : Fast 1200mV 0C Model Setup 'MOUSE:mouse_sp2|clock_mouse_FILTER'
+Slack : -0.472
+TNS   : -20.698
+
+Type  : Fast 1200mV 0C Model Setup 'keyboard:teclado|keyboard_clk_filtered'
+Slack : -0.002
+TNS   : -0.018
+
+Type  : Fast 1200mV 0C Model Setup 'pll|altpll_component|auto_generated|pll1|clk[0]'
+Slack : 25.197
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Hold 'MOUSE:mouse_sp2|clock_mouse_FILTER'
+Slack : -1.100
+TNS   : -62.128
+
+Type  : Fast 1200mV 0C Model Hold 'pll|altpll_component|auto_generated|pll1|clk[0]'
+Slack : 0.121
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Hold 'pll|altpll_component|auto_generated|pll1|clk[1]'
+Slack : 0.171
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Hold 'keyboard:teclado|keyboard_clk_filtered'
+Slack : 0.179
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Recovery 'MOUSE:mouse_sp2|clock_mouse_FILTER'
+Slack : 0.308
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Removal 'MOUSE:mouse_sp2|clock_mouse_FILTER'
+Slack : -1.065
+TNS   : -16.820
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'MOUSE:mouse_sp2|clock_mouse_FILTER'
+Slack : -1.000
+TNS   : -64.000
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'keyboard:teclado|keyboard_clk_filtered'
+Slack : -1.000
+TNS   : -22.000
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'CLOCK_50'
+Slack : 9.618
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'pll|altpll_component|auto_generated|pll1|clk[0]'
+Slack : 19.589
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'pll|altpll_component|auto_generated|pll1|clk[1]'
+Slack : 20.569
+TNS   : 0.000
+
+------------------------------------------------------------
