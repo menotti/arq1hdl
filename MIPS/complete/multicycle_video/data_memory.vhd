@@ -20,16 +20,29 @@ architecture behavioral of data_memory is
 
 	type data_sequence is array (0 to 2**address_width - 1) of std_logic_vector (data_width - 1 downto 0);  
 
---  Quartus II 
-	 signal data: data_sequence;
-	 attribute ram_init_file : string;
-	 attribute ram_init_file of data : signal is "data_memory.mif";
-  
+-- Quartus II
+-- ------------------------------------------------------------
+-- Synthesis-only
+-- ------------------------------------------------------------
+--
+-- Note: Quartus does not allow comments inside the read
+-- comments as HDL block.
+--
+-- synthesis read_comments_as_HDL on
+
+--  signal data: data_sequence;
+--  attribute ram_init_file : string;
+--  attribute ram_init_file of data : signal is "../data_memory.mif";
+
+-- synthesis read_comments_as_HDL off
+
 -- ModelSim
-   	--signal data: data_sequence := (
-    --0 => X"00000001",
-		--1 => X"F0F0AAAA",
-		--others => (others => '0'));
+--pragma synthesis_off
+   signal data: data_sequence := (
+   0 => X"00000001",
+   1 => X"F0F0AAAA",
+   others => (others => '0'));
+--pragma synthesis_on
 
 begin
 
