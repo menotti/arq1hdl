@@ -57,7 +57,21 @@ begin
           data_out <= data_to_write;
        else
           -- Read-during-write on the mixed port returns OLD data
-          data_out <= data(index);
+          if (be = "1111") then
+            data_out <= data(index);
+          elsif (be = "0001") then
+            data_out(7 downto 0) <= data(index)(7 downto 0);
+            data_out(31 downto 8) <= "000000000000000000000000";
+          elsif (be = "0010") then
+            data_out(7 downto 0) <= data(index)(15 downto 8);
+            data_out(31 downto 8) <= "000000000000000000000000";
+          elsif (be = "0100") then
+            data_out(7 downto 0) <= data(index)(23 downto 16);
+            data_out(31 downto 8) <= "000000000000000000000000";
+          elsif (be = "1000") then
+            data_out(7 downto 0) <= data(index)(31 downto 24);
+            data_out(31 downto 8) <= "000000000000000000000000";
+          end if;
        end if;
    end if;
    end process;

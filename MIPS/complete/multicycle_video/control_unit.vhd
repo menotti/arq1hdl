@@ -2,7 +2,6 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
-
 entity control_unit is 
   port (
     clock: in std_logic;
@@ -20,11 +19,10 @@ entity control_unit is
     alu_operation: out std_logic_vector (2 downto 0);
     read_memory, write_memory: out std_logic;
     byte_offset: out std_logic_vector (1 downto 0);
-    byte_enable: out std_logic_vector (1 downto 0);
     jump_offset: out std_logic_vector (25 downto 0);
     branch_cp_z_control: out std_logic; -- branch comparing to zero control
     bne_control: out std_logic;
-	 syscall_control:out std_logic;
+    syscall_control:out std_logic;
     v0_syscall : in std_logic_vector (31 downto 0));
 end control_unit;
 
@@ -50,6 +48,7 @@ architecture behavioral of control_unit is
   constant branch_cp_z   : std_logic_vector(5 downto 0) := "000001"; -- bltz; bgez; bltzal; bgezal
   constant bne           : std_logic_vector(5 downto 0) := "000101";
   constant sb            : std_logic_vector(5 downto 0) := "101000";
+  constant lbu           : std_logic_vector(5 downto 0) := "100000";
   
   constant funct_sll     : std_logic_vector(5 downto 0) := "000000";
   constant funct_sllv    : std_logic_vector(5 downto 0) := "000100";  
@@ -64,7 +63,7 @@ architecture behavioral of control_unit is
   constant funct_bltz    : std_logic_vector(4 downto 0) := "00000";
   constant funct_bgez    : std_logic_vector(4 downto 0) := "00001";
   constant funct_syscall : std_logic_vector(5 downto 0) := "001100";
-  
+
 begin
   
   opcode <= instruction(31 downto 26);
@@ -91,8 +90,8 @@ begin
       mem_to_register <= '0';
       write_memory <= '0';
       write_register <= '0';
-		syscall_control <= '0';
-				
+	  syscall_control <= '0';
+
       case next_state is
       when fetch =>
         enable_program_counter <= '1';
@@ -114,9 +113,13 @@ begin
           source_alu_b <= "011";
           next_state <= mem;
         elsif opcode = sb then
-          source_alu_a <= "10";
+          source_alu_a <= "01";
           source_alu_b <= "011";
-          next_state <= mem; 
+          next_state <= mem;
+        elsif opcode = lbu then
+	        source_alu_a <= "01";
+	       	source_alu_b <= "011";
+	        next_state <= mem; 
         elsif opcode = j then
           enable_program_counter <= '1';
           pc_source <= "10";
@@ -157,20 +160,20 @@ begin
           alu_operation <= "101";
           next_state <= writeback;
 		    elsif opcode = branch_cp_z then
-		         if branch_funct = funct_bltz then
-               enable_program_counter <= '1';
-               pc_source <= "11";
-               source_alu_a <= "01"; 
-               source_alu_b <= "000";
-               branch_cp_z_control <= '1';
-               next_state <= fetch;
-		         elsif branch_funct = (funct_bgezal or funct_bgez) then
-		           enable_alu_output_register <= '1';
-               source_alu_a <= "00";
-               source_alu_b <= "100";
-               alu_operation <= "010";
-			         next_state <= writeback;
-		         end if;
+		      if branch_funct = funct_bltz then
+            enable_program_counter <= '1';
+            pc_source <= "11";
+            source_alu_a <= "01"; 
+            source_alu_b <= "000";
+            branch_cp_z_control <= '1';
+            next_state <= fetch;
+		      elsif branch_funct = (funct_bgezal or funct_bgez) then
+		        enable_alu_output_register <= '1';
+            source_alu_a <= "00";
+            source_alu_b <= "100";
+            alu_operation <= "010";
+			      next_state <= writeback;
+		      end if;
         elsif opcode = bne then
           enable_program_counter <= '1';
           pc_source <= "11";
@@ -221,14 +224,12 @@ begin
             source_alu_b <= "000";
             alu_operation <= "111"; --nand
             next_state <= writeback;
-			
-			--implementacao da syscall
+	    --implementacao da syscall
           elsif funct = funct_syscall then
             --register1 <= "00100"; -- a0
             --register2 <= "00010"; -- v0
             syscall_control <= '1';
-            next_state <= fetch;    
-			
+            next_state <= fetch; 
           else
             source_alu_a <= "01";
             source_alu_b <= "000";
@@ -246,9 +247,13 @@ begin
           write_memory <= '1';
           enable_decoder <= '1';
           next_state <= fetch; 
+        elsif opcode = lbu then
+		      read_memory <= '1';
+		      enable_decoder <= '1';
+		      next_state <= writeback;
         end if;
       when writeback =>
-        if opcode = lw then
+        if opcode = lw or opcode = lbu then
           mem_to_register <= '1';
           write_register <= '1';
         elsif opcode = slti or opcode = lui then
@@ -266,13 +271,13 @@ begin
              source_alu_a <= "00";
              source_alu_b <= "011";
              alu_operation <= "010";
-			       if msb_a = '0' then
-			         pc_source <= "00";
-			         reg_dst <= "10";
-         	     mem_to_register <= '0';
-       			     write_register <= '1';
-       			     enable_program_counter <= '1';
-       			   end if; -- msb_a = '0'
+			     if msb_a = '0' then
+			       pc_source <= "00";
+			       reg_dst <= "10";
+      	      mem_to_register <= '0';
+    			      write_register <= '1';
+    			      enable_program_counter <= '1';
+  			     end if; -- msb_a = '0'
  			     elsif branch_funct = funct_bgez then
  			       source_alu_a <= "00";
              source_alu_b <= "011";
@@ -282,12 +287,12 @@ begin
        			     enable_program_counter <= '1';
        			   end if; -- msb_a = '0'
   			     end if; -- branch_funct
-				  
-		  elsif funct = funct_syscall then
+                                  
+                  elsif funct = funct_syscall then
           if v0_syscall = "00000000000000000000000000000110" then
             
-          end if;      		
-			 
+          end if;               
+                    
         else
           reg_dst <= "01";
           write_register <= '1';
