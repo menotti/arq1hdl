@@ -62,6 +62,7 @@ architecture behavioral of control_unit is
   
   constant funct_bgezal  : std_logic_vector(4 downto 0) := "10001";
   constant funct_bltz    : std_logic_vector(4 downto 0) := "00000";
+  constant funct_bltzal  : std_logic_vector(4 downto 0) := "10000";
   constant funct_bgez    : std_logic_vector(4 downto 0) := "00001";
   constant funct_syscall : std_logic_vector(5 downto 0) := "001100";
 
@@ -174,6 +175,12 @@ begin
             source_alu_b <= "100";
             alu_operation <= "010";
 			      next_state <= writeback;
+			    elsif branch_funct = funct_bltzal then
+		        enable_alu_output_register <= '1';
+            source_alu_a <= "00";
+            source_alu_b <= "100";
+            alu_operation <= "010";
+			      next_state <= writeback;
 		      end if;
         elsif opcode = bne then
           enable_program_counter <= '1';
@@ -281,26 +288,40 @@ begin
           write_register <= '1';
           
         elsif opcode = branch_cp_z then
-           if branch_funct = funct_bgezal then
+          if branch_funct = funct_bltzal then
              source_alu_a <= "00";
-             source_alu_b <= "011";
+             source_alu_b <= "010";
              alu_operation <= "010";
-			     if msb_a = '0' then
-			       pc_source <= "00";
-			       reg_dst <= "10";
-      	      mem_to_register <= '0';
-    			      write_register <= '1';
-    			      enable_program_counter <= '1';
-  			     end if; -- msb_a = '0'
- 			     elsif branch_funct = funct_bgez then
- 			       source_alu_a <= "00";
-             source_alu_b <= "011";
+			       if msb_a = '1' then
+			         pc_source <= "00";
+			         reg_dst <= "10";
+      	        mem_to_register <= '0';
+    			        write_register <= '1';
+    			        enable_program_counter <= '1';
+  			       end if; -- msb_a = '0'
+  			       
+          elsif branch_funct = funct_bgezal then
+             source_alu_a <= "00";
+             source_alu_b <= "010";
              alu_operation <= "010";
 			       if msb_a = '0' then
 			         pc_source <= "00";
-       			     enable_program_counter <= '1';
-       			   end if; -- msb_a = '0'
-  			     end if; -- branch_funct
+			         reg_dst <= "10";
+      	        mem_to_register <= '0';
+    			        write_register <= '1';
+    			        enable_program_counter <= '1';
+  			       end if; -- msb_a = '0'
+  			       
+ 			    elsif branch_funct = funct_bgez then
+ 			      source_alu_a <= "00";
+ 			      source_alu_b <= "011";
+ 			      alu_operation <= "010";
+ 			      if msb_a = '0' then
+ 			        pc_source <= "00";
+ 			        enable_program_counter <= '1';
+ 			      end if; -- msb_a = '0'
+       			   
+			    end if; -- branch_funct
                                   
                   elsif funct = funct_syscall then
           if v0_syscall = "00000000000000000000000000000110" then
