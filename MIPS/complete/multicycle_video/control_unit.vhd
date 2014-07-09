@@ -53,6 +53,7 @@ architecture behavioral of control_unit is
   constant funct_sll     : std_logic_vector(5 downto 0) := "000000";
   constant funct_sllv    : std_logic_vector(5 downto 0) := "000100";  
   constant funct_jr      : std_logic_vector(5 downto 0) := "001000";
+  constant funct_jalr    : std_logic_vector(5 downto 0) := "001001";
   constant funct_sub     : std_logic_vector(5 downto 0) := "100010";
   constant funct_and     : std_logic_vector(5 downto 0) := "100100";
   constant funct_or      : std_logic_vector(5 downto 0) := "100101";
@@ -189,6 +190,10 @@ begin
             source_alu_a <= "01";
             source_alu_b <= "000";
             next_state <= fetch;
+          elsif funct = funct_jalr then
+            source_alu_a <= "00";
+            source_alu_b <= "001";
+            next_state <= mem;
           elsif funct = funct_sllv then
             source_alu_a <= "01";
             source_alu_b <= "000";
@@ -240,6 +245,10 @@ begin
         if opcode = lw then
           read_memory <= '1';
           next_state <= writeback;
+        elsif funct = funct_jalr then
+          reg_dst <= "10";
+          write_register <= '1';
+          next_state <= writeback;
         elsif opcode = sw then
           write_memory <= '1';
           next_state <= fetch;
@@ -262,6 +271,11 @@ begin
         elsif opcode = jal then
           reg_dst <= "10"; 
           write_register <= '1';
+        elsif funct = funct_jalr then
+          enable_program_counter <= '1';
+          pc_source <= "00";
+          source_alu_a <= "01";
+          source_alu_b <= "000";
         elsif opcode = addi then
           mem_to_register <= '0';
           write_register <= '1';
