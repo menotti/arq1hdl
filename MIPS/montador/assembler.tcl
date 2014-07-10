@@ -1,5 +1,5 @@
-set fileInput [open "teste.txt"]
-set fileOutput [open "convertido.txt" "w"]
+set fileInput [open "input.asm"]
+set fileOutput [open "output.mif" "w"]
 
 proc opConverter { word } {
 	switch $word {
@@ -234,70 +234,63 @@ proc functConverter { word } {
 #converte registradores
 proc registerConverter { word } {
 	switch $word {
-		"$zero" {
-			set word "00000"
-			return $word
-		}
-		"$v0" {
-			set word "00010"
-			return $word
-		}
-		"$v1" {
-			set word "00011"
-			return $word
-		}
-		"$a0" {
-			set word "00100"
-			return $word
-		}
-		"$a1" {
-			set word "00101"
-			return $word
-		}
-		"$a2" {
-			set word "00110"
-			return $word
-		}
-		"$a3" {
-			set word "00111"
-			return $word
-		}
-		"$t0" {
-			set word "01000"
-			return $word
-		}
-		"$t1" {
-			set word "01001"
-			return $word
-		}
-		"$t2" {
-			set word "01010"
-			return $word
-		}
-		"$t3" {
-			set word "01011"
-			return $word
-		}
-		"$t4" {
-			set word "01100"
-			return $word
-		}
-		"$t5" {
-			set word "01101"
-			return $word
-		}
-		"$t6" {
-			set word "01110"
-			return $word
-		}
-		"$t7" {
-			set word "01111"
-			return $word
-		}
-		"$ra" {
-			set word "11111"
-			return $word
-		}
+		"$zero" { return "00000" }
+		"$v0" {	return "00010" }
+		"$v1" { return "00011" }
+		"$a0" { return "00100" }
+		"$a1" { return "00101" }
+		"$a2" { return "00110" }
+		"$a3" { return "00111" }
+		"$t0" { return "01000" }
+		"$t1" { return "01001" }
+		"$t2" { return "01010" }
+		"$t3" { return "01011" }
+		"$t4" { return "01100" }
+		"$t5" { return "01101" }
+		"$t6" { return "01110" }
+		"$t7" { return "01111" }
+		"$t8" { return "11000" }
+		"$t8" { return "11000" }
+		"$t9" { return "11001" }
+		"$s0" { return "10000" }
+		"$s1" { return "10001" }
+		"$s2" { return "10010" }
+		"$s3" { return "10011" }
+		"$s4" { return "10100" }
+		"$s5" { return "10101" }
+		"$s6" { return "10110" }
+		"$k0" { return "11010" }
+		"$k1" { return "11011" }
+		"$gp" { return "11100" }
+		"$sp" { return "11101" }
+		"$fp" { return "11110" }
+		"$ra" { return "11111" }
+		"$0"  { return "00000" }
+        "$2"  { return "00010" }
+        "$3"  { return "00011" }
+        "$4"  { return "00100" }
+        "$5"  {	return "00101" }
+        "$6"  { return "00110" }
+        "$7"  {	return "00111" }
+        "$8"  { return "01000" }              
+        "$9"  { return "01001" }
+        "$10" { return "01010" }
+        "$11" { return "01011" }
+        "$12" { return "01100" }
+        "$13" { return "01101" }
+        "$14" { return "01110" }
+        "$15" { return "01111" }
+        "$16" { return "10000" }
+        "$17" { return "10001" }
+        "$18" { return "10010" }
+        "$19" { return "10011" }
+        "$20" { return "10100" }
+        "$21" { return "10101" }
+        "$22" { return "10110" }
+        "$23" { return "10111" }
+        "$24" { return "11000" }
+        "$25" { return "11001" }
+        "$31" { return "11111" }
 		default {
 			puts "Erro no código, nenhum registrador encontrado, resgistrador no arquivo de saida"
 			return $word
@@ -323,7 +316,6 @@ proc getWord { line i } {
 			incr i 1
 		}
 	}
-	puts $word
 	return $word
 }
 
@@ -373,7 +365,6 @@ proc immBinary { word } {
     binary scan [binary format W $word] b* bin 
     string range $bin end-15 end
 }
-}
 
 set word ""
 set instruction ""
@@ -390,6 +381,21 @@ set imm ""
 set funct ""
 
 #cabeçalho do arquivo de saida
+puts $fileOutput "-- Copyright (C) 1991-2013 Altera Corporation"
+puts $fileOutput "-- Your use of Altera Corporation's design tools, logic functions" 
+puts $fileOutput "-- and other software and tools, and its AMPP partner logic" 
+puts $fileOutput "-- functions, and any output files from any of the foregoing" 
+puts $fileOutput "-- (including device programming or simulation files), and any" 
+puts $fileOutput "-- associated documentation or information are expressly subject" 
+puts $fileOutput "-- to the terms and conditions of the Altera Program License" 
+puts $fileOutput "-- Subscription Agreement, Altera MegaCore Function License" 
+puts $fileOutput "-- Agreement, or other applicable license agreement, including," 
+puts $fileOutput "-- without limitation, that your use is for the sole purpose of" 
+puts $fileOutput "-- programming logic devices manufactured by Altera and sold by" 
+puts $fileOutput "-- Altera or its authorized distributors.  Please refer to the" 
+puts $fileOutput "-- applicable agreement for further details."
+puts $fileOutput ""     
+puts $fileOutput "-- Quartus II generated Memory Initialization File (.mif)"
 puts $fileOutput "WIDTH=32;"
 puts $fileOutput "DEPTH=256;"
 puts $fileOutput ""
@@ -558,7 +564,15 @@ while { [gets $fileInput line] >= 0 } {
 			if { $word == "noop" } {
 				set instruction "00000000000000000000000000000000"
 			} elseif { $word == "syscall" } {
-				set instruction "00000000000000000000000000001100"
+				set rt "$v0"
+				set rt [registerConverter $rt]
+				set rs "$a9"
+				set rs [registerConverter $rs]
+
+				append instruction "000000"
+				append instruction $rt
+				append instruction $rs
+				append instruction "0000000000001100"
 			}
 
 			puts $fileOutput $instruction
