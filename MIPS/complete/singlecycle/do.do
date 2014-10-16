@@ -1,23 +1,17 @@
-puts {
-ModelSim general compile/simulation script version 0.1
-Copyright (c) Ricardo Menotti, 2014
-}
+set design processor
+set testbench t_$design
 
-# configure o nome do test bench aqui:
-set top_level t_processor
-
-proc qs {} {quit -sim}
+onerror {abort}
 
 vlib work
 vmap work work
+
 vcom -work work *.vhd
 
-vsim work.$top_level
-add wave -radix hexadecimal sim:/$top_level/*
+vsim work.$testbench
+add wave -radix hexadecimal sim:/$testbench/dut/*
 
-configure wave -shortnames 1
-
-#run -all
-run 600 ns
-
+run 1 us
 wave zoom full
+
+

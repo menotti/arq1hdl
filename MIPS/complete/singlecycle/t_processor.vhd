@@ -38,7 +38,7 @@ architecture behavioral of t_processor is
 
 begin
 
-		the_processor: processor port map (clock, turn_off, current_instruction, 			data_in_last_modified_register);
+		dut: processor port map (clock, turn_off, current_instruction, 			data_in_last_modified_register);
 
 		clock_process: process
 		begin
