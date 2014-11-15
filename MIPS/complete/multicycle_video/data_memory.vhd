@@ -7,45 +7,31 @@ entity data_memory is
 	generic (
 		address_width: integer := 12;
 		data_width: integer := 32);
+
 	port (
     clock: std_logic;
 		address_to_read, address_to_write, video_address: in std_logic_vector (address_width - 1 downto 0);
 		data_to_write: in std_logic_vector (data_width - 1 downto 0);
 		read, write: in std_logic;
-		be: in std_logic_vector (3 downto 0);
 		data_out, video_out: out std_logic_vector (data_width - 1 downto 0));
 end data_memory;
 
 architecture behavioral of data_memory is
 
 	type data_sequence is array (0 to 2**address_width - 1) of std_logic_vector (data_width - 1 downto 0);  
-
--- Quartus II
--- ------------------------------------------------------------
--- Synthesis-only
--- ------------------------------------------------------------
---
--- Note: Quartus does not allow comments inside the read
--- comments as HDL block.
---
--- synthesis read_comments_as_HDL on
-
---  signal data: data_sequence;
---  attribute ram_init_file : string;
---  attribute ram_init_file of data : signal is "../data_memory.mif";
-
--- synthesis read_comments_as_HDL off
-
 -- ModelSim
---pragma synthesis_off
-   signal data: data_sequence := (
-   0 => X"00000001",
-   1 => X"F0F0AAAA",
-   others => (others => '0'));
---pragma synthesis_on
+	signal data: data_sequence := (
+    0 => "00000000000000000000000000000001",
+		1 => "10101100110001111000110011001010",
+		others => (others => 'U'));
+-- Quartus II
+--	signal data: data_sequence;
 
 begin
 
+ 
+  
+  
    process(clock)
 		variable index: integer;
    begin
@@ -57,24 +43,11 @@ begin
           data_out <= data_to_write;
        else
           -- Read-during-write on the mixed port returns OLD data
-          if (be = "1111") then
-            data_out <= data(index);
-          elsif (be = "0001") then
-            data_out(7 downto 0) <= data(index)(7 downto 0);
-            data_out(31 downto 8) <= "000000000000000000000000";
-          elsif (be = "0010") then
-            data_out(7 downto 0) <= data(index)(15 downto 8);
-            data_out(31 downto 8) <= "000000000000000000000000";
-          elsif (be = "0100") then
-            data_out(7 downto 0) <= data(index)(23 downto 16);
-            data_out(31 downto 8) <= "000000000000000000000000";
-          elsif (be = "1000") then
-            data_out(7 downto 0) <= data(index)(31 downto 24);
-            data_out(31 downto 8) <= "000000000000000000000000";
-          end if;
+          data_out <= data(index);
        end if;
    end if;
    end process;
+   
    
  	read_video: process (clock)
 		variable index: integer;
@@ -85,4 +58,6 @@ begin
    end if;
 	end process;
 
+
 end behavioral;
+

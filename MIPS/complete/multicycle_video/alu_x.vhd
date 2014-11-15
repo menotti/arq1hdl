@@ -6,7 +6,6 @@ entity alu_x is
 	generic (width: integer := 32);
 	port (a, b: in std_logic_vector (width - 1 downto 0);
 	operation: in std_logic_vector (2 downto 0);
-	flag_z: out std_logic;
 	result: out std_logic_vector (width - 1 downto 0));
 end alu_x;
 
@@ -24,12 +23,6 @@ architecture structural of alu_x is
 		result: out std_logic_vector (width - 1 downto 0));
 	end component;
 
-	component xor_x 
-		generic (width: integer := 32);
-		port (a, b: in std_logic_vector (width - 1 downto 0);
-		result: out std_logic_vector (width - 1 downto 0));
-	end component;
-	
 	component full_adder_x 
 		generic (width: integer := 32);
 		port (a, b: in std_logic_vector (width - 1 downto 0);
@@ -47,18 +40,6 @@ architecture structural of alu_x is
 		port (a, b: in std_logic_vector (width - 1 downto 0);
 		result: out std_logic_vector (width - 1 downto 0));
 	end component;
-	
-	component sll_x 
-		generic (width: integer := 32);
-		port (a, b: in std_logic_vector (width - 1 downto 0);
-		result: out std_logic_vector (width - 1 downto 0));
-	end component;
-	
-	component nand_x 
-		generic (width: integer := 32);
-		port (a, b: in std_logic_vector (width - 1 downto 0);
-		result: out std_logic_vector (width - 1 downto 0));
-	end component;
 
 	component multiplexer
 		generic (width: integer := 32);
@@ -68,25 +49,14 @@ architecture structural of alu_x is
 end component;
 
 	signal x0, x1, x2, x3, x4, x5, x6, x7: std_logic_vector (width - 1 downto 0);
-	
-	signal result_int: std_logic_vector(width - 1 downto 0);
-	
-	constant zero_values: std_logic_vector (width - 1 downto 0) := (others => '0');
 
 	begin
 
 		and_x_1: and_x generic map (width) port map (a, b, x0);
-		or_x_1: or_x generic map (width) port map (a, b, x1);  		  
+		or_x_1: or_x generic map (width) port map (a, b, x1);
 		adder: full_adder_x generic map (width) port map (a, b, x2);
 		subtractor: subtractor_x generic map (width) port map (a, b, x3);
 		slt: slt_x generic map (width) port map (a, b, x4);
-		sllx: sll_x generic map (width) port map (a, b, x5);
-		xor_x_1: xor_x generic map (width) port map (a, b, x6);
-        nand_x_1: nand_x generic map (width) port map (a, b, x7);
-		multx: multiplexer generic map (width) port map (x0, x1, x2, x3, x4, x5, x6, x7, operation, result_int);
-		
-		flag_z <= '1' when result_int=zero_values else '0';
-		
-		result <= result_int;
+		multx: multiplexer generic map (width) port map (x0, x1, x2, x3, x4, x5, x6, x7, 			operation, result);
  
 end structural;

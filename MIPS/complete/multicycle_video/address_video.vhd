@@ -3,18 +3,15 @@ USE ieee.std_logic_1164.all;
 USE ieee.numeric_std.all;
 
 ENTITY address_video IS
-   GENERIC (
-		width  :  INTEGER  := 4
-		);
 	PORT(
     column       : IN  INTEGER;
     row          : IN  INTEGER;
     disp_ena     : IN  STD_LOGIC;
     video_out    : IN  STD_LOGIC_VECTOR(31 DOWNTO 0);
     video_address: OUT STD_LOGIC_VECTOR(11 downto 0);
-		VGA_R 		   : OUT STD_LOGIC_VECTOR(width-1 DOWNTO 0);
-		VGA_G 	     : OUT STD_LOGIC_VECTOR(width-1 DOWNTO 0);
-		VGA_B 		   : OUT STD_LOGIC_VECTOR(width-1 DOWNTO 0));
+		VGA_R 		   : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
+		VGA_G 	     : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
+		VGA_B 		   : OUT STD_LOGIC_VECTOR(3 DOWNTO 0));
 END address_video;
 
 ARCHITECTURE behavior OF address_video IS
