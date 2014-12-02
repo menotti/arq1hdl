@@ -149,6 +149,8 @@ begin
 		  address_of_next_instruction, 
 		  instruction);
 
+		--instruction_register: state_register port map (clk, enable_instruction_register, 			instruction, data_from_instruction_register); 
+
 		state_machine: control_unit port map (
 		  clk, 
 		  instruction, 			
@@ -178,17 +180,13 @@ begin
 		  register_a, 
 		  register_b);  
 
-		alu: alu_x port map (
-		  alu_operand1, 
-		  alu_operand2, 
-		  alu_operation, 
-		  alu_result);
+--		alu_input_register_a: state_register port map (clk, enable_alu_input_registers, 			data_from_register1, data_from_alu_input_a);
 
-		alu_output_register: state_register port map (
-		  clk, 
-		  enable_alu_output_register,	
-		  alu_result, 
-		  data_from_alu_output_register);
+--		alu_input_register_b: state_register port map (clk, enable_alu_input_registers, 			data_from_register2, alu_operand2);
+
+		alu: alu_x port map (alu_operand1, alu_operand2, alu_operation, alu_result);
+
+		alu_output_register: state_register port map (clk, enable_alu_output_register,	alu_result, data_from_alu_output_register);
 
 		memory_of_data : data_memory port map (
 		  clock, 
@@ -200,6 +198,8 @@ begin
 		  write_memory, 
 		  data_from_memory, 
 		  video_out);     
+
+		--data_memory_register: state_register port map (clk, enable_data_memory_register, 			data_from_memory, data_from_memory_register);
 
 		process (clock, turn_off)
 		begin

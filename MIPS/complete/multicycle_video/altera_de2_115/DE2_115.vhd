@@ -2,27 +2,28 @@ LIBRARY ieee;
 USE ieee.std_logic_1164.all;
 USE ieee.numeric_std.all;
 
-ENTITY de1 IS
+ENTITY de2_115 IS
 	PORT(
-		CLOCK_24	:	IN		STD_LOGIC_VECTOR(0 DOWNTO 0);	
-		CLOCK_27	:	IN		STD_LOGIC_VECTOR(0 DOWNTO 0);	
 		CLOCK_50	:	IN		STD_LOGIC;	
     KEY       : IN    STD_LOGIC_VECTOR(3 DOWNTO 0);
     SW        : IN    STD_LOGIC_VECTOR(9 DOWNTO 0);	
     LEDR      : OUT   STD_LOGIC_VECTOR(9 DOWNTO 0);
     LEDG      : OUT   STD_LOGIC_VECTOR(7 DOWNTO 0);
-		VGA_R 		:	OUT		STD_LOGIC_VECTOR(3 DOWNTO 0);
-		VGA_G 		:	OUT		STD_LOGIC_VECTOR(3 DOWNTO 0);
-		VGA_B 		:	OUT		STD_LOGIC_VECTOR(3 DOWNTO 0);
+		VGA_R 		:	OUT		STD_LOGIC_VECTOR(7 DOWNTO 0);
+		VGA_G 		:	OUT		STD_LOGIC_VECTOR(7 DOWNTO 0);
+		VGA_B 		:	OUT		STD_LOGIC_VECTOR(7 DOWNTO 0);
 		VGA_HS 		:	OUT		STD_LOGIC;
 		VGA_VS 		:	OUT		STD_LOGIC;
+    VGA_BLANK_N 	:	OUT		STD_LOGIC;
+    VGA_SYNC_N 		:	OUT		STD_LOGIC;
+    VGA_CLK   		:	OUT		STD_LOGIC;
     HEX3      : OUT  STD_LOGIC_VECTOR(6 DOWNTO 0);
     HEX2      : OUT  STD_LOGIC_VECTOR(6 DOWNTO 0);
     HEX1      : OUT  STD_LOGIC_VECTOR(6 DOWNTO 0);
     HEX0      : OUT  STD_LOGIC_VECTOR(6 DOWNTO 0));
-END de1;
+END de2_115;
 
-ARCHITECTURE behavior OF de1 IS
+ARCHITECTURE behavior OF de2_115 IS
 
 component processor
 	port (clock, turn_off: in std_logic;
@@ -64,15 +65,16 @@ component vga_pll
 end component;
 
 component address_video 
+  GENERIC (width: integer := 4);
 	PORT(
     column       : IN  INTEGER;
     row          : IN  INTEGER;
     disp_ena     : IN  STD_LOGIC;
     video_out    : IN  STD_LOGIC_VECTOR(31 DOWNTO 0);
     video_address: OUT STD_LOGIC_VECTOR(11 downto 0);
-		VGA_R 		   : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
-		VGA_G 	     : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
-		VGA_B 		   : OUT STD_LOGIC_VECTOR(3 DOWNTO 0));
+		VGA_R 		   : OUT STD_LOGIC_VECTOR(width-1 DOWNTO 0);
+		VGA_G 	     : OUT STD_LOGIC_VECTOR(width-1 DOWNTO 0);
+		VGA_B 		   : OUT STD_LOGIC_VECTOR(width-1 DOWNTO 0));
 END component;
 
 component dec7seg
@@ -109,7 +111,7 @@ BEGIN
     HEX0);  
 
   pll: vga_pll port map (
-    CLOCK_24(0), 
+    CLOCK_50, 
     pixel_clk);
   
   cpu: processor port map (
@@ -120,7 +122,7 @@ BEGIN
     data_in_last_modified_register, 
     video_out, video_address);
 
-  docoder: address_video port map (
+  docoder: address_video generic map (8) port map (
     column,
     row,
     disp_ena,
@@ -138,5 +140,9 @@ BEGIN
     disp_ena, 
     column, 
     row);
+  
+  VGA_BLANK_N <= '1';
+  VGA_SYNC_N <= '1';
+  VGA_CLK <= pixel_clk;
   
 END behavior;
