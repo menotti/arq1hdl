@@ -16,10 +16,11 @@ module talu;
   alu myula(a, b, f, r);
     
   //dump waveform in vcd format
+  /*
   initial  begin
-    $dumpfile ("tula.vcd"); 
+    $dumpfile ("talu.vcd"); 
     $dumpvars; 
-  end 
+  end */
 
   //console monitor   
   initial  begin

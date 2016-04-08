@@ -1,3 +1,4 @@
+onbreak {resume}
 puts {
 ModelSim general compile/simulation script version 0.1
 Copyright (c) Ricardo Menotti, 2014
@@ -19,4 +20,5 @@ configure wave -shortnames 1
 
 run -all
 
+# use o comando resume no prompt para o modelsim continuar apos um $finish 
 wave zoom full
