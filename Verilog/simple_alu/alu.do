@@ -13,7 +13,7 @@ vmap work work
 vlog -work work *.v
 
 vsim work.$top_level
-add wave sim:/$top_level/*
+add wave -radix unsigned sim:/$top_level/*
 
 configure wave -shortnames 1
 
